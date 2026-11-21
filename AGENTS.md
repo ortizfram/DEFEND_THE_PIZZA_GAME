@@ -1,0 +1,28 @@
+# AGENTS — DEFEND THE PIZZA! (repo de juego)
+
+Este es el **código del juego**, NO la biblioteca de conocimiento. Consultar el [vault](https://github.com/ortizfram/roblox-vault) para decisiones generales; consultar `docs/DECISIONS.md` y `docs/ROADMAP.md` antes de cambios.
+
+## Normas de operación
+
+1. Este repo **no tiene un Place conectado verificado** y el código actual es un scaffold. Nunca afirmar que el juego está listo o publicado sin evidencia de test.
+2. **Claude Code = responsable único de editar/probar en Roblox Studio cuando el usuario autorice**; otros agentes pueden revisar código, propuestas e issues pero no cambiar en paralelo una instancia de Studio.
+3. Antes de tocar Roblox Studio: comprobar Place, conexión MCP/Rojo, respaldar proyecto actual y asegurar que NO es STOMPIES, BOOP ni DON'T WAKE THE GIANT.
+4. Trabajo por incrementos mínimos; un commit por comportamiento probado. Preferir `src/` a cambios manuales invisibles en Studio. Registrar diferencias y estado de sincronización.
+5. Backend autoritativo: servidor valida golpes, salud/porciones, monedas, recuperación de robos, rewards y recibos. RemoteEvents con rate limit, checks de distancia/timing y sin premios desde cliente.
+6. Móvil primero; PC y consola sin conflicto de controles. El primer golpe visible debe tener feedback rápido. No instalar scripts/plugins de terceros sin auditar.
+7. Cada mecánica nueva requiere hipótesis + KPI/denominador + eventos registrados en servidor + QA + versión. Usar documentación de `docs/ANALYTICS_SPEC.md`; nunca simular métricas de usuarios reales.
+8. No publicar, gastar Robux/ad credits, activar monetización ni ejecutar cambios destructivos sin aprobación expresa del propietario.
+9. No llenar el juego de cosméticos, guías largas, mapa grande ni UI compleja antes de probar el primer loop de 30 s.
+10. Reportar cambios con: archivos, acciones en Studio, pruebas realizadas, bugs pendientes, versión y condición COMPLETADO / PARCIAL / BLOQUEADO.
+
+## Source of truth
+
+- `docs/DECISIONS.md`: decisiones aprobadas y supuestos.
+- `docs/GAME_DESIGN.md`: definición compacta del juego; link al documento completo del vault.
+- `docs/ROADMAP.md`: gates de desarrollo.
+- `docs/ANALYTICS_SPEC.md`: contratos de eventos a implementar, no eventos ya existentes.
+- Roblox Vault: guía de investigación, naming, miniaturas y anuncios.
+
+## Regla permanente de sincronización (solicitud del propietario 21/11/2026)
+
+Antes y después de **cada cambio autorizado**, seguir `docs/SYNC_POLICY.md`: comprobar `git status` y remoto, actualizar archivos de decisiones/changelog, ejecutar QA, hacer commit y push a `ortizfram/DEFEND_THE_PIZZA_GAME` cuando el remoto exista. Para conocimiento general, actualizar el `roblox-vault` por separado y enlazar. No afirmar push si no se verificó el commit remoto. No forzar ni sobrescribir trabajo ajeno. Sin remoto/credenciales, marcar `NO SINCRONIZADO` y proporcionar artefacto local. Git no sustituye la sincronización comprobada con Roblox Studio.

@@ -1,0 +1,23 @@
+# Roblox Studio temporales / binarios generados
+*.rbxl
+*.rbxm
+*.rbxlock
+*.rbxcache
+*.log
+*.bak
+
+# Rojo / herramientas locales
+.rojo/
+.sourcemap.json
+*.rbxl.lock
+
+# Sistema / editores
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+__pycache__/
+*.pyc
+.env
+.env.*
+!.env.example

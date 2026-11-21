@@ -1,0 +1,23 @@
+{
+  "name": "DefendThePizza",
+  "tree": {
+    "$className": "DataModel",
+    "ReplicatedStorage": {
+      "DTP": {
+        "$path": "src/shared"
+      }
+    },
+    "ServerScriptService": {
+      "DTPServer": {
+        "$path": "src/server"
+      }
+    },
+    "StarterPlayer": {
+      "StarterPlayerScripts": {
+        "DTPClient": {
+          "$path": "src/client"
+        }
+      }
+    }
+  }
+}
