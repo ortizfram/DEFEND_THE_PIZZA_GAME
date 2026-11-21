@@ -19,3 +19,7 @@
 **Thumbnail storyboard:** una pizza ocupa el centro y gran parte del cuadro; mini chef a izquierda pega a monstruo que se lleva porción a derecha; queso se estira, una porción falta. Imagen 16:9 y visualmente fiel al gameplay, no es arte final.
 
 **Source of truth completa:** [Preproducción V0.1 en el vault](https://github.com/ortizfram/roblox-vault/blob/main/Projects/DefendThePizza/PREPRODUCTION_V01.md). No cambiar la fantasía principal sin revisar esa decisión.
+
+## Propuesta V0.2 — los zombies pueden atacar a los chefs
+
+Leer [COMBAT_AND_REVIVE_V02.md](COMBAT_AND_REVIVE_V02.md): zombies primariamente hacia pizza, pueden golpear jugadores que los bloquean o interceptan; chefs pueden caer DOWNED, ser levantados **gratis** por compañeros o reaparecer **gratis** en ≤12 s. Candidato futuro de revive instantáneo por Robux aún no aprobado ni implementado.

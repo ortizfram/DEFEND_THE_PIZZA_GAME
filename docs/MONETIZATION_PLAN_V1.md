@@ -104,3 +104,7 @@
 - Riesgo 5: catálogo sin demanda real. Control: pilotos secuenciales, no publicar cuatro ítems juntos ni prometer ingresos.
 
 **Estado de autorización:** `PLANIFICADO — SIN PRODUCTOS CREADOS, SIN IDS, SIN COMPRA REAL, SIN SCRIPT DE VENTA`. Abrir G4 comercial requiere aceptación explícita del propietario, además de pruebas del juego y compliance de Roblox.
+
+## 7. Idea nueva en evaluación: revive instantáneo (no aprobado)
+
+El usuario propuso un revive monetizado si los zombies atacan a jugadores; leer [COMBAT_AND_REVIVE_V02.md](COMBAT_AND_REVIVE_V02.md). Se mantiene la estrategia V1 de **cosméticos primero**; no reemplazar la experiencia gratuita por pago. Candidato: Developer Product `PROD_INSTANT_REVIVE`, precio **hipotético 19 Robux**, 1 crédito de revive instantáneo del jugador. Gratis: rescate de compañero (~2 s) y respawn automático en ≤12 s; no permitir espectadores indefinidos. Si el pago se confirma después del respawn, almacenar crédito durable, no perder compra. Receipt idempotente, precio real, presentación voluntaria y sin popups forzados. **Solo considerar G4+** con datos de playtest, retención, balance y autorización comercial. Riesgo serio de pay-to-win: si existe, puede rechazarse sin afectar el juego.

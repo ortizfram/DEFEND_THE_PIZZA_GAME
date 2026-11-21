@@ -14,12 +14,14 @@
 - [ ] 3 entradas de enemigos, 1 Munchie, trayectoria simple a la pizza.
 - [ ] Espátula con hitbox en arco generoso, daño y knockback validado servidor, feedback instantáneo cliente.
 - [ ] 1 oleada de 30 s y perder/ganar/retry; controles móvil/PC.
+- [ ] Propuesta V0.2: zombie común puede morder a chef que lo intercepta, con sistema básico de vida/caída y respawn gratis; probar diversión antes de ampliar IA.
 - [ ] Analytics FTUE y core registrados por servidor (local debug/producción según disponibilidad).
 - [ ] QA 1 jugador, 2 jugadores, móvil, red lenta, respawn.
 - [ ] Test: golpear es divertido incluso sin monedas ni colección.
 
 ## Gate 2: diferenciación — estado: NO IMPLEMENTADO
 - [ ] Ladrón Thief roba una porción y huye; recuperación servidor una sola vez.
+- [ ] Propuesta V0.2: rescatar compañero caído gratis con interacción cercana y clara en móvil.
 - [ ] Rutas de escape, animaciones legibles, clipping / latencia QA.
 - [ ] 1 upgrade simple; probar primer clip natural en 2 jugadores.
 
@@ -36,6 +38,7 @@
 - [ ] G4a: solo con autorización, piloto Game Passes Crazy Chef y Golden Spatula.
 - [ ] G4b: después de QA/retención/conversión, evaluar Developer Product de celebración tras victoria con recibos idempotentes.
 - [ ] G5: Supporter y cosméticos de temporada según evidencia, no fechas obligatorias.
+- [ ] Opcional G4+ previa autorización: evaluar revive instantáneo pago **sin bloquear rescate/respawn gratis**; ver [COMBAT_AND_REVIVE_V02.md](COMBAT_AND_REVIVE_V02.md).
 
 ## Gate 4: acabado y lanzamiento — estado: NO AUTORIZADO
 - [ ] Arte, audio, menús, rendimiento y persistencia si realmente aportan.

@@ -25,6 +25,12 @@ Fecha de inicio: 2026-11-21.
 - Regla: vender identidad/celebración, nunca daño, alcance, protección de porciones o salvación por Robux. No lootboxes pagas.
 - Plan fuente: [docs/MONETIZATION_PLAN_V1.md](MONETIZATION_PLAN_V1.md).
 
+## Propuesta en estudio: ataques a jugadores / revive, no decisión aprobada
+- El propietario planteó que zombies también dañen a jugadores y permitir un revive opcional de compra, evitando quedar de espectadores.
+- Recomendación registrada: zombies priorizan pizza, contraatacan a chefs cercanos; 3 corazones propuestos, DOWNED y rescate gratis entre compañeros (2 s), respawn gratis ≤10–12 s. Derrota = pizza destruida.
+- **No aprobado para venta:** revive instantáneo opcional 19 Robux hipotéticos (Developer Product), con alternativa gratuita, créditos durables y receipt idempotente. Primero medir si el combate/revive gratis aumenta diversión; vigilar pay-to-win.
+- Documento: [COMBAT_AND_REVIVE_V02.md](COMBAT_AND_REVIVE_V02.md).
+
 ## Aún no verificado
 - Datos detallados del análisis de Creator Exchange (URLs, visitas, fechas); no inventar.
 - Original fuera de Roblox con filtros cuantitativos; competidores directos actualizados.

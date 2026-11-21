@@ -27,3 +27,7 @@ La monetización se planifica por etapas y solo se activa tras superar los gates
 - KPIs: shop unique open rate / elegibles; view rate / open; verified purchases / prompts comparables; payer conversion / usuarios elegibles; net earnings por 1k; ARPPU/ARPDAU con fuentes reales.
 - Guardrails: D1/D7, sesión, retry, errores de compra, claims de pay-to-win, experiencia móvil.
 - Segmentos antes/después y por dispositivo; evitar IDs personales en custom fields; cada ítem tiene product_code y versión.
+
+## Analítica propuesta: daño a chefs y rescates (no implementado)
+
+Leer [COMBAT_AND_REVIVE_V02.md](COMBAT_AND_REVIVE_V02.md). Cuando se implemente: `DTP_PlayerDamaged`, `DTP_PlayerDowned`, `DTP_TeamReviveCompleted`, `DTP_FreeRespawn`, segundos downed, segmentado por solo/co-op y versión. Si se aprueba revive premium: `DTP_PremiumRevivePrompted`, `DTP_ReviveCreditGranted`, `DTP_ReviveCreditRedeemed` desde servidor, tras recibo real. Medir caídas/jugadores, segundos sin control, rescates/caídas elegibles, replay, D1 y duración de sesión. No aumentar esperas para monetizar.
