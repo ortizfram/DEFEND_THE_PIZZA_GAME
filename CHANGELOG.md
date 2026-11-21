@@ -5,3 +5,7 @@
 - 2026-11-21: Se añadió `docs/SYNC_POLICY.md`, un script PowerShell seguro de check/pull/push y reglas explícitas para IAs.
 - 2026-11-21: Se sincronizó el scaffold inicial con `ortizfram/DEFEND_THE_PIZZA_GAME` conservando el commit original del repositorio remoto. El repo se encontró **público**; cambiar visibilidad en GitHub Settings si se requiere privado.
 - No se ha probado Roblox Studio, conectado un Place ni implementado jugabilidad.
+
+## Monetización propuesta — 2026-11-21
+- Se documentó catálogo cosmético hipotético, precios tentativos, presentación dentro de sesión, etapas G0–G5, seguridad de pases y recibos, métricas y condiciones de activación.
+- Cambios exclusivamente documentales. **No se creó ningún producto Roblox, game pass, Developer Product, ID real, tienda funcional ni monetización activa.**

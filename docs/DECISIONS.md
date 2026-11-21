@@ -18,6 +18,13 @@ Fecha de inicio: 2026-11-21.
 - Estructura propuesta: pizza con 8 porciones, 3 rutas, golpe de espátula, 1 enemigo para P0 y upgrades después.
 - Thumbnail storyboard: chef a izquierda, pizza gigante centro, ladrón a derecha con queso elástico.
 
+## Planificación de monetización — propuesta, NO aprobada para activar
+- El propietario solicitó planificar **qué monetizar, cómo y cuándo**. Es una petición de diseño/documentación, **no** autorización de compras o publicación.
+- Propuesta V1: pases estéticos de chefs (49 Robux), espátulas (79 Robux), celebración consumible post-victoria (19 Robux) y Supporter (149 Robux); **todos los precios hipotéticos** hasta datos reales.
+- En G1–G2 no vender; en G3 solo interfaz cosmética gratuita; tras pruebas, G4a pases; G4b celebración; G5 Supporter si hay retención.
+- Regla: vender identidad/celebración, nunca daño, alcance, protección de porciones o salvación por Robux. No lootboxes pagas.
+- Plan fuente: [docs/MONETIZATION_PLAN_V1.md](MONETIZATION_PLAN_V1.md).
+
 ## Aún no verificado
 - Datos detallados del análisis de Creator Exchange (URLs, visitas, fechas); no inventar.
 - Original fuera de Roblox con filtros cuantitativos; competidores directos actualizados.

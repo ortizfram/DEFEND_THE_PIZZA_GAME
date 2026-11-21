@@ -56,6 +56,10 @@ DEFEND_THE_PIZZA_GAME/
 - No prometer funcionalidad, publicación, monetización, datos de Analytics o campaña cuando no hay prueba.
 - Previo a compras/Ads: aprobación explícita del propietario.
 
+## Plan de monetización (todavía no activada)
+
+[MONETIZATION_PLAN_V1.md](docs/MONETIZATION_PLAN_V1.md): catálogo estético propuesto, precios hipotéticos, momento para ofrecer compras, etapas G0–G5, manejo de recibos, métricas y pruebas. El juego sigue **sin gameplay y sin compras implementadas**; no crear productos ni ventas sin autorización.
+
 ## Próximo hito
 
 **P0**: una cocina gris, una pizza con 8 porciones visuales, un enemigo, espátula con golpe/knockback y una ronda corta, con entradas de analítica desde el comienzo. Si el golpe no es divertido, no desarrollar el resto.

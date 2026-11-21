@@ -29,6 +29,14 @@
 - [ ] Playtest a ciegas 3–5 personas: comprensión, primer golpe, primer premio, momento divertido, replay.
 - [ ] Analytics completitud/replay y métricas nativas D1/sesión cuando exista data real.
 
+## Monetización: diseño separado del lanzamiento
+- [x] Catálogo y etapas de monetización **planificados**, sin productos reales: [MONETIZATION_PLAN_V1.md](MONETIZATION_PLAN_V1.md).
+- [ ] G1–G2: **sin ventas**; validar diversión, robo y rescate.
+- [ ] G3: tienda cosmética en modo visual/gratuito + pruebas de retención.
+- [ ] G4a: solo con autorización, piloto Game Passes Crazy Chef y Golden Spatula.
+- [ ] G4b: después de QA/retención/conversión, evaluar Developer Product de celebración tras victoria con recibos idempotentes.
+- [ ] G5: Supporter y cosméticos de temporada según evidencia, no fechas obligatorias.
+
 ## Gate 4: acabado y lanzamiento — estado: NO AUTORIZADO
 - [ ] Arte, audio, menús, rendimiento y persistencia si realmente aportan.
 - [ ] Monetización responsable solo con aprobación expresa y validación de receipts.

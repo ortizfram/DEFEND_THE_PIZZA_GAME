@@ -17,3 +17,13 @@
 **Implementación futura:** `AnalyticsService:LogOnboardingFunnelStepEvent`, `LogFunnelStepEvent`, `LogCustomEvent` según el contrato oficial vigente. Definir una versión por cambio, una sesión estable por intento, validación anti-duplicados y limits. Segmentos: nuevo/recurrente, tipo de dispositivo, versión, modo solo/grupo, sólo cuando la API lo permita. Las compras deben confirmarse por servidor y sin doble recompensa.
 
 **Validación:** debug local en Studio; eventos reales comprobados en un Place publicado autorizado y luego `Analytics > View Events` de Creator Hub. No afirmar analytics operativa en scaffold.
+
+## Funnel de monetización previsto — no implementado
+
+La monetización se planifica por etapas y solo se activa tras superar los gates y obtener autorización. Ver [MONETIZATION_PLAN_V1.md](MONETIZATION_PLAN_V1.md). 
+
+- Funnel comercial DTP_SHOP por visita/intento validado: `ShopOpened → ProductViewed → PurchasePrompted → PurchaseVerified`; no forzar orden ficticio para navegación libre, usar custom events para vistas.
+- `PurchaseVerified` se registra **únicamente tras recibo verificado / ownership comprobado y entrega**. No confiar en `PromptProductPurchaseFinished` para Developer Products.
+- KPIs: shop unique open rate / elegibles; view rate / open; verified purchases / prompts comparables; payer conversion / usuarios elegibles; net earnings por 1k; ARPPU/ARPDAU con fuentes reales.
+- Guardrails: D1/D7, sesión, retry, errores de compra, claims de pay-to-win, experiencia móvil.
+- Segmentos antes/después y por dispositivo; evitar IDs personales en custom fields; cada ítem tiene product_code y versión.
