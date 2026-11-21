@@ -60,6 +60,10 @@ DEFEND_THE_PIZZA_GAME/
 
 [MONETIZATION_PLAN_V1.md](docs/MONETIZATION_PLAN_V1.md): catálogo estético propuesto, precios hipotéticos, momento para ofrecer compras, etapas G0–G5, manejo de recibos, métricas y pruebas. El juego sigue **sin gameplay y sin compras implementadas**; no crear productos ni ventas sin autorización.
 
+## Mapas y objetivos V0.3 (diseño no implementado)
+
+[MAPS_AND_OBJECTIVES_V03.md](docs/MAPS_AND_OBJECTIVES_V03.md): tres mapas progresivos con **una sola acción nueva por escenario**, interfaz entendible para 3.º–4.º grado y tareas de bloquear entradas sin perder la misión de salvar la pizza. Crear primero solo Pizza Shop P0.
+
 ## Próximo hito
 
 **P0**: una cocina gris, una pizza con 8 porciones visuales, un enemigo, espátula con golpe/knockback y una ronda corta, con entradas de analítica desde el comienzo. Si el golpe no es divertido, no desarrollar el resto.

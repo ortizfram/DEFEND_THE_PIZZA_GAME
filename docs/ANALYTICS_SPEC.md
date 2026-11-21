@@ -31,3 +31,7 @@ La monetización se planifica por etapas y solo se activa tras superar los gates
 ## Analítica propuesta: daño a chefs y rescates (no implementado)
 
 Leer [COMBAT_AND_REVIVE_V02.md](COMBAT_AND_REVIVE_V02.md). Cuando se implemente: `DTP_PlayerDamaged`, `DTP_PlayerDowned`, `DTP_TeamReviveCompleted`, `DTP_FreeRespawn`, segundos downed, segmentado por solo/co-op y versión. Si se aprueba revive premium: `DTP_PremiumRevivePrompted`, `DTP_ReviveCreditGranted`, `DTP_ReviveCreditRedeemed` desde servidor, tras recibo real. Medir caídas/jugadores, segundos sin control, rescates/caídas elegibles, replay, D1 y duración de sesión. No aumentar esperas para monetizar.
+
+## Analítica por mapa — propuesta V0.3, no implementada
+
+Diseño en [MAPS_AND_OBJECTIVES_V03.md](MAPS_AND_OBJECTIVES_V03.md). Eventos servidor sugeridos: `DTP_MapStarted` (mapId, playerCount, versión), `DTP_MapObjectiveUsed` (CLOSE/FIX/PUSH/PRESS, éxito), `DTP_EntryBreached`, `DTP_MapFinished`, `DTP_MapReplay`. Métricas de comprensión: jugadores que usan primera interacción / jugadores que inician mapa, primeras entradas cerradas/activadas por tiempo desde spawn, pérdida de porciones por oleada, participantes que finalizan mapa, ratio replay por finalizadores; segmentar por solo/multijugador/móvil. Eventos validados en servidor y no duplicados.

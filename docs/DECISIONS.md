@@ -31,6 +31,13 @@ Fecha de inicio: 2026-11-21.
 - **No aprobado para venta:** revive instantáneo opcional 19 Robux hipotéticos (Developer Product), con alternativa gratuita, créditos durables y receipt idempotente. Primero medir si el combate/revive gratis aumenta diversión; vigilar pay-to-win.
 - Documento: [COMBAT_AND_REVIVE_V02.md](COMBAT_AND_REVIVE_V02.md).
 
+## Propuesta V0.3: tres mapas fáciles de comprender — pendiente de playtest
+- El propietario solicitó imaginar 3 mapas y tareas para impedir o retrasar la entrada de zombies con un nivel de comprensión de 3.º–4.º grado.
+- Se propone conservar SAVE THE PIZZA como misión principal y dos botones fundamentales: HIT y ACT contextual; cada mapa introduce una sola acción: Pizza Shop CLOSE/FIX puertas; Pizza Street PUSH auto/contenedor; Pizza Factory PRESS botón/ventilador.
+- Metas secundarias opcionales (2 puertas, 2 callejones, 2 activaciones del ventilador) no son condición para ganar; puertas/obstáculos ceden bajo ataques y el ventilador tiene cooldown.
+- Progresión tentativa de 3/4/5 oleadas. Primero desarrollar/validar solo Shop gris; solo entonces Street y Factory. Palabras de interfaz son propuestas y requieren prueba real de comprensión, no grade levels certificados.
+- Documento de especificación: [MAPS_AND_OBJECTIVES_V03.md](MAPS_AND_OBJECTIVES_V03.md). No existe mapa implementado ni assets finales.
+
 ## Aún no verificado
 - Datos detallados del análisis de Creator Exchange (URLs, visitas, fechas); no inventar.
 - Original fuera de Roblox con filtros cuantitativos; competidores directos actualizados.

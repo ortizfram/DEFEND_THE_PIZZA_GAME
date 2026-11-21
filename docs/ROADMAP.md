@@ -19,6 +19,14 @@
 - [ ] QA 1 jugador, 2 jugadores, móvil, red lenta, respawn.
 - [ ] Test: golpear es divertido incluso sin monedas ni colección.
 
+## Tres mapas propuestos — construcción secuencial
+- [x] Diseño conceptual de 3 mapas con una acción local cada uno: [MAPS_AND_OBJECTIVES_V03.md](MAPS_AND_OBJECTIVES_V03.md).
+- [ ] Gate 1/P0 únicamente PIZZA SHOP con una puerta, zombie y espátula; medir comprensión y diversión antes de expandir.
+- [ ] Luego completar PIZZA SHOP (puertas/ventanas CLOSE y FIX), probar con 3–5 jugadores sin tutorial.
+- [ ] Solo si Shop funciona, hacer PIZZA STREET (PUSH bloqueos de callejón).
+- [ ] Solo después, PIZZA FACTORY (PRESS botón para ventilador de empuje).
+- [ ] QA solo/móvil, autoritativo servidor, visual no solo por color, analítica por mapa y objetivo.
+
 ## Gate 2: diferenciación — estado: NO IMPLEMENTADO
 - [ ] Ladrón Thief roba una porción y huye; recuperación servidor una sola vez.
 - [ ] Propuesta V0.2: rescatar compañero caído gratis con interacción cercana y clara en móvil.

@@ -13,3 +13,7 @@
 ## Combate y rescate propuestos V0.2 — 2026-11-21
 - Se evaluó la sugerencia de zombies atacando también a chefs: defensa de pizza, downed, rescate de compañero gratis y respawn gratis rápido. Revive instantáneo por Developer Product quedó como hipótesis G4+ que puede descartarse por pay-to-win.
 - Documento [docs/COMBAT_AND_REVIVE_V02.md](docs/COMBAT_AND_REVIVE_V02.md). Solo cambios documentales; sin scripts nuevos, Place conectado ni monetización activada.
+
+## Tres mapas y objetivos simples V0.3 — 2026-11-21
+- Diseño de Pizza Shop (CLOSE puertas), Pizza Street (PUSH bloqueos), Pizza Factory (PRESS ventilador) y objetivos secundarios opcionales fáciles de leer. Misma misión central de salvar pizza y misma mecánica HIT + ACT contextual.
+- Documento fuente `docs/MAPS_AND_OBJECTIVES_V03.md` y enlaces desde GAME_DESIGN, ROADMAP, DECISIONS y ANALYTICS_SPEC. No se crearon mapas reales, scripts, assets ni compras.

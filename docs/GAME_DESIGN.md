@@ -23,3 +23,7 @@
 ## Propuesta V0.2 — los zombies pueden atacar a los chefs
 
 Leer [COMBAT_AND_REVIVE_V02.md](COMBAT_AND_REVIVE_V02.md): zombies primariamente hacia pizza, pueden golpear jugadores que los bloquean o interceptan; chefs pueden caer DOWNED, ser levantados **gratis** por compañeros o reaparecer **gratis** en ≤12 s. Candidato futuro de revive instantáneo por Robux aún no aprobado ni implementado.
+
+## Propuesta V0.3 — tres mapas / una acción por mapa
+
+Leer [MAPS_AND_OBJECTIVES_V03.md](MAPS_AND_OBJECTIVES_V03.md): PIZZA SHOP (CLOSE puertas), PIZZA STREET (PUSH coches/contenedores para bloquear callejones), PIZZA FACTORY (PRESS botones para activar ventiladores). Meta inmutable SAVE THE PIZZA; golpear zombies sigue siendo central. La segunda interacción es contextual; HELP revivir compañero gratis. Diseñar lectura por símbolos, una nueva palabra por mapa; niveles de lectura de cada término aún no verificados. Nada implementado en Studio.
