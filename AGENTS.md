@@ -23,6 +23,13 @@ Este es el **código del juego**, NO la biblioteca de conocimiento. Consultar el
 - `docs/ANALYTICS_SPEC.md`: contratos de eventos a implementar, no eventos ya existentes.
 - Roblox Vault: guía de investigación, naming, miniaturas y anuncios.
 
+## Documento de diseño V0.4, leer selectivamente
+
+- Antes de diseñar HUD/lobby, abrir `docs/PLAYER_JOURNEY_UI_V04.md`.
+- Antes de tocar combate/IA/animaciones, abrir `docs/COMBAT_PHYSICS_ANIMATION_V04.md`.
+- Antes de desarrollar progreso/recompensas/música, abrir `docs/REWARDS_DAILY_AUDIO_V04.md`.
+- Los valores numéricos son hipótesis de playtest. No implementar estos sistemas en bloque por existir especificaciones; seguir gates de `docs/ROADMAP.md`.
+
 ## Regla permanente de sincronización (solicitud del propietario 21/11/2026)
 
 Antes y después de **cada cambio autorizado**, seguir `docs/SYNC_POLICY.md`: comprobar `git status` y remoto, actualizar archivos de decisiones/changelog, ejecutar QA, hacer commit y push a `ortizfram/DEFEND_THE_PIZZA_GAME` cuando el remoto exista. Para conocimiento general, actualizar el `roblox-vault` por separado y enlazar. No afirmar push si no se verificó el commit remoto. No forzar ni sobrescribir trabajo ajeno. Sin remoto/credenciales, marcar `NO SINCRONIZADO` y proporcionar artefacto local. Git no sustituye la sincronización comprobada con Roblox Studio.

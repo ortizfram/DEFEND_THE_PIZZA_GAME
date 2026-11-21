@@ -64,6 +64,14 @@ DEFEND_THE_PIZZA_GAME/
 
 [MAPS_AND_OBJECTIVES_V03.md](docs/MAPS_AND_OBJECTIVES_V03.md): tres mapas progresivos con **una sola acción nueva por escenario**, interfaz entendible para 3.º–4.º grado y tareas de bloquear entradas sin perder la misión de salvar la pizza. Crear primero solo Pizza Shop P0.
 
+## Experiencia V0.4 — Especificaciones de diseño, NO implementadas
+
+- [Pantalla de carga, lobby, loadout, tienda, HUD y cutscenes](docs/PLAYER_JOURNEY_UI_V04.md)
+- [Físicas, golpe de espátula, HP por zombie, animaciones y movimiento](docs/COMBAT_PHYSICS_ANIMATION_V04.md)
+- [Recompensas, Coins y XP, objetivos diarios, música y sonido](docs/REWARDS_DAILY_AUDIO_V04.md)
+
+**No confundir estos diseños con gameplay ya existente.** Programar primer golpe y pizza en un solo mapa antes de las tiendas, sonido final o misiones.
+
 ## Próximo hito
 
 **P0**: una cocina gris, una pizza con 8 porciones visuales, un enemigo, espátula con golpe/knockback y una ronda corta, con entradas de analítica desde el comienzo. Si el golpe no es divertido, no desarrollar el resto.

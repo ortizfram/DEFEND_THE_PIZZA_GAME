@@ -27,3 +27,11 @@ Leer [COMBAT_AND_REVIVE_V02.md](COMBAT_AND_REVIVE_V02.md): zombies primariamente
 ## Propuesta V0.3 — tres mapas / una acción por mapa
 
 Leer [MAPS_AND_OBJECTIVES_V03.md](MAPS_AND_OBJECTIVES_V03.md): PIZZA SHOP (CLOSE puertas), PIZZA STREET (PUSH coches/contenedores para bloquear callejones), PIZZA FACTORY (PRESS botones para activar ventiladores). Meta inmutable SAVE THE PIZZA; golpear zombies sigue siendo central. La segunda interacción es contextual; HELP revivir compañero gratis. Diseñar lectura por símbolos, una nueva palabra por mapa; niveles de lectura de cada término aún no verificados. Nada implementado en Studio.
+
+## Blueprint V0.4 — recorrido del jugador, balance, recompensas y audio
+
+- [PLAYER_JOURNEY_UI_V04.md](PLAYER_JOURNEY_UI_V04.md): loading real, lobby simple, PLAY, SHOP, LOADOUT, DAILY, HUD, resultados, cinemáticas breves y accesibilidad.
+- [COMBAT_PHYSICS_ANIMATION_V04.md](COMBAT_PHYSICS_ANIMATION_V04.md): golpes/slaps, daño y HP por enemigo, movimiento, física cómica, ragdoll corto y set de animaciones por gates.
+- [REWARDS_DAILY_AUDIO_V04.md](REWARDS_DAILY_AUDIO_V04.md): monedas, Chef XP/levels, misiones diarias, tiendas Coins, músicas originales, sonidos y contratos de guardado.
+
+**Todo es diseño propuesto y balance para playtests: NO se implementaron menús, monedas, música, IA, animaciones ni compras.** P0: una puerta, pizza, un zombie de 2 golpes, espátula con slap, UI mínima y recompensa simple. No construir lobby complejo ni tres mapas antes del loop divertido.

@@ -17,3 +17,9 @@
 ## Tres mapas y objetivos simples V0.3 — 2026-11-21
 - Diseño de Pizza Shop (CLOSE puertas), Pizza Street (PUSH bloqueos), Pizza Factory (PRESS ventilador) y objetivos secundarios opcionales fáciles de leer. Misma misión central de salvar pizza y misma mecánica HIT + ACT contextual.
 - Documento fuente `docs/MAPS_AND_OBJECTIVES_V03.md` y enlaces desde GAME_DESIGN, ROADMAP, DECISIONS y ANALYTICS_SPEC. No se crearon mapas reales, scripts, assets ni compras.
+
+## Experiencia completa V0.4 — 2026-11-21
+- Diseño textual de loading real, lobby y PLAY, tienda y 3 slots de loadout cosmético, HUD móvil, resultados, cutscenes cortas.
+- Balance inicial: 1/2/2/5/12 golpes ligeros por Runner/Munchie/Thief/Tank/Boss opcional; slap/charged, reacción cómica, locomoción y animaciones con markers, cheats/antifarming server-side.
+- Economía Coins/XP, tres daily quests fáciles, reset UTC/guardado seguro, bandas de recompensa, dirección musical original, SFX por contacto y settings de accesibilidad.
+- Documentos `PLAYER_JOURNEY_UI_V04.md`, `COMBAT_PHYSICS_ANIMATION_V04.md`, `REWARDS_DAILY_AUDIO_V04.md` + vínculos a decisiones, roadmap y analytics. **Solo documentación; no implementado en Studio ni productos creados.**

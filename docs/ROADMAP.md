@@ -27,6 +27,16 @@
 - [ ] Solo después, PIZZA FACTORY (PRESS botón para ventilador de empuje).
 - [ ] QA solo/móvil, autoritativo servidor, visual no solo por color, analítica por mapa y objetivo.
 
+## Experiencia completa V0.4 — planificación, NO implementado
+- [x] Diseño de pantallas: [PLAYER_JOURNEY_UI_V04.md](PLAYER_JOURNEY_UI_V04.md) — Loading real, PLAY, lobby, Loadout, Shop, Daily, HUD y cutscenes ≤3 s.
+- [x] Diseño de combate: [COMBAT_PHYSICS_ANIMATION_V04.md](COMBAT_PHYSICS_ANIMATION_V04.md) — zombie común 2 golpes, runner 1, thief 2, tanque 5, jefe opcional 12; slap/charged opcional, knockback cómico y animaciones.
+- [x] Diseño de recompensas: [REWARDS_DAILY_AUDIO_V04.md](REWARDS_DAILY_AUDIO_V04.md) — Coins, Chef XP, 3 quests diarias accesibles, sonidos y música original/licenciada.
+- [ ] P0: SOLO golpe básico, zombie común, pizza, una puerta y feedback; sin moneda persistente, loadout, quests, shop ni cinemáticas complejas.
+- [ ] Tras P0 divertido: UI loading mínima, Play directo y score simple de oleada; QA móvil/solo.
+- [ ] Tras rescate/robos probados: RewardsService + ProfileStore guardado robusto, luego 3 dailies y loadout de skins gratis.
+- [ ] Lobby estético, mapas adicionales y música de variedad solo cuando no perjudican rendimiento y tiempo al primer HIT.
+- [ ] Monetización de Robux se mantiene bloqueada hasta autorización explícita y QA de recibos.
+
 ## Gate 2: diferenciación — estado: NO IMPLEMENTADO
 - [ ] Ladrón Thief roba una porción y huye; recuperación servidor una sola vez.
 - [ ] Propuesta V0.2: rescatar compañero caído gratis con interacción cercana y clara en móvil.

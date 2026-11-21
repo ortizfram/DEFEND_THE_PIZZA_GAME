@@ -38,6 +38,15 @@ Fecha de inicio: 2026-11-21.
 - Progresión tentativa de 3/4/5 oleadas. Primero desarrollar/validar solo Shop gris; solo entonces Street y Factory. Palabras de interfaz son propuestas y requieren prueba real de comprensión, no grade levels certificados.
 - Documento de especificación: [MAPS_AND_OBJECTIVES_V03.md](MAPS_AND_OBJECTIVES_V03.md). No existe mapa implementado ni assets finales.
 
+## Propuesta V0.4 — experiencia integrada (diseño, no aprobado como configuración final)
+- El propietario pidió imaginar recompensas, objetivos diarios, pantalla de carga, lobby/menu antes de partida, tienda y loadout, físicas de golpes, HP/golpes por enemigo, movimiento/animaciones, cutscenes y música.
+- Tres documentos propietarios: [PLAYER_JOURNEY_UI_V04.md](PLAYER_JOURNEY_UI_V04.md), [COMBAT_PHYSICS_ANIMATION_V04.md](COMBAT_PHYSICS_ANIMATION_V04.md), [REWARDS_DAILY_AUDIO_V04.md](REWARDS_DAILY_AUDIO_V04.md).
+- Primer ingreso sin interrupciones: loading real → lobby PLAY visible → Pizza Shop → primer hit, objetivo ≤10 s tras entrar al mapa. Loadout con 3 slots cosméticos (Chef Look, Spatula Look, Win Pose), tienda Coins/Robux opcional, daily con 3 metas; sin mostrar compras en tutorial.
+- Balance propuesto de zombie: Runner 1 HP/golpe, Munchie 2, Thief 2, Big Eater 5, boss 12 opcional. Slap tap =1 HP, charge hold 0.55s =2 HP con recuperación más lenta, 3er tap puede ser remate automático. Chef 3 corazones + revive/respawn gratis. Pizza sigue 8 porciones. Todos los números sujetos a prototipo, no hechos.
+- Economía hipotética: Coins + Chef XP (cosméticos, no stats de pago), 10 Coins/oleada + 50 Shop/70 Street/90 Factory por victoria, tres quests diarias elegibles y posibles solo; UTC reset, servidor con UpdateAsync e idempotencia.
+- Música propuesta original o con permiso de Creator Store; SFX claros por acción; cutscenes ≤3 s y salteables, settings de audio/Reduce Motion. No se creó asset ni ID real.
+- **No hay gameplay implementado ni Place ni monetización activa**; orden de ejecución P0 gris → rescate y robo → recompensas/tienda visual → polish/anim/audio, nunca al revés.
+
 ## Aún no verificado
 - Datos detallados del análisis de Creator Exchange (URLs, visitas, fechas); no inventar.
 - Original fuera de Roblox con filtros cuantitativos; competidores directos actualizados.
