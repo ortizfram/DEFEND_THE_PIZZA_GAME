@@ -24,3 +24,4 @@
 - DTP-3D-003 Munchie: los 3 primeros puntos verificados en Blender el 2026-11-22; Studio y móvil pendientes.
 
 **Nada marcado como pasado todavía:** solo es un checklist planeado.
+\n## P0 Munchie en rama `feat/p0-munchie-combat-20261122` — NO TESTEADO\n- [ ] Corroborar PlaceId 122513508386436, backup y conexión Rojo restringida.\n- [ ] Reimportar FBX palette y riggear instancia nueva sin romper la anterior.\n- [ ] HIT x1 pasa a Stunned; HIT x2 a Launched; repetidos, lejanos y detrás son rechazados.\n- [ ] En Play, raíz sin anclar se mueve y knockback no penetra suelo/pared; dos jugadores consistentes.\n- [ ] Pizza pierde una sola porción por mordida y permite interrumpir la mordida.\n- [ ] Animaciones publicadas y asset IDs reales conectados tras polish.\n- [ ] Studio Play/cliente táctil sin errores, métricas solo servidor, capturas guardadas.\n
