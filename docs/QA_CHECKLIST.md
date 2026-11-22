@@ -23,4 +23,4 @@
 - [ ] Silueta legible a ~100 px y en cámara móvil real.
 - DTP-3D-003 Munchie: los 3 primeros puntos verificados en Blender el 2026-11-22; Studio y móvil pendientes.
 
-**Nada marcado como pasado todavía:** solo es un checklist planeado.
+La lista conserva requisitos del gate completo. Ver resultados técnicos y pendientes en `P0_REGRESSION_2026_11_22.md` y registrar las sesiones humanas en `P0_PLAYER_OBSERVATION.md`.

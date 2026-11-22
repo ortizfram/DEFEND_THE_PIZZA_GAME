@@ -93,3 +93,6 @@
 - Servidor y dos clientes simulados: ambos cargaron HUD, atacaron, observaron movimiento de articulaciones y recibieron victoria. El servidor verificó el cierre y reapertura de la persiana.
 - Simulador iPhone 17 Pro horizontal: separadas las áreas de HIT y salto, ataque táctil validado en servidor. Pendientes dispositivo físico, red lenta y valoración de jugadores humanos.
 - Se reprodujeron poses del rig importado en partida. Consola: aviso de recurso 203785492 con tipo incompatible; origen sin identificar. Place 122513508386436, versión de edición 11.
+
+## Preparación del playtest · revisión técnica adicional
+Diez rondas automatizadas solo completadas el 22/11/2026: cinco derrotas y cinco victorias, con reinicios y ráfagas de HIT. Respawn conserva espátula, HUD y acción HIT. Detalle en [P0_REGRESSION_2026_11_22.md](P0_REGRESSION_2026_11_22.md). Hoja de observación y checklist física en [P0_PLAYER_OBSERVATION.md](P0_PLAYER_OBSERVATION.md). Gate humano y teléfono físico pendientes. Recurso 203785492 identificado como audio Pop Close Sound; solicitante pendiente.

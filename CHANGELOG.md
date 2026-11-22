@@ -1,5 +1,11 @@
 # Changelog
 
+## Preparación del playtest P0 · 2026-11-22
+- Comprobada correspondencia Studio/GitHub, diez rondas solo alternadas con ráfagas de HIT y respawn.
+- Añadidos reporte técnico, hoja anónima para cinco participantes y checklist de teléfono físico.
+- Audio 203785492 identificado por metadatos; origen del warning pendiente. Gate humano abierto.
+
+
 ## Pizza Shop · integración Studio · 2026-11-22
 - Animaciones del Munchie conectadas al ciclo de combate. HIT móvil separado del salto.
 - Verificados derrota, victoria y reinicio en solo, victoria compartida con dos clientes, cierre/reapertura de persiana y entrada táctil emulada. Guardado en versión 11 de Studio. Detalle en `docs/ROADMAP.md`.
