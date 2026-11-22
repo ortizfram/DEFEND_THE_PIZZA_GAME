@@ -1,0 +1,279 @@
+{
+  "variant": "A_MunchieRound",
+  "blenderVersion": "5.2.3 LTS",
+  "units": "1 BU = 1 stud (Unit System None)",
+  "facing": "-Y (Blender Front view), character left = +X",
+  "totalTriangles": 3364,
+  "partCount": 21,
+  "materials": [
+    "M_Munchie_BellyMint",
+    "M_Munchie_BibTomato",
+    "M_Munchie_DarkSlate",
+    "M_Munchie_EyeWhite",
+    "M_Munchie_SkinGreen"
+  ],
+  "materialCount": 5,
+  "nonManifoldEdgesTotal": 0,
+  "boundsMin": [
+    -1.597,
+    -2.424,
+    -0.0
+  ],
+  "boundsMax": [
+    1.666,
+    0.95,
+    4.739
+  ],
+  "sizeStuds_WxDxH": [
+    3.263,
+    3.374,
+    4.739
+  ],
+  "parts": {
+    "Body": {
+      "tris": 440,
+      "nonManifoldEdges": 0,
+      "pivot": [
+        0.0,
+        0.0,
+        1.15
+      ],
+      "parent": "Zombie_Munchie_A",
+      "material": "M_Munchie_SkinGreen"
+    },
+    "Belly": {
+      "tris": 120,
+      "nonManifoldEdges": 0,
+      "pivot": [
+        0.0,
+        -0.78,
+        1.6
+      ],
+      "parent": "Body",
+      "material": "M_Munchie_BellyMint"
+    },
+    "Bib": {
+      "tris": 140,
+      "nonManifoldEdges": 0,
+      "pivot": [
+        0.0,
+        -0.82,
+        2.55
+      ],
+      "parent": "Body",
+      "material": "M_Munchie_BibTomato"
+    },
+    "Head": {
+      "tris": 440,
+      "nonManifoldEdges": 0,
+      "pivot": [
+        0.0,
+        -0.05,
+        2.55
+      ],
+      "parent": "Body",
+      "material": "M_Munchie_SkinGreen"
+    },
+    "Eye_R": {
+      "tris": 196,
+      "nonManifoldEdges": 0,
+      "pivot": [
+        -0.48,
+        -1.0,
+        3.58
+      ],
+      "parent": "Head",
+      "material": "M_Munchie_EyeWhite"
+    },
+    "Eye_L": {
+      "tris": 168,
+      "nonManifoldEdges": 0,
+      "pivot": [
+        0.52,
+        -1.02,
+        3.7
+      ],
+      "parent": "Head",
+      "material": "M_Munchie_EyeWhite"
+    },
+    "Pupils": {
+      "tris": 128,
+      "nonManifoldEdges": 0,
+      "pivot": [
+        0.0,
+        -1.25,
+        3.64
+      ],
+      "parent": "Head",
+      "material": "M_Munchie_DarkSlate"
+    },
+    "Mouth": {
+      "tris": 140,
+      "nonManifoldEdges": 0,
+      "pivot": [
+        0.06,
+        -1.0,
+        3.0
+      ],
+      "parent": "Head",
+      "material": "M_Munchie_DarkSlate"
+    },
+    "Teeth": {
+      "tris": 72,
+      "nonManifoldEdges": 0,
+      "pivot": [
+        0.04,
+        -1.15,
+        3.22
+      ],
+      "parent": "Head",
+      "material": "M_Munchie_EyeWhite"
+    },
+    "Tongue": {
+      "tris": 80,
+      "nonManifoldEdges": 0,
+      "pivot": [
+        0.14,
+        -1.15,
+        2.84
+      ],
+      "parent": "Head",
+      "material": "M_Munchie_BibTomato"
+    },
+    "Hair": {
+      "tris": 72,
+      "nonManifoldEdges": 0,
+      "pivot": [
+        0.1,
+        -0.1,
+        4.25
+      ],
+      "parent": "Head",
+      "material": "M_Munchie_DarkSlate"
+    },
+    "RightUpperArm": {
+      "tris": 100,
+      "nonManifoldEdges": 0,
+      "pivot": [
+        -1.0,
+        -0.05,
+        2.25
+      ],
+      "parent": "Body",
+      "material": "M_Munchie_SkinGreen"
+    },
+    "RightLowerArm": {
+      "tris": 100,
+      "nonManifoldEdges": 0,
+      "pivot": [
+        -1.3,
+        -0.8,
+        2.3
+      ],
+      "parent": "RightUpperArm",
+      "material": "M_Munchie_SkinGreen"
+    },
+    "RightHand": {
+      "tris": 244,
+      "nonManifoldEdges": 0,
+      "pivot": [
+        -1.25,
+        -1.55,
+        2.45
+      ],
+      "parent": "RightLowerArm",
+      "material": "M_Munchie_SkinGreen"
+    },
+    "LeftUpperArm": {
+      "tris": 100,
+      "nonManifoldEdges": 0,
+      "pivot": [
+        1.0,
+        -0.05,
+        2.2
+      ],
+      "parent": "Body",
+      "material": "M_Munchie_SkinGreen"
+    },
+    "LeftLowerArm": {
+      "tris": 100,
+      "nonManifoldEdges": 0,
+      "pivot": [
+        1.3,
+        -0.7,
+        1.95
+      ],
+      "parent": "LeftUpperArm",
+      "material": "M_Munchie_SkinGreen"
+    },
+    "LeftHand": {
+      "tris": 244,
+      "nonManifoldEdges": 0,
+      "pivot": [
+        1.3,
+        -1.45,
+        1.95
+      ],
+      "parent": "LeftLowerArm",
+      "material": "M_Munchie_SkinGreen"
+    },
+    "RightLeg": {
+      "tris": 100,
+      "nonManifoldEdges": 0,
+      "pivot": [
+        -0.55,
+        0.0,
+        1.15
+      ],
+      "parent": "Body",
+      "material": "M_Munchie_SkinGreen"
+    },
+    "RightFoot": {
+      "tris": 140,
+      "nonManifoldEdges": 0,
+      "pivot": [
+        -0.6,
+        -0.05,
+        0.4
+      ],
+      "parent": "RightLeg",
+      "material": "M_Munchie_DarkSlate"
+    },
+    "LeftLeg": {
+      "tris": 100,
+      "nonManifoldEdges": 0,
+      "pivot": [
+        0.55,
+        0.0,
+        1.15
+      ],
+      "parent": "Body",
+      "material": "M_Munchie_SkinGreen"
+    },
+    "LeftFoot": {
+      "tris": 140,
+      "nonManifoldEdges": 0,
+      "pivot": [
+        0.6,
+        -0.05,
+        0.4
+      ],
+      "parent": "LeftLeg",
+      "material": "M_Munchie_DarkSlate"
+    }
+  },
+  "colorsHex": {
+    "skin": "#77CA63",
+    "belly": "#59C9BE",
+    "bib": "#EF5A4C",
+    "eyes/teeth": "#FFFFFF",
+    "pupils/mouth/hair/feet": "#233142"
+  },
+  "uniqueMotif": "tomato napkin bib (hungry eater), single hair curl",
+  "script": "tools/asset_generation/build_munchie_a.py",
+  "renders": {
+    "front": "art/renders/munchie/A_front.png",
+    "iso": "art/renders/munchie/A_iso.png"
+  },
+  "sourceFile": "art/source/Zombie_Munchie_A.blend"
+}

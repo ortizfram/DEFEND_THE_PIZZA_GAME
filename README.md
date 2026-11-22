@@ -87,6 +87,10 @@ El diseño es una propuesta. **Ninguno de los 8 assets planificados existe como 
 
 [SETUP_WINDOWS_FIRST_MUNCHIE.md](docs/SETUP_WINDOWS_FIRST_MUNCHIE.md): descargas oficiales (Blender, Roblox Studio, Git, VS Code, Claude Code opcional, Rojo cuando se programe), comandos para clonar GitHub, dos variantes de Zombie Munchie y proceso para crear .blend editables, elegir silueta, exportar/importar y verificar QA. **No implica que el modelo exista todavía.**
 
+## Primer asset 3D real — Zombie Munchie (DTP-3D-003, en progreso)
+
+Hay dos blockouts editables en Blender (`art/source/Zombie_Munchie_A.blend` y `_B.blend`), renders comparativos en `art/renders/munchie/` y un export candidato de A en `art/export/`. Brief y evaluación: [art/briefs/DTP-3D-003_Zombie_Munchie.md](art/briefs/DTP-3D-003_Zombie_Munchie.md). Para regenerarlos: `powershell -ExecutionPolicy Bypass -File tools/asset_generation/run_all.ps1` (requiere Blender 5.2). Todavía **no** se importó en Studio y no hay rig ni NPC.
+
 ## Próximo hito
 
 **P0**: una cocina gris, una pizza con 8 porciones visuales, un enemigo, espátula con golpe/knockback y una ronda corta, con entradas de analítica desde el comienzo. Si el golpe no es divertido, no desarrollar el resto.

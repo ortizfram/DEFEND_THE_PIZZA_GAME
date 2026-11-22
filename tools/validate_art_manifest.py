@@ -27,6 +27,12 @@ for a in assets:
         assert a.get("sourceFile") is None and a.get("exportFile") is None, (
             f"PLANNED asset falsely claims created files: {aid}"
         )
+    # Any declared file (source/export/variants/evidence) must really exist: no fictitious assets.
+    declared = [a.get("sourceFile"), a.get("exportFile"), a.get("brief"), *(a.get("qaEvidence") or [])]
+    for v in a.get("variants") or []:
+        declared += [v.get("sourceFile"), v.get("script"), *(v.get("renders") or []), *(v.get("exports") or [])]
+    for rel in filter(None, declared):
+        assert (root / rel).is_file(), f"{aid} declares missing file: {rel}"
     if a["status"] in {"QA_PASS", "APPROVED"}:
         source = a.get("sourceFile")
         assert source and (root / source).is_file(), f"Missing source file: {aid}"

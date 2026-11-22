@@ -14,4 +14,13 @@
 - [ ] Latencia/FPS bajo, colisiones, paths NPC, streaming móvil.
 - [ ] Comparar con versión anterior, registrar video/capturas reales y bugs abiertos.
 
+
+## Assets 3D (por asset; ver brief en `art/briefs/`)
+- [ ] Fuente `.blend` real + script reproducible; `python tools/validate_art_manifest.py` OK (verifica que existan los archivos declarados).
+- [ ] Tris dentro del target interno, 0 non-manifold, pivotes en articulaciones, pies en Z = 0.
+- [ ] Export FBX/GLB re-importado sin pérdidas (reporte en `art/qa/`).
+- [ ] Import en Studio (Baseplate nuevo) y escala vs dummy R15; orientación, normales y colores correctos.
+- [ ] Silueta legible a ~100 px y en cámara móvil real.
+- DTP-3D-003 Munchie: los 3 primeros puntos verificados en Blender el 2026-11-22; Studio y móvil pendientes.
+
 **Nada marcado como pasado todavía:** solo es un checklist planeado.

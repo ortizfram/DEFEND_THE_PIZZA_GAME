@@ -1,0 +1,301 @@
+{
+  "variant": "B_MunchieNoodle",
+  "blenderVersion": "5.2.3 LTS",
+  "units": "1 BU = 1 stud (Unit System None)",
+  "facing": "-Y (Blender Front view), character left = +X",
+  "totalTriangles": 3104,
+  "partCount": 23,
+  "materials": [
+    "M_Noodle_DarkSlate",
+    "M_Noodle_EyeWhite",
+    "M_Noodle_ShortsMint",
+    "M_Noodle_SkinPaleGreen",
+    "M_Noodle_TongueTomato"
+  ],
+  "materialCount": 5,
+  "nonManifoldEdgesTotal": 0,
+  "boundsMin": [
+    -1.264,
+    -2.902,
+    0.0
+  ],
+  "boundsMax": [
+    1.263,
+    0.48,
+    6.211
+  ],
+  "sizeStuds_WxDxH": [
+    2.527,
+    3.382,
+    6.211
+  ],
+  "parts": {
+    "LowerTorso": {
+      "tris": 168,
+      "nonManifoldEdges": 0,
+      "pivot": [
+        0.0,
+        0.08,
+        2.5
+      ],
+      "parent": "Zombie_Munchie_B",
+      "material": "M_Noodle_ShortsMint"
+    },
+    "UpperTorso": {
+      "tris": 196,
+      "nonManifoldEdges": 0,
+      "pivot": [
+        0.0,
+        0.05,
+        2.75
+      ],
+      "parent": "LowerTorso",
+      "material": "M_Noodle_SkinPaleGreen"
+    },
+    "Neck": {
+      "tris": 48,
+      "nonManifoldEdges": 0,
+      "pivot": [
+        0.0,
+        -0.32,
+        4.45
+      ],
+      "parent": "UpperTorso",
+      "material": "M_Noodle_SkinPaleGreen"
+    },
+    "Head": {
+      "tris": 396,
+      "nonManifoldEdges": 0,
+      "pivot": [
+        0.05,
+        -0.6,
+        4.95
+      ],
+      "parent": "Neck",
+      "material": "M_Noodle_SkinPaleGreen"
+    },
+    "Eye_R": {
+      "tris": 168,
+      "nonManifoldEdges": 0,
+      "pivot": [
+        -0.24,
+        -1.12,
+        5.82
+      ],
+      "parent": "Head",
+      "material": "M_Noodle_EyeWhite"
+    },
+    "Eye_L": {
+      "tris": 120,
+      "nonManifoldEdges": 0,
+      "pivot": [
+        0.34,
+        -1.08,
+        6.0
+      ],
+      "parent": "Head",
+      "material": "M_Noodle_EyeWhite"
+    },
+    "Pupils": {
+      "tris": 128,
+      "nonManifoldEdges": 0,
+      "pivot": [
+        0.1,
+        -1.3,
+        5.9
+      ],
+      "parent": "Head",
+      "material": "M_Noodle_DarkSlate"
+    },
+    "Mouth": {
+      "tris": 140,
+      "nonManifoldEdges": 0,
+      "pivot": [
+        0.05,
+        -1.0,
+        5.0
+      ],
+      "parent": "Head",
+      "material": "M_Noodle_DarkSlate"
+    },
+    "Jaw": {
+      "tris": 120,
+      "nonManifoldEdges": 0,
+      "pivot": [
+        0.05,
+        -0.6,
+        4.95
+      ],
+      "parent": "Head",
+      "material": "M_Noodle_SkinPaleGreen"
+    },
+    "Teeth": {
+      "tris": 108,
+      "nonManifoldEdges": 0,
+      "pivot": [
+        0.05,
+        -1.42,
+        4.73
+      ],
+      "parent": "Jaw",
+      "material": "M_Noodle_EyeWhite"
+    },
+    "Tongue": {
+      "tris": 48,
+      "nonManifoldEdges": 0,
+      "pivot": [
+        0.15,
+        -1.3,
+        4.64
+      ],
+      "parent": "Jaw",
+      "material": "M_Noodle_TongueTomato"
+    },
+    "RightUpperArm": {
+      "tris": 80,
+      "nonManifoldEdges": 0,
+      "pivot": [
+        -0.5,
+        -0.25,
+        4.05
+      ],
+      "parent": "UpperTorso",
+      "material": "M_Noodle_SkinPaleGreen"
+    },
+    "RightLowerArm": {
+      "tris": 80,
+      "nonManifoldEdges": 0,
+      "pivot": [
+        -0.85,
+        -0.95,
+        3.75
+      ],
+      "parent": "RightUpperArm",
+      "material": "M_Noodle_SkinPaleGreen"
+    },
+    "RightHand": {
+      "tris": 244,
+      "nonManifoldEdges": 0,
+      "pivot": [
+        -0.8,
+        -1.95,
+        3.55
+      ],
+      "parent": "RightLowerArm",
+      "material": "M_Noodle_SkinPaleGreen"
+    },
+    "LeftUpperArm": {
+      "tris": 80,
+      "nonManifoldEdges": 0,
+      "pivot": [
+        0.5,
+        -0.25,
+        4.05
+      ],
+      "parent": "UpperTorso",
+      "material": "M_Noodle_SkinPaleGreen"
+    },
+    "LeftLowerArm": {
+      "tris": 80,
+      "nonManifoldEdges": 0,
+      "pivot": [
+        0.85,
+        -0.45,
+        3.05
+      ],
+      "parent": "LeftUpperArm",
+      "material": "M_Noodle_SkinPaleGreen"
+    },
+    "LeftHand": {
+      "tris": 244,
+      "nonManifoldEdges": 0,
+      "pivot": [
+        0.8,
+        -0.85,
+        1.95
+      ],
+      "parent": "LeftLowerArm",
+      "material": "M_Noodle_SkinPaleGreen"
+    },
+    "RightUpperLeg": {
+      "tris": 80,
+      "nonManifoldEdges": 0,
+      "pivot": [
+        -0.36,
+        0.1,
+        2.45
+      ],
+      "parent": "LowerTorso",
+      "material": "M_Noodle_SkinPaleGreen"
+    },
+    "RightLowerLeg": {
+      "tris": 80,
+      "nonManifoldEdges": 0,
+      "pivot": [
+        -0.46,
+        -0.28,
+        1.35
+      ],
+      "parent": "RightUpperLeg",
+      "material": "M_Noodle_SkinPaleGreen"
+    },
+    "RightFoot": {
+      "tris": 168,
+      "nonManifoldEdges": 0,
+      "pivot": [
+        -0.5,
+        0.0,
+        0.38
+      ],
+      "parent": "RightLowerLeg",
+      "material": "M_Noodle_DarkSlate"
+    },
+    "LeftUpperLeg": {
+      "tris": 80,
+      "nonManifoldEdges": 0,
+      "pivot": [
+        0.36,
+        0.1,
+        2.45
+      ],
+      "parent": "LowerTorso",
+      "material": "M_Noodle_SkinPaleGreen"
+    },
+    "LeftLowerLeg": {
+      "tris": 80,
+      "nonManifoldEdges": 0,
+      "pivot": [
+        0.46,
+        -0.28,
+        1.35
+      ],
+      "parent": "LeftUpperLeg",
+      "material": "M_Noodle_SkinPaleGreen"
+    },
+    "LeftFoot": {
+      "tris": 168,
+      "nonManifoldEdges": 0,
+      "pivot": [
+        0.5,
+        0.0,
+        0.38
+      ],
+      "parent": "LeftLowerLeg",
+      "material": "M_Noodle_DarkSlate"
+    }
+  },
+  "colorsHex": {
+    "skin": "#ADDC97 (derived)",
+    "shorts": "#59C9BE",
+    "tongue": "#EF5A4C",
+    "eyes/teeth": "#FFFFFF",
+    "pupils/mouth/shoes": "#233142"
+  },
+  "uniqueMotif": "hanging open jaw with dangling tongue, huge upturned shoes",
+  "script": "tools/asset_generation/build_munchie_b.py",
+  "renders": {
+    "front": "art/renders/munchie/B_front.png",
+    "iso": "art/renders/munchie/B_iso.png"
+  },
+  "sourceFile": "art/source/Zombie_Munchie_B.blend"
+}

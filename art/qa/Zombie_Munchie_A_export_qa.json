@@ -1,0 +1,82 @@
+{
+  "variant": "A",
+  "blenderVersion": "5.2.3 LTS",
+  "fbxSettings": "selected meshes, Forward Z, Up Y, FBX Unit Scale, global 1.0, no leaf bones, no anim",
+  "source": {
+    "meshObjects": 21,
+    "triangles": 3364,
+    "vertices": 1746,
+    "faces": 1980,
+    "nonManifoldEdges": 0,
+    "zeroAreaFaces": 0,
+    "facesPointingTowardPartCenter": 81,
+    "inwardNote": "heuristic per part; small non-zero counts on concave/bent shapes are expected",
+    "materials": [
+      "M_Munchie_BellyMint",
+      "M_Munchie_BibTomato",
+      "M_Munchie_DarkSlate",
+      "M_Munchie_EyeWhite",
+      "M_Munchie_SkinGreen"
+    ],
+    "sizeWxDxH": [
+      3.263,
+      3.374,
+      4.739
+    ],
+    "boundsMinZ": -0.0
+  },
+  "exports": {
+    "fbx": {
+      "meshObjects": 21,
+      "triangles": 3364,
+      "vertices": 1746,
+      "faces": 1980,
+      "nonManifoldEdges": 0,
+      "zeroAreaFaces": 0,
+      "facesPointingTowardPartCenter": 81,
+      "inwardNote": "heuristic per part; small non-zero counts on concave/bent shapes are expected",
+      "materials": [
+        "M_Munchie_BellyMint",
+        "M_Munchie_BibTomato",
+        "M_Munchie_DarkSlate",
+        "M_Munchie_EyeWhite",
+        "M_Munchie_SkinGreen"
+      ],
+      "sizeWxDxH": [
+        3.263,
+        3.374,
+        4.739
+      ],
+      "boundsMinZ": -0.0,
+      "file": "art/export/Zombie_Munchie_A.fbx",
+      "bytes": 116044,
+      "matchesSource": true
+    },
+    "gltf": {
+      "meshObjects": 21,
+      "triangles": 3364,
+      "vertices": 1746,
+      "faces": 3364,
+      "nonManifoldEdges": 0,
+      "zeroAreaFaces": 0,
+      "facesPointingTowardPartCenter": 147,
+      "inwardNote": "heuristic per part; small non-zero counts on concave/bent shapes are expected",
+      "materials": [
+        "M_Munchie_BellyMint",
+        "M_Munchie_BibTomato",
+        "M_Munchie_DarkSlate",
+        "M_Munchie_EyeWhite",
+        "M_Munchie_SkinGreen"
+      ],
+      "sizeWxDxH": [
+        3.263,
+        3.374,
+        4.739
+      ],
+      "boundsMinZ": -0.0,
+      "file": "art/export/Zombie_Munchie_A.glb",
+      "bytes": 77732,
+      "matchesSource": true
+    }
+  }
+}

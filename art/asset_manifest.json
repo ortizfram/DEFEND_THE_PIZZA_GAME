@@ -47,15 +47,77 @@
       "name": "Zombie Munchie (2-hit)",
       "type": "3D_character",
       "phase": "P0",
-      "status": "PLANNED",
-      "sourceFile": null,
-      "exportFile": null,
+      "status": "IN_PROGRESS",
+      "sourceFile": "art/source/Zombie_Munchie_A.blend",
+      "exportFile": "art/export/Zombie_Munchie_A.fbx",
       "assetId": null,
       "sourceURL": null,
-      "license": "OWN_ORIGINAL_PLANNED",
-      "rightsVerified": false,
+      "license": "OWN_ORIGINAL",
+      "rightsVerified": true,
       "targetTriangles": 3500,
-      "qaEvidence": []
+      "qaEvidence": [
+        "art/qa/Zombie_Munchie_A_stats.json",
+        "art/qa/Zombie_Munchie_B_stats.json",
+        "art/qa/Zombie_Munchie_A_export_qa.json",
+        "art/renders/munchie/lineup_color.png",
+        "art/renders/munchie/lineup_silhouette.png",
+        "art/renders/munchie/lineup_100px_silhouette.png",
+        "art/renders/munchie/lineup_100px_color.png",
+        "art/renders/munchie/gamecam_mobile_844x390.png"
+      ],
+      "rightsNote": "100% procedural geometry from repo scripts (tools/asset_generation/). No third-party meshes, textures, add-ons or paid tools. Owner may re-confirm.",
+      "brief": "art/briefs/DTP-3D-003_Zombie_Munchie.md",
+      "recommendedVariant": "A",
+      "ownerApproval": "PENDING",
+      "variants": [
+        {
+          "id": "A",
+          "name": "Munchie Round",
+          "sourceFile": "art/source/Zombie_Munchie_A.blend",
+          "script": "tools/asset_generation/build_munchie_a.py",
+          "triangles": 3364,
+          "meshParts": 21,
+          "materials": 5,
+          "sizeStuds_WxDxH": [
+            3.263,
+            3.374,
+            4.739
+          ],
+          "renders": [
+            "art/renders/munchie/A_front.png",
+            "art/renders/munchie/A_iso.png"
+          ],
+          "exports": [
+            "art/export/Zombie_Munchie_A.fbx",
+            "art/export/Zombie_Munchie_A.glb"
+          ]
+        },
+        {
+          "id": "B",
+          "name": "Munchie Noodle",
+          "sourceFile": "art/source/Zombie_Munchie_B.blend",
+          "script": "tools/asset_generation/build_munchie_b.py",
+          "triangles": 3104,
+          "meshParts": 23,
+          "materials": 5,
+          "sizeStuds_WxDxH": [
+            2.527,
+            3.382,
+            6.211
+          ],
+          "renders": [
+            "art/renders/munchie/B_front.png",
+            "art/renders/munchie/B_iso.png"
+          ],
+          "exports": []
+        }
+      ],
+      "qaPending": [
+        "Roblox Studio import + scale vs avatar (no Studio connected 2026-11-22)",
+        "rig + animations",
+        "mobile device test",
+        "owner approval of A vs B"
+      ]
     },
     {
       "id": "DTP-3D-004",

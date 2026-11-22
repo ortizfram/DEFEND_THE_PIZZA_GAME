@@ -24,6 +24,13 @@
 - Economía Coins/XP, tres daily quests fáciles, reset UTC/guardado seguro, bandas de recompensa, dirección musical original, SFX por contacto y settings de accesibilidad.
 - Documentos `PLAYER_JOURNEY_UI_V04.md`, `COMBAT_PHYSICS_ANIMATION_V04.md`, `REWARDS_DAILY_AUDIO_V04.md` + vínculos a decisiones, roadmap y analytics. **Solo documentación; no implementado en Studio ni productos creados.**
 
+## DTP-3D-003 Zombie Munchie — blockouts A/B, 2026-11-22
+- Primeros archivos 3D reales: `art/source/Zombie_Munchie_A.blend` (Round) y `Zombie_Munchie_B.blend` (Noodle), generados con Blender 5.2.3 LTS por scripts propios y sin add-ons (`tools/asset_generation/`, `run_all.ps1`).
+- Renders frontales e isométricos de ambos, lineup con proxies (chef, Runner, Big Eater, pizza), silueta a ~100 px y game-cam móvil 844×390 en `art/renders/munchie/`.
+- Export candidato de A: `art/export/Zombie_Munchie_A.fbx` + `.glb`, re-importados en Blender sin pérdidas (`art/qa/Zombie_Munchie_A_export_qa.json`).
+- Brief, evaluación, recomendación A y propuesta de rig/animaciones en `art/briefs/DTP-3D-003_Zombie_Munchie.md`. Manifest DTP-3D-003 → `IN_PROGRESS`; el validador ahora falla si un asset declara archivos inexistentes.
+- **No probado en Roblox Studio** (sin instancia conectada). Sin rig, animaciones, NPC ni publicación.
+
 ## Arte, UI, UGC y assets con IA — Diseño V0.5, 2026-11-22
 - Art Bible Toy Pizza Panic; paleta y tokens JSON, plan de assets con estados PLANNED, plantilla de brief por asset y prompts GPT/Claude Code para archivos reales, import y QA.
 - Guía reutilizable creada y sincronizada en el Roblox Vault. Separación explícita entre accesorios cosméticos internos y UGC Marketplace con derechos/costos/validación.
