@@ -37,6 +37,13 @@
 - [ ] Lobby estético, mapas adicionales y música de variedad solo cuando no perjudican rendimiento y tiempo al primer HIT.
 - [ ] Monetización de Robux se mantiene bloqueada hasta autorización explícita y QA de recibos.
 
+## Dirección artística profesional V0.5 — diseño, NO assets implementados
+- [x] Art Bible de Toy Pizza Panic, tokens de color/UI, briefs/prompts IA, manifest y política UGC/licencias documentados: [ART_DIRECTION_AI_ASSETS_V05.md](ART_DIRECTION_AI_ASSETS_V05.md).
+- [ ] Seleccionar/validar en tamaño móvil silueta de pizza, espátula y Zombie Munchie (2 golpes); generar fuentes editables y QA de import con Studio autorizado.
+- [ ] P0 usar Parts/mallas básicas y un botón HIT; no crear lobby detallado, 3 mapas o accesorios globales antes de gameplay.
+- [ ] Validar componentes UI en phone/tablet/desktop, safe area y gamepad; al aprobar, agregar SHOP/LOADOUT/DAILY.
+- [ ] UGC global Marketplace únicamente después de cumplir reglas técnicas, elegibilidad/costos, revisión de derechos y autorización explícita.
+
 ## Gate 2: diferenciación — estado: NO IMPLEMENTADO
 - [ ] Ladrón Thief roba una porción y huye; recuperación servidor una sola vez.
 - [ ] Propuesta V0.2: rescatar compañero caído gratis con interacción cercana y clara en móvil.

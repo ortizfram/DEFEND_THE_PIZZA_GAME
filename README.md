@@ -72,6 +72,17 @@ DEFEND_THE_PIZZA_GAME/
 
 **No confundir estos diseños con gameplay ya existente.** Programar primer golpe y pizza en un solo mapa antes de las tiendas, sonido final o misiones.
 
+## Producción artística con IA — estilo V0.5 (plan, no assets reales)
+
+- [Art Bible Toy Pizza Panic + pipeline 3D/UI/UGC](docs/ART_DIRECTION_AI_ASSETS_V05.md)
+- [Tokens de UI / colores](art/design_tokens.json)
+- [Registro de assets con licencias y estado](art/asset_manifest.json)
+- [Brief obligatorio antes de crear cada asset](art/ASSET_BRIEF_TEMPLATE.md)
+- [Prompts listos para GPT y Claude Code](art/AI_ASSET_PROMPTS.md)
+- [Guía de producción visual para todos los juegos (Roblox Vault)](https://github.com/ortizfram/roblox-vault/blob/main/Playbooks/Roblox-Visual-Production-UGC-UI-3D-AI.md)
+
+El diseño es una propuesta. **Ninguno de los 8 assets planificados existe como .blend/.fbx o GUI jugable por crear el manifest.** La aprobación de Marketplace UGC es un flujo distinto al uso de cosméticos internos.
+
 ## Próximo hito
 
 **P0**: una cocina gris, una pizza con 8 porciones visuales, un enemigo, espátula con golpe/knockback y una ronda corta, con entradas de analítica desde el comienzo. Si el golpe no es divertido, no desarrollar el resto.

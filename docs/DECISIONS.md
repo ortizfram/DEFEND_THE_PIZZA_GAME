@@ -47,6 +47,14 @@ Fecha de inicio: 2026-11-21.
 - Música propuesta original o con permiso de Creator Store; SFX claros por acción; cutscenes ≤3 s y salteables, settings de audio/Reduce Motion. No se creó asset ni ID real.
 - **No hay gameplay implementado ni Place ni monetización activa**; orden de ejecución P0 gris → rescate y robo → recompensas/tienda visual → polish/anim/audio, nunca al revés.
 
+## Dirección de arte V0.5 — en evaluación, no assets creados
+- El propietario pidió metodología gratuita para calidad profesional de **UGC, UI y modelado 3D con GPT/Claude** y que se guarde en Roblox Vault y se aplique a Defend the Pizza.
+- Guía general canónica del vault: `Playbooks/Roblox-Visual-Production-UGC-UI-3D-AI.md`; específica del juego: [ART_DIRECTION_AI_ASSETS_V05.md](ART_DIRECTION_AI_ASSETS_V05.md).
+- Estilo visual de trabajo propuesto **Toy Pizza Panic**: pizza naranja/queso como héroe, zombies verdes/menta de juguete, chef pequeño con espátula grande, UI redondeada y accesible móvil. Paleta/escala preliminares en `art/design_tokens.json`.
+- GPT prepara briefs/QA; Claude Code implementa con acceso REAL a Blender/Studio y entrega fuente editable; ambos deben usar `art/asset_manifest.json` para licencia/QA/versiones. Un prompt no entrena pesos ni crea mallas por sí mismo.
+- P0 planificado: pizza 8 porciones, espátula, Zombie Munchie de 2 golpes, puerta de Shop y botón HIT; no hay archivos modelo ni UI funcional aún.
+- Crear accesorios cosméticos internos puede hacerse sin Marketplace. Publicación UGC avatar global puede requerir tarifas/elegibilidad/moderación y no se autoriza por esta planificación.
+
 ## Aún no verificado
 - Datos detallados del análisis de Creator Exchange (URLs, visitas, fechas); no inventar.
 - Original fuera de Roblox con filtros cuantitativos; competidores directos actualizados.

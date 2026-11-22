@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "project": "DEFEND_THE_PIZZA_GAME",
+  "version": "0.5-draft",
+  "status": "PROPOSED_NOT_IMPLEMENTED",
+  "theme": "Toy Pizza Panic",
+  "colors": {
+    "background": "#FFF7E7",
+    "surface": "#FFF0D0",
+    "surfaceStrong": "#FFFFFF",
+    "text": "#233142",
+    "mutedText": "#41566B",
+    "primary": "#FFD166",
+    "primaryText": "#233142",
+    "tomato": "#EF5A4C",
+    "error": "#C43C40",
+    "errorText": "#FFFFFF",
+    "mint": "#59C9BE",
+    "mintText": "#233142",
+    "zombieGreen": "#77CA63",
+    "stroke": "#233142",
+    "coin": "#F8B93A"
+  },
+  "components": {
+    "radiusPx": {
+      "button": 16,
+      "card": 18,
+      "modal": 22
+    },
+    "strokePx": {
+      "normal": 2,
+      "emphasis": 3
+    },
+    "spacingPx": [
+      4,
+      8,
+      12,
+      16,
+      24,
+      32
+    ],
+    "motionMs": {
+      "tap": 110,
+      "card": 180,
+      "reward": 320
+    },
+    "minimumVisibleIconPx": 24,
+    "mobileTargetTouchPx": 60
+  },
+  "typography": {
+    "strategy": "Roboto/Gotham or another Roblox built-in FontFace verified in Studio; no uploaded font assumed",
+    "headingWeight": "Bold",
+    "bodyWeight": "Medium",
+    "minimumCaptionPx": "evaluate on devices; prefer >=14 screen px, verify Roblox text scale"
+  },
+  "uxRules": {
+    "onePrimaryCta": true,
+    "oneLargeAlertAtTime": true,
+    "coreButtons": [
+      "HIT",
+      "ACT"
+    ],
+    "dailyCardsMax": 3,
+    "firstSessionForcedPurchase": false,
+    "neverCoverJoystick": true,
+    "testAspectRatios": [
+      "9:19.5",
+      "16:9",
+      "4:3"
+    ],
+    "requiresKeyboardGamepadTouch": true
+  },
+  "artRules": {
+    "maxPrincipalColorsPerProp": 5,
+    "modelStyle": "chunky rounded low-poly cartoon toy-food, no gore",
+    "maxTrianglesSuggestion": {
+      "smallProp": 1000,
+      "zombie": 3500,
+      "boss": 6000,
+      "simpleAccessory": 1000
+    },
+    "maxTextureEdgeSuggestion": {
+      "default": 512,
+      "heroOnApproval": 1024
+    }
+  },
+  "notes": "All values are proposed internal targets, NOT Roblox limits; validate with Studio, device profiler and owner before approval."
+}

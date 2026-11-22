@@ -30,6 +30,13 @@ Este es el **código del juego**, NO la biblioteca de conocimiento. Consultar el
 - Antes de desarrollar progreso/recompensas/música, abrir `docs/REWARDS_DAILY_AUDIO_V04.md`.
 - Los valores numéricos son hipótesis de playtest. No implementar estos sistemas en bloque por existir especificaciones; seguir gates de `docs/ROADMAP.md`.
 
+## Arte, UI, UGC y modelado 3D con GPT/Claude — leer por tarea
+
+- Director de arte canónico: [docs/ART_DIRECTION_AI_ASSETS_V05.md](docs/ART_DIRECTION_AI_ASSETS_V05.md), colores/escala/estilo en `art/design_tokens.json`, registro fuente/licencia/estado en `art/asset_manifest.json`.
+- Brief por asset: `art/ASSET_BRIEF_TEMPLATE.md`; prompts especializados para ambos modelos: `art/AI_ASSET_PROMPTS.md`. Playbook universal en `roblox-vault/Playbooks/Roblox-Visual-Production-UGC-UI-3D-AI.md`.
+- **No confundir referencia/render PNG con mesh editable .blend/.fbx, ni mockup Figma con botones Roblox funcionales.** Estado `APPROVED` requiere fuente real, export/QA, derechos y verificación en Studio/móvil.
+- Los budgets/colores/nombres del diseño son **propuestas**, no resultados probados. No publicar UGC Marketplace, activar compras ni instalar plugins no auditados sin permiso expreso. Primero P0 funcional y divertido.
+
 ## Regla permanente de sincronización (solicitud del propietario 21/11/2026)
 
 Antes y después de **cada cambio autorizado**, seguir `docs/SYNC_POLICY.md`: comprobar `git status` y remoto, actualizar archivos de decisiones/changelog, ejecutar QA, hacer commit y push a `ortizfram/DEFEND_THE_PIZZA_GAME` cuando el remoto exista. Para conocimiento general, actualizar el `roblox-vault` por separado y enlazar. No afirmar push si no se verificó el commit remoto. No forzar ni sobrescribir trabajo ajeno. Sin remoto/credenciales, marcar `NO SINCRONIZADO` y proporcionar artefacto local. Git no sustituye la sincronización comprobada con Roblox Studio.

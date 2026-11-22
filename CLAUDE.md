@@ -9,3 +9,7 @@ Cuando se autorice P0: construir lo mínimo para demostrar que golpear enemigos 
 **Separación:** `ortizfram/roblox-vault` = conocimiento; este repo = código real. No escribir código de juego en el vault.
 
 **Regla persistente:** al iniciar trabajo, verificar el remoto/estado; al terminar, registrar pruebas/decisiones, commit y push verificado con `tools/sync_repo.ps1` si GitHub está configurado. Nunca hacer force-push, auto-reset ni afirmar que GitHub equivale a Roblox Studio LIVE. Si no se puede subir, devolver `NO SINCRONIZADO` con causa.
+
+## Para cualquier tarea de UI / modelado / arte
+
+Antes de editar, leer `docs/ART_DIRECTION_AI_ASSETS_V05.md`, `art/design_tokens.json`, `art/asset_manifest.json`, `art/ASSET_BRIEF_TEMPLATE.md` y el prompt puntual `art/AI_ASSET_PROMPTS.md`. GPT dirige y hace QA de briefs; Claude sólo puede decir que **generó un .blend/.fbx/UI funcional** si efectivamente produjo y verificó ese archivo/objeto. Si falta Blender o Studio, entregar script/pasos auditables con estado PARCIAL. Respetar derechos, performance móvil, naming, pivot, colisiones, safe areas y botones reales. Guardar fuente/export y actualizar manifest/QA antes de commit/push; no comenzar por cosméticos ni UGC antes del P0 de pizza/espátula/zombie.

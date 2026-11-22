@@ -13,4 +13,6 @@ jobs:
         with:
           python-version: '3.12'
       - name: Validate starter project
-        run: python tools/validate_scaffold.py
+        run: |
+          python tools/validate_scaffold.py
+          python tools/validate_art_manifest.py
