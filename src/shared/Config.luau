@@ -24,9 +24,9 @@ local Config = {
         -- Slam (overhead only): downward speed first, then the bounce after SlamDelay seconds.
         -- Damage is identical for all three swings; only the style of the reaction changes.
         Swing = {
-            { Reach = 7.0, ArcDeg = 35, Push = 1.15, Hop = 0, Lateral = 0, KillSpeed = 30, KillUp = 24, Spin = "Forward", SpinSpeed = 5, Slam = 34, SlamDelay = 0.1 },
-            { Reach = 7.0, ArcDeg = 30, Push = 1.0, Hop = 2.2, Lateral = 0, KillSpeed = 24, KillUp = 52, Spin = "Forward", SpinSpeed = 9 },
-            { Reach = 7.5, ArcDeg = 65, Push = 1.0, Hop = 0, Lateral = 0.95, KillSpeed = 40, KillUp = 18, Spin = "Yaw", SpinSpeed = 10 },
+            { Reach = 8.0, ArcDeg = 45, Push = 1.15, Hop = 0, Lateral = 0, KillSpeed = 30, KillUp = 24, Spin = "Forward", SpinSpeed = 5, Slam = 34, SlamDelay = 0.1 },
+            { Reach = 8.0, ArcDeg = 40, Push = 1.0, Hop = 2.2, Lateral = 0, KillSpeed = 24, KillUp = 52, Spin = "Forward", SpinSpeed = 9 },
+            { Reach = 8.0, ArcDeg = 65, Push = 1.0, Hop = 0, Lateral = 0.95, KillSpeed = 40, KillUp = 18, Spin = "Yaw", SpinSpeed = 10 },
         },
     },
 }

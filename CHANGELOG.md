@@ -56,7 +56,7 @@
 - Documentos `PLAYER_JOURNEY_UI_V04.md`, `COMBAT_PHYSICS_ANIMATION_V04.md`, `REWARDS_DAILY_AUDIO_V04.md` + vínculos a decisiones, roadmap y analytics. **Solo documentación; no implementado en Studio ni productos creados.**
 
 ## Combate V0.7.1 — pulido y QA del combo, 2026-11-22
-- **Hitbox por arco** (`src/shared/SpatulaHit.luau`, probado en CI): cada swing sólo alcanza zombis dentro de su arco frontal y alcance (overhead ±35°/7, uppercut ±30°/7, side ±65°/7,5 studs). Un rayo del servidor (`RespectCanCollide`) impide golpear a través de paredes, postes y la persiana cerrada. Cada swing daña a un zombi como máximo una vez.
+- **Hitbox por arco** (`src/shared/SpatulaHit.luau`, probado en CI): cada swing sólo alcanza zombis dentro de su arco frontal y alcance (overhead ±45°, uppercut ±40°, side ±65°, alcance 8 studs en los tres; ampliados a petición del propietario: el daño no exige tocar con la hoja). Un rayo del servidor (`RespectCanCollide`) impide golpear a través de paredes, postes y la persiana cerrada. Cada swing daña a un zombi como máximo una vez.
 - **Remates**: siempre vuelan en sentido contrario a la pizza. Overhead = golpe descendente + rebote bajo; uppercut = vuelo alto (+7 studs); side = lanzamiento lateral con giro. Los miembros del ragdoll ahora colisionan con el suelo (grupo de colisión propio, sin colisión entre piezas).
 - **Táctil**: el botón HIT (45 px) quedaba debajo del botón de salto en teléfonos; ahora mide ≥64 px y se coloca a su izquierda.
 - Probado en Studio (servidor + 1 cliente, simulador de iPhone 17 Pro y Galaxy A06). **No se probó** con dos clientes reales, toque físico ni mando físico, y los sonidos no pudieron escucharse. Detalle en `docs/COMBAT_TUNING_PVZ_V06.md`.
