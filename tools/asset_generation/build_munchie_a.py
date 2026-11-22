@@ -118,7 +118,9 @@ def build():
 
 def main():
     scene, rig = build()
+    palette = mc.apply_palette(rig, ROOT)
     stats = mc.mesh_stats(rig, "A_MunchieRound", {
+        "palette": palette,
         "colorsHex": {"skin": "#77CA63", "belly": "#59C9BE", "bib": "#EF5A4C", "eyes/teeth": "#FFFFFF",
                       "pupils/mouth/hair/feet": "#233142"},
         "uniqueMotif": "tomato napkin bib (hungry eater), single hair curl",

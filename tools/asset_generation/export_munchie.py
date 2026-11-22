@@ -57,6 +57,8 @@ def mesh_qa():
         "facesPointingTowardPartCenter": inward,
         "inwardNote": "heuristic per part; small non-zero counts on concave/bent shapes are expected",
         "materials": sorted(mats),
+        "images": sorted(f"{i.name} {i.size[0]}x{i.size[1]} packed={bool(i.packed_file)}"
+                         for i in bpy.data.images if i.size[0] > 0),
         "sizeWxDxH": [round(a, 3) for a in (hi - lo)],
         "boundsMinZ": round(lo.z, 3),
     }
@@ -105,10 +107,11 @@ def main():
         report["exports"][importer] = qa
     s = report["source"]
     for k, e in report["exports"].items():
-        e["matchesSource"] = (e["triangles"] == s["triangles"] and e["meshObjects"] == s["meshObjects"]
+        e["textureTravelled"] = any("Palette" in i for i in e["images"])
+        e["matchesSource"] = e["textureTravelled"] and (e["triangles"] == s["triangles"] and e["meshObjects"] == s["meshObjects"]
                               and all(abs(a - b) < 0.01 for a, b in zip(e["sizeWxDxH"], s["sizeWxDxH"])))
     mc.write_json(os.path.join(ROOT, "art", "qa", f"{name}_export_qa.json"), report)
-    print("DTP_RESULT", {k: (v["triangles"], v["sizeWxDxH"], v["matchesSource"]) for k, v in report["exports"].items()})
+    print("DTP_RESULT", {k: (v["triangles"], v["sizeWxDxH"], v["images"], v["matchesSource"]) for k, v in report["exports"].items()})
 
 
 def mesh_qa_for(col):

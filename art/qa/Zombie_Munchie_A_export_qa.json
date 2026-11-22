@@ -12,11 +12,10 @@
     "facesPointingTowardPartCenter": 78,
     "inwardNote": "heuristic per part; small non-zero counts on concave/bent shapes are expected",
     "materials": [
-      "M_Munchie_BellyMint",
-      "M_Munchie_BibTomato",
-      "M_Munchie_DarkSlate",
-      "M_Munchie_EyeWhite",
-      "M_Munchie_SkinGreen"
+      "M_Munchie_Palette"
+    ],
+    "images": [
+      "T_Munchie_Palette 256x256 packed=True"
     ],
     "sizeWxDxH": [
       3.263,
@@ -36,11 +35,10 @@
       "facesPointingTowardPartCenter": 78,
       "inwardNote": "heuristic per part; small non-zero counts on concave/bent shapes are expected",
       "materials": [
-        "M_Munchie_BellyMint",
-        "M_Munchie_BibTomato",
-        "M_Munchie_DarkSlate",
-        "M_Munchie_EyeWhite",
-        "M_Munchie_SkinGreen"
+        "M_Munchie_Palette"
+      ],
+      "images": [
+        "T_Munchie_Palette 256x256 packed=True"
       ],
       "sizeWxDxH": [
         3.263,
@@ -49,7 +47,8 @@
       ],
       "boundsMinZ": -0.0,
       "file": "art/export/Zombie_Munchie_A.fbx",
-      "bytes": 116108,
+      "bytes": 134844,
+      "textureTravelled": true,
       "matchesSource": true
     },
     "gltf": {
@@ -62,11 +61,10 @@
       "facesPointingTowardPartCenter": 143,
       "inwardNote": "heuristic per part; small non-zero counts on concave/bent shapes are expected",
       "materials": [
-        "M_Munchie_BellyMint",
-        "M_Munchie_BibTomato",
-        "M_Munchie_DarkSlate",
-        "M_Munchie_EyeWhite",
-        "M_Munchie_SkinGreen"
+        "M_Munchie_Palette"
+      ],
+      "images": [
+        "T_Munchie_Palette 256x256 packed=True"
       ],
       "sizeWxDxH": [
         3.263,
@@ -75,7 +73,8 @@
       ],
       "boundsMinZ": -0.0,
       "file": "art/export/Zombie_Munchie_A.glb",
-      "bytes": 76992,
+      "bytes": 93932,
+      "textureTravelled": true,
       "matchesSource": true
     }
   }

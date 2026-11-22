@@ -67,7 +67,12 @@
         "art/qa/studio/A_vs_R15_scale.jpg",
         "art/qa/studio/A_rig_pose_test.jpg",
         "art/qa/studio/A_rig_neutral.jpg",
-        "tools/studio/rig_munchie_a.luau"
+        "tools/studio/rig_munchie_a.luau",
+        "art/source/textures/T_Munchie_Palette.png",
+        "tools/studio/munchie_animations.luau",
+        "art/qa/studio/A_anim_HitReaction_t008.jpg",
+        "art/qa/studio/A_anim_Knockback_t025.jpg",
+        "art/qa/studio/A_anim_Defeat_v1_floorclip.jpg"
       ],
       "rightsNote": "100% procedural geometry from repo scripts (tools/asset_generation/). No third-party meshes, textures, add-ons or paid tools. Owner may re-confirm.",
       "brief": "art/briefs/DTP-3D-003_Zombie_Munchie.md",
@@ -81,7 +86,7 @@
           "script": "tools/asset_generation/build_munchie_a.py",
           "triangles": 3364,
           "meshParts": 21,
-          "materials": 5,
+          "materials": 1,
           "sizeStuds_WxDxH": [
             3.263,
             3.374,
@@ -103,7 +108,7 @@
           "script": "tools/asset_generation/build_munchie_b.py",
           "triangles": 3104,
           "meshParts": 23,
-          "materials": 5,
+          "materials": 1,
           "sizeStuds_WxDxH": [
             2.527,
             3.382,
@@ -118,10 +123,10 @@
         }
       ],
       "qaPending": [
-        "7 animations (Idle, Walk, PizzaBite, AttackChef, HitReaction, Knockback, Defeat)",
-        "server-authoritative NPC (P0)",
-        "mobile device test",
-        "colors live only in the Studio copy: fix via palette texture or vertex colors before re-import"
+        "re-import palette FBX in Studio to confirm colors survive",
+        "polish + publish 7 animations (owner, Animation Editor)",
+        "server-authoritative NPC (P0, needs owner go-ahead)",
+        "mobile device test"
       ],
       "chosenVariant": "A",
       "studioTest": {
@@ -139,6 +144,22 @@
         "r15DummyHeight": 5.183,
         "colorsDropped": "importer left default grey; restored token colors per part in Studio (SmoothPlastic)",
         "rig": "Motor6D rigid: HumanoidRootPart + Humanoid/Animator, 12 Motor6D (Root + 11 joints), 9 WeldConstraints, 22 parts connected, drift 1e-7"
+      },
+      "paletteTexture": "art/source/textures/T_Munchie_Palette.png",
+      "animations": {
+        "source": "tools/studio/munchie_animations.luau",
+        "studioLocation": "ServerStorage.RBX_ANIMSAVES.Zombie_Munchie_A (place not saved by Claude)",
+        "list": [
+          "Idle 1.6s loop",
+          "Walk 0.8s loop (Footstep@0,0.4)",
+          "PizzaBite 0.9s (Bite@0.55)",
+          "AttackChef 1.2s (HitWindow@0.5)",
+          "HitReaction 0.45s",
+          "Knockback 0.5s loop",
+          "Defeat 0.8s (Despawn@0.8)"
+        ],
+        "published": false,
+        "status": "BLOCKOUT: key poses verified in Studio, needs polish + owner publish"
       }
     },
     {

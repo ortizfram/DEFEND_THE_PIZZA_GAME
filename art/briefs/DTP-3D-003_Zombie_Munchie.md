@@ -83,6 +83,18 @@ Ojos +~10 %, pupilas más grandes, boca más ancha con los dientes reubicados, y
 - **Rig construido** con `tools/studio/rig_munchie_a.luau`: HumanoidRootPart (caja invisible 2.4 × 2.4 × 2, anclada, colisión única) + Humanoid (HipHeight 1.15) + Animator, **12 Motor6D** (Root, Neck, Right/LeftShoulder, Elbow, Wrist, Right/LeftHip, Ankle), 9 WeldConstraints para los detalles. Las 22 piezas quedaron conectadas a la raíz y nada se desplazó (1e-7 studs). Las MeshParts tienen CanCollide=false y CanQuery=true.
 - **Prueba de juntas:** se aplicó una pose de prueba (cabeza atrás, brazos y pierna) y luego se restauró la pose neutra (error 1e-7). Capturas: `art/qa/studio/A_rig_pose_test.jpg`, `A_rig_neutral.jpg`.
 
+## Palette texture (2026-11-22)
+- Los materiales planos se reemplazaron por **un solo material `M_Munchie_Palette`** que muestrea `art/source/textures/T_Munchie_Palette.png` (256 px, cuadrícula 4×4 de celdas de 64 px, interpolación Closest). Las UV de cada pieza apuntan al centro de su celda. Orden fijo: zombieGreen, mint, tomato, white, stroke, paleGreenDerived, primary, background.
+- Ventajas: los colores viajan **dentro** del FBX/GLB (verificado al re-importar en Blender: `T_Munchie_Palette 256x256` empaquetada en ambos), hay 1 material y menos draw calls, y es reutilizable para Runner/Big Eater.
+- Para editar colores: cambiar `PALETTE` en `munchie_common.py` y regenerar con `run_all.ps1`.
+- **Pendiente:** re-importar el FBX nuevo en Studio para confirmar que el Importer crea la textura.
+
+## Animaciones blockout (2026-11-22)
+- `tools/studio/munchie_animations.luau` crea 7 KeyframeSequences en `ServerStorage.RBX_ANIMSAVES.Zombie_Munchie_A`, donde el Animation Editor las encuentra para pulirlas y publicarlas.
+- Verificado en Studio en su pose clave: HitReaction t=0.08 (`art/qa/studio/A_anim_HitReaction_t008.jpg`), Knockback t=0.25 (`A_anim_Knockback_t025.jpg`) y Defeat t=0.8.
+- **Defeat v1 atravesaba el piso unos 0.35 studs** (`A_anim_Defeat_v1_floorclip.jpg`). Se corrigió por raycast: la superficie más baja queda 0.02–0.09 studs sobre el piso.
+- **No publicadas:** publicarlas crea assets de animación en la cuenta del propietario y es un paso manual.
+
 ## Rig (plan original; construido el 2026-11-22, ver arriba)
 **Tipo:** rig rígido segmentado con **Motor6D** (sin skinning). Cada segmento es un MeshPart y los detalles se sueldan a su segmento con WeldConstraint. Es la forma más barata y robusta para un NPC que recibe impulsos de física; el skinning puede venir después si el polish lo pide.
 
@@ -126,7 +138,9 @@ Las animaciones de Roblox no escalan partes; el *squash* se simula con la pose (
 - [x] Aprobación del propietario: A (2026-11-22)
 - [x] Import en Roblox Studio y escala vs avatar (Place del juego, 2026-11-22; colores restaurados a mano)
 - [x] Rig Motor6D (12 Motor6D, probado con una pose)
-- [ ] 7 animaciones
-- [ ] Colores persistentes en el export (palette texture o vertex colors)
+- [x] 7 animaciones blockout creadas y con su pose clave verificada (sin publicar)
+- [x] Palette texture embebida en FBX/GLB (re-importado en Blender)
+- [ ] Confirmar la palette en Studio (re-import)
+- [ ] Pulir y publicar las animaciones (propietario)
 - [ ] NPC P0 con server autoritativo + analítica
 - [ ] Prueba en dispositivo móvil real

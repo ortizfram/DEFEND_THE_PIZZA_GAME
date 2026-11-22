@@ -6,13 +6,9 @@
   "totalTriangles": 3104,
   "partCount": 23,
   "materials": [
-    "M_Noodle_DarkSlate",
-    "M_Noodle_EyeWhite",
-    "M_Noodle_ShortsMint",
-    "M_Noodle_SkinPaleGreen",
-    "M_Noodle_TongueTomato"
+    "M_Munchie_Palette"
   ],
-  "materialCount": 5,
+  "materialCount": 1,
   "nonManifoldEdgesTotal": 0,
   "boundsMin": [
     -1.264,
@@ -39,7 +35,7 @@
         2.5
       ],
       "parent": "Zombie_Munchie_B",
-      "material": "M_Noodle_ShortsMint"
+      "material": "M_Munchie_Palette"
     },
     "UpperTorso": {
       "tris": 196,
@@ -50,7 +46,7 @@
         2.75
       ],
       "parent": "LowerTorso",
-      "material": "M_Noodle_SkinPaleGreen"
+      "material": "M_Munchie_Palette"
     },
     "Neck": {
       "tris": 48,
@@ -61,7 +57,7 @@
         4.45
       ],
       "parent": "UpperTorso",
-      "material": "M_Noodle_SkinPaleGreen"
+      "material": "M_Munchie_Palette"
     },
     "Head": {
       "tris": 396,
@@ -72,7 +68,7 @@
         4.95
       ],
       "parent": "Neck",
-      "material": "M_Noodle_SkinPaleGreen"
+      "material": "M_Munchie_Palette"
     },
     "Eye_R": {
       "tris": 168,
@@ -83,7 +79,7 @@
         5.82
       ],
       "parent": "Head",
-      "material": "M_Noodle_EyeWhite"
+      "material": "M_Munchie_Palette"
     },
     "Eye_L": {
       "tris": 120,
@@ -94,7 +90,7 @@
         6.0
       ],
       "parent": "Head",
-      "material": "M_Noodle_EyeWhite"
+      "material": "M_Munchie_Palette"
     },
     "Pupils": {
       "tris": 128,
@@ -105,7 +101,7 @@
         5.9
       ],
       "parent": "Head",
-      "material": "M_Noodle_DarkSlate"
+      "material": "M_Munchie_Palette"
     },
     "Mouth": {
       "tris": 140,
@@ -116,7 +112,7 @@
         5.0
       ],
       "parent": "Head",
-      "material": "M_Noodle_DarkSlate"
+      "material": "M_Munchie_Palette"
     },
     "Jaw": {
       "tris": 120,
@@ -127,7 +123,7 @@
         4.95
       ],
       "parent": "Head",
-      "material": "M_Noodle_SkinPaleGreen"
+      "material": "M_Munchie_Palette"
     },
     "Teeth": {
       "tris": 108,
@@ -138,7 +134,7 @@
         4.73
       ],
       "parent": "Jaw",
-      "material": "M_Noodle_EyeWhite"
+      "material": "M_Munchie_Palette"
     },
     "Tongue": {
       "tris": 48,
@@ -149,7 +145,7 @@
         4.64
       ],
       "parent": "Jaw",
-      "material": "M_Noodle_TongueTomato"
+      "material": "M_Munchie_Palette"
     },
     "RightUpperArm": {
       "tris": 80,
@@ -160,7 +156,7 @@
         4.05
       ],
       "parent": "UpperTorso",
-      "material": "M_Noodle_SkinPaleGreen"
+      "material": "M_Munchie_Palette"
     },
     "RightLowerArm": {
       "tris": 80,
@@ -171,7 +167,7 @@
         3.75
       ],
       "parent": "RightUpperArm",
-      "material": "M_Noodle_SkinPaleGreen"
+      "material": "M_Munchie_Palette"
     },
     "RightHand": {
       "tris": 244,
@@ -182,7 +178,7 @@
         3.55
       ],
       "parent": "RightLowerArm",
-      "material": "M_Noodle_SkinPaleGreen"
+      "material": "M_Munchie_Palette"
     },
     "LeftUpperArm": {
       "tris": 80,
@@ -193,7 +189,7 @@
         4.05
       ],
       "parent": "UpperTorso",
-      "material": "M_Noodle_SkinPaleGreen"
+      "material": "M_Munchie_Palette"
     },
     "LeftLowerArm": {
       "tris": 80,
@@ -204,7 +200,7 @@
         3.05
       ],
       "parent": "LeftUpperArm",
-      "material": "M_Noodle_SkinPaleGreen"
+      "material": "M_Munchie_Palette"
     },
     "LeftHand": {
       "tris": 244,
@@ -215,7 +211,7 @@
         1.95
       ],
       "parent": "LeftLowerArm",
-      "material": "M_Noodle_SkinPaleGreen"
+      "material": "M_Munchie_Palette"
     },
     "RightUpperLeg": {
       "tris": 80,
@@ -226,7 +222,7 @@
         2.45
       ],
       "parent": "LowerTorso",
-      "material": "M_Noodle_SkinPaleGreen"
+      "material": "M_Munchie_Palette"
     },
     "RightLowerLeg": {
       "tris": 80,
@@ -237,7 +233,7 @@
         1.35
       ],
       "parent": "RightUpperLeg",
-      "material": "M_Noodle_SkinPaleGreen"
+      "material": "M_Munchie_Palette"
     },
     "RightFoot": {
       "tris": 168,
@@ -248,7 +244,7 @@
         0.38
       ],
       "parent": "RightLowerLeg",
-      "material": "M_Noodle_DarkSlate"
+      "material": "M_Munchie_Palette"
     },
     "LeftUpperLeg": {
       "tris": 80,
@@ -259,7 +255,7 @@
         2.45
       ],
       "parent": "LowerTorso",
-      "material": "M_Noodle_SkinPaleGreen"
+      "material": "M_Munchie_Palette"
     },
     "LeftLowerLeg": {
       "tris": 80,
@@ -270,7 +266,7 @@
         1.35
       ],
       "parent": "LeftUpperLeg",
-      "material": "M_Noodle_SkinPaleGreen"
+      "material": "M_Munchie_Palette"
     },
     "LeftFoot": {
       "tris": 168,
@@ -281,7 +277,130 @@
         0.38
       ],
       "parent": "LeftLowerLeg",
-      "material": "M_Noodle_DarkSlate"
+      "material": "M_Munchie_Palette"
+    }
+  },
+  "palette": {
+    "texture": "art/source/textures/T_Munchie_Palette.png",
+    "size": 256,
+    "grid": 4,
+    "material": "M_Munchie_Palette",
+    "parts": {
+      "LowerTorso": {
+        "paletteIndex": 1,
+        "key": "mint",
+        "hex": "#59C9BE"
+      },
+      "UpperTorso": {
+        "paletteIndex": 5,
+        "key": "paleGreenDerived",
+        "hex": "#ADDC97"
+      },
+      "Neck": {
+        "paletteIndex": 5,
+        "key": "paleGreenDerived",
+        "hex": "#ADDC97"
+      },
+      "Head": {
+        "paletteIndex": 5,
+        "key": "paleGreenDerived",
+        "hex": "#ADDC97"
+      },
+      "Eye_R": {
+        "paletteIndex": 3,
+        "key": "white",
+        "hex": "#FFFFFF"
+      },
+      "Eye_L": {
+        "paletteIndex": 3,
+        "key": "white",
+        "hex": "#FFFFFF"
+      },
+      "Pupils": {
+        "paletteIndex": 4,
+        "key": "stroke",
+        "hex": "#233142"
+      },
+      "Mouth": {
+        "paletteIndex": 4,
+        "key": "stroke",
+        "hex": "#233142"
+      },
+      "Jaw": {
+        "paletteIndex": 5,
+        "key": "paleGreenDerived",
+        "hex": "#ADDC97"
+      },
+      "Teeth": {
+        "paletteIndex": 3,
+        "key": "white",
+        "hex": "#FFFFFF"
+      },
+      "Tongue": {
+        "paletteIndex": 2,
+        "key": "tomato",
+        "hex": "#EF5A4C"
+      },
+      "RightUpperArm": {
+        "paletteIndex": 5,
+        "key": "paleGreenDerived",
+        "hex": "#ADDC97"
+      },
+      "RightLowerArm": {
+        "paletteIndex": 5,
+        "key": "paleGreenDerived",
+        "hex": "#ADDC97"
+      },
+      "RightHand": {
+        "paletteIndex": 5,
+        "key": "paleGreenDerived",
+        "hex": "#ADDC97"
+      },
+      "LeftUpperArm": {
+        "paletteIndex": 5,
+        "key": "paleGreenDerived",
+        "hex": "#ADDC97"
+      },
+      "LeftLowerArm": {
+        "paletteIndex": 5,
+        "key": "paleGreenDerived",
+        "hex": "#ADDC97"
+      },
+      "LeftHand": {
+        "paletteIndex": 5,
+        "key": "paleGreenDerived",
+        "hex": "#ADDC97"
+      },
+      "RightUpperLeg": {
+        "paletteIndex": 5,
+        "key": "paleGreenDerived",
+        "hex": "#ADDC97"
+      },
+      "RightLowerLeg": {
+        "paletteIndex": 5,
+        "key": "paleGreenDerived",
+        "hex": "#ADDC97"
+      },
+      "RightFoot": {
+        "paletteIndex": 4,
+        "key": "stroke",
+        "hex": "#233142"
+      },
+      "LeftUpperLeg": {
+        "paletteIndex": 5,
+        "key": "paleGreenDerived",
+        "hex": "#ADDC97"
+      },
+      "LeftLowerLeg": {
+        "paletteIndex": 5,
+        "key": "paleGreenDerived",
+        "hex": "#ADDC97"
+      },
+      "LeftFoot": {
+        "paletteIndex": 4,
+        "key": "stroke",
+        "hex": "#233142"
+      }
     }
   },
   "colorsHex": {

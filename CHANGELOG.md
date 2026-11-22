@@ -24,6 +24,12 @@
 - Economía Coins/XP, tres daily quests fáciles, reset UTC/guardado seguro, bandas de recompensa, dirección musical original, SFX por contacto y settings de accesibilidad.
 - Documentos `PLAYER_JOURNEY_UI_V04.md`, `COMBAT_PHYSICS_ANIMATION_V04.md`, `REWARDS_DAILY_AUDIO_V04.md` + vínculos a decisiones, roadmap y analytics. **Solo documentación; no implementado en Studio ni productos creados.**
 
+## DTP-3D-003 — Palette texture + 7 animaciones blockout, 2026-11-22
+- `munchie_common.apply_palette`: 1 material + `art/source/textures/T_Munchie_Palette.png` (256 px). Los colores viajan dentro del FBX/GLB (verificado al re-importar en Blender). A y B regenerados; renders sin cambios visuales.
+- `tools/studio/munchie_animations.luau`: Idle, Walk, PizzaBite, AttackChef, HitReaction, Knockback y Defeat, con markers Footstep/Bite/HitWindow/Despawn, en `ServerStorage.RBX_ANIMSAVES`. Poses clave verificadas en Studio; corregido Defeat, que atravesaba el piso.
+- Aprendizaje: la vista previa con `StepAnimations` en modo Edit deja estado en los Motor6D; el rig se restauró (C0/C1 re-resueltos y Motor6D recreados).
+- Sin publicar animaciones ni guardar el Place. NPC del servidor pendiente de autorización P0.
+
 ## DTP-3D-003 — Import en Studio + rig Motor6D, 2026-11-22
 - El propietario importó `Zombie_Munchie_A.fbx` en el Place "Defend The Pizza". Claude verificó por MCP: 21 MeshParts, 3.26 × 4.74 × 3.37 studs (igual que Blender), orientación correcta y 91 % de la altura de un dummy R15.
 - El Importer descartó los colores; se restauraron los tokens por pieza en Studio. Se movió el modelo fuera del SpawnLocation.

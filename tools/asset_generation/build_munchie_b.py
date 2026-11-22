@@ -126,7 +126,9 @@ def build():
 
 def main():
     scene, rig = build()
+    palette = mc.apply_palette(rig, ROOT)
     stats = mc.mesh_stats(rig, "B_MunchieNoodle", {
+        "palette": palette,
         "colorsHex": {"skin": PALE_GREEN + " (derived)", "shorts": "#59C9BE", "tongue": "#EF5A4C",
                       "eyes/teeth": "#FFFFFF", "pupils/mouth/shoes": "#233142"},
         "uniqueMotif": "hanging open jaw with dangling tongue, huge upturned shoes",

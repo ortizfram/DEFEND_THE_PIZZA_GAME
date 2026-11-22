@@ -169,6 +169,91 @@ class Rig:
         return obj
 
 
+# ---------------------------------------------------------------- palette texture
+# Roblox's 3D Importer drops flat material colors (verified in Studio 2026-11-22), so every
+# part samples one shared palette PNG instead. 4x4 grid of 64 px cells (mipmap-safe), each UV
+# collapsed to its cell centre. Order is fixed: index -> (key, hex). Never reorder, only append.
+PALETTE = [
+    ("zombieGreen", "#77CA63"),
+    ("mint", "#59C9BE"),
+    ("tomato", "#EF5A4C"),
+    ("white", "#FFFFFF"),
+    ("stroke", "#233142"),
+    ("paleGreenDerived", "#ADDC97"),
+    ("primary", "#FFD166"),
+    ("background", "#FFF7E7"),
+]
+PALETTE_GRID = 4
+PALETTE_SIZE = 256
+PALETTE_REL = "art/source/textures/T_Munchie_Palette.png"
+
+
+def _palette_uv(index):
+    col, row = index % PALETTE_GRID, index // PALETTE_GRID  # row counted from the bottom
+    return ((col + 0.5) / PALETTE_GRID, (row + 0.5) / PALETTE_GRID)
+
+
+def palette_image(root_dir):
+    path = os.path.join(root_dir, *PALETTE_REL.split("/"))
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    img = bpy.data.images.new("T_Munchie_Palette", PALETTE_SIZE, PALETTE_SIZE, alpha=False)
+    cell = PALETTE_SIZE // PALETTE_GRID
+    px = [0.5, 0.5, 0.5, 1.0] * (PALETTE_SIZE * PALETTE_SIZE)  # unused cells: neutral grey
+    for i, (_key, hexcol) in enumerate(PALETTE):
+        h = hexcol.lstrip("#")
+        rgb = [int(h[k:k + 2], 16) / 255.0 for k in (0, 2, 4)]  # byte image: sRGB values
+        c0, r0 = (i % PALETTE_GRID) * cell, (i // PALETTE_GRID) * cell
+        for y in range(r0, r0 + cell):
+            base = (y * PALETTE_SIZE + c0) * 4
+            for x in range(cell):
+                px[base + x * 4:base + x * 4 + 4] = rgb + [1.0]
+    img.pixels[:] = px
+    img.filepath_raw = path
+    img.file_format = "PNG"
+    img.save()
+    img.filepath = path
+    img.pack()  # .blend stays self-contained
+    # relative to art/source/*.blend once saved
+    img.filepath = "//" + os.path.relpath(path, os.path.join(root_dir, "art", "source")).replace("\\", "/")
+    return img
+
+
+def apply_palette(rig, root_dir, mat_name="M_Munchie_Palette"):
+    """Replace each part's flat material with one palette material + collapsed UVs."""
+    img = palette_image(root_dir)
+    mat = bpy.data.materials.new(mat_name)
+    try:
+        mat.use_nodes = True
+    except Exception:
+        pass
+    nt = mat.node_tree
+    bsdf = next(n for n in nt.nodes if n.type == "BSDF_PRINCIPLED")
+    bsdf.inputs["Roughness"].default_value = 0.55
+    tex = nt.nodes.new("ShaderNodeTexImage")
+    tex.image = img
+    tex.interpolation = "Closest"
+    nt.links.new(tex.outputs["Color"], bsdf.inputs["Base Color"])
+    by_hex = {hexcol.upper(): i for i, (_k, hexcol) in enumerate(PALETTE)}
+    assignment = {}
+    for name, obj in rig.parts.items():
+        old = obj.data.materials[0]
+        hexcol = str(old.get("source_hex", "")).upper()
+        assert hexcol in by_hex, f"{name}: color {hexcol} missing from PALETTE"
+        idx = by_hex[hexcol]
+        u, v = _palette_uv(idx)
+        me = obj.data
+        if not me.uv_layers:
+            me.uv_layers.new(name="UVMap")
+        for loop_uv in me.uv_layers.active.data:
+            loop_uv.uv = (u, v)
+        me.materials[0] = mat
+        assignment[name] = {"paletteIndex": idx, "key": PALETTE[idx][0], "hex": hexcol}
+    for old in [m for m in bpy.data.materials if m.users == 0]:
+        bpy.data.materials.remove(old)
+    return {"texture": PALETTE_REL, "size": PALETTE_SIZE, "grid": PALETTE_GRID,
+            "material": mat_name, "parts": assignment}
+
+
 # ---------------------------------------------------------------- QA stats
 def mesh_stats(rig, variant, extra=None):
     dg = bpy.context.evaluated_depsgraph_get()
