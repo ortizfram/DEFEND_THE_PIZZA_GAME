@@ -63,7 +63,7 @@
 
 ## P0 V0.6 — nuevo balance para validar en Studio
 - [x] [COMBAT_TUNING_PVZ_V06.md](COMBAT_TUNING_PVZ_V06.md) especifica PvZ original (~3 segundos para un girasol de 300 HP), 3 mordidas compartidas por porción de pizza, golpe exagerado y ragdoll físico.
-- [ ] Compilar/regresión del cambio de Luau en GitHub Actions; verificar que no se quebró P0.
+- [x] Compilación Luau y pruebas de reglas `tests/munchie.luau` superadas en [GitHub Actions #45040447491](https://github.com/ortizfram/DEFEND_THE_PIZZA_GAME/actions/runs/45040447491), commit `d6b1c73`. **No es prueba física Studio**.
 - [ ] Probar en Studio una mordida/segundo, daño solo en tercer impacto compartido, mordidas interrumpibles, 2 clientes.
 - [ ] Probar Munchie A rig real con 2.º golpe/ragdoll, distancia visual, clipping, no desmembramiento ni lag móvil; caída visual si falta rig.
 - [ ] Ajustar swing en móvil y teclado: visible y exagerado, sin demora por lag y sin tapar cámara.

@@ -1,5 +1,9 @@
 # Changelog
 
+## Validación automática de V0.6 · 2026-11-22
+- [GitHub Actions #45040447491](https://github.com/ortizfram/DEFEND_THE_PIZZA_GAME/actions/runs/45040447491): compilación y pruebas de reglas Luau exitosas para commit `d6b1c73`. El QA de ragdoll, escala, 2 clientes y teléfono físico sigue pendiente.
+
+
 ## P0 V0.6 — combate exagerado y tres mordidas, 2026-11-22
 - Se incorporó un primer ajuste al código de Pizza Shop: tres mordidas compartidas por porción, ritmo 1 s entre mordidas de cada zombie y daño sincronizado ~0.55 s tras comenzar el clip, visuales intermedios de porción y HUD.
 - Espátula con arco de windup/snap/recovery más exagerado, empuje progresivo del primer golpe y segundo golpe con ragdoll físico de Munchie A mediante BallSocket, impulso server-side y TTL de limpieza. Fallback visual cuando el modelo real no está importado.
