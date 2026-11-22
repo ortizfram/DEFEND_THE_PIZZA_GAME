@@ -40,3 +40,11 @@ Código versionado en GitHub no equivale a que Roblox Studio haya ejecutado este
 ## Evidencia técnica del commit inicial (2026-11-22)
 - GitHub Actions **COMPLETED / SUCCESS**, run [45040447491](https://github.com/ortizfram/DEFEND_THE_PIZZA_GAME/actions/runs/45040447491), SHA `d6b1c730e84cf4984e8005e6a555cd67fc8959cc`. El workflow compiló Luau de `src/` y `tests/`, ejecutó las pruebas de `tests/munchie.luau` y validó la estructura de repositorio/manifest. Esto prueba sintaxis y reglas puras **NO** vuelo/ragdoll/UX en Roblox Studio.
 - **Siguiente verificación manual:** ejecutar con el Place correcto y rig Munchie A; solo si el ragdoll es físicamente estable, el golpe es satisfactorio y la mordida llega a 3/3 cerrar el gate.
+
+## Verificación en Studio · 22/11/2026
+- Place 122513508386436 ejecutaba 0.2.0-p0. Se respaldó mediante guardado (versión 11), sincronizó V0.6 desde GitHub y guardó la edición final en versión 12.
+- Prueba temporal con servidor y dos clientes de Studio, rig Munchie A real. Servidor observó 8/0 → 8/1 → 8/2 → 7/0 (porciones/mordidas), seguido de acumulación en otra porción.
+- Dos primeros golpes produjeron desplazamientos observados de 5.74 y 4.84 studs antes del segundo impacto; estas muestras incluyen movimiento entre frames.
+- Dos ragdolls: 11 sockets, 11 motores deshabilitados, 0 piezas ancladas y propiedad de red del servidor. Velocidades medidas tras lanzamiento de aproximadamente 40 y 44 studs/s horizontales y 13 ascendentes. Ambos clientes observaron un ragdoll y progresión replicada de porciones.
+- Las muestras de clientes omitieron estados intermedios por frecuencia de observación; no constituyen prueba de sincronización frame a frame. Distancia total de vuelo, estabilidad durante todo el TTL, interrupción del wind-up y valoración visual humana siguen pendientes.
+- Sin corrección del código de producción: el desfase verificado era la versión instalada en Studio. Scripts de prueba temporales retirados y Play finalizado. Sintaxis de scripts ejecutados validada por Studio; CI previo documentado arriba.

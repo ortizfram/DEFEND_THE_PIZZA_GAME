@@ -1,5 +1,11 @@
 # Changelog
 
+## Verificación V0.6 en Studio · 2026-11-22
+- Sincronizado Place 122513508386436 con V0.6; guardado versión 12.
+- Dos clientes observaron progresión de mordidas y ragdoll; servidor verificó tres impactos por porción, retroceso próximo a 5 studs y física con 11 sockets.
+- Limitaciones de medición en COMBAT_TUNING_PVZ_V06.md. Sin cambios al código de producción.
+
+
 ## Validación automática de V0.6 · 2026-11-22
 - [GitHub Actions #45040447491](https://github.com/ortizfram/DEFEND_THE_PIZZA_GAME/actions/runs/45040447491): compilación y pruebas de reglas Luau exitosas para commit `d6b1c73`. El QA de ragdoll, escala, 2 clientes y teléfono físico sigue pendiente.
 
