@@ -1,5 +1,6 @@
 {
   "name": "DefendThePizza",
+  "servePlaceIds": [122513508386436],
   "tree": {
     "$className": "DataModel",
     "ReplicatedStorage": {
