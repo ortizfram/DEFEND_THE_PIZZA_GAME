@@ -2,6 +2,10 @@
 
 Fecha de inicio: 2026-11-21.
 
+## Autorización de ejecución P0 — 2026-11-22
+- El propietario autorizó reimportar Munchie A con palette texture, implementar NPC servidor de 2 golpes + espátula/analítica, y publicar las 7 animaciones en Roblox. Esta autorización es para esa tarea, no para publicar la experiencia LIVE, gastar Robux ni habilitar monetización.
+- Preparación de código en rama `feat/p0-munchie-combat-20261122` (NO probado en Studio ni integrado a main). La conexión del Place y QA real siguen pendientes; ver `docs/P0_MUNCHIE_INTEGRATION.md`.
+
 ## Aprobado por el propietario
 - Nombre: **Defend the Pizza!**
 - Keyword principal `Defend` investigada por el propietario en Creator Exchange.
