@@ -9,7 +9,7 @@
     "faces": 1980,
     "nonManifoldEdges": 0,
     "zeroAreaFaces": 0,
-    "facesPointingTowardPartCenter": 81,
+    "facesPointingTowardPartCenter": 78,
     "inwardNote": "heuristic per part; small non-zero counts on concave/bent shapes are expected",
     "materials": [
       "M_Munchie_BellyMint",
@@ -33,7 +33,7 @@
       "faces": 1980,
       "nonManifoldEdges": 0,
       "zeroAreaFaces": 0,
-      "facesPointingTowardPartCenter": 81,
+      "facesPointingTowardPartCenter": 78,
       "inwardNote": "heuristic per part; small non-zero counts on concave/bent shapes are expected",
       "materials": [
         "M_Munchie_BellyMint",
@@ -49,7 +49,7 @@
       ],
       "boundsMinZ": -0.0,
       "file": "art/export/Zombie_Munchie_A.fbx",
-      "bytes": 116044,
+      "bytes": 116108,
       "matchesSource": true
     },
     "gltf": {
@@ -59,7 +59,7 @@
       "faces": 3364,
       "nonManifoldEdges": 0,
       "zeroAreaFaces": 0,
-      "facesPointingTowardPartCenter": 147,
+      "facesPointingTowardPartCenter": 143,
       "inwardNote": "heuristic per part; small non-zero counts on concave/bent shapes are expected",
       "materials": [
         "M_Munchie_BellyMint",
@@ -75,7 +75,7 @@
       ],
       "boundsMinZ": -0.0,
       "file": "art/export/Zombie_Munchie_A.glb",
-      "bytes": 77732,
+      "bytes": 76992,
       "matchesSource": true
     }
   }

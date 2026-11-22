@@ -58,7 +58,7 @@ Fecha de inicio: 2026-11-21.
 ## DTP-3D-003 Zombie Munchie — blockouts A/B reales (2026-11-22)
 - Claude Code generó en Blender 5.2.3 LTS dos fuentes editables reales y distintas: `art/source/Zombie_Munchie_A.blend` (Round, 3364 tris, 4.74 studs) y `art/source/Zombie_Munchie_B.blend` (Noodle, 3104 tris, 6.21 studs), con scripts reproducibles en `tools/asset_generation/`.
 - **Recomendación de Claude: A (Round).** B se confunde con el Runner a 100 px, pierde contraste en la cámara de juego móvil y necesita 16 juntas contra las 10 de A. Detalle en [art/briefs/DTP-3D-003_Zombie_Munchie.md](../art/briefs/DTP-3D-003_Zombie_Munchie.md).
-- **Estado: aprobación del propietario PENDIENTE.** B se conserva como base posible del Runner. A se exportó como candidato FBX/GLB, sin rig.
+- **APROBADO por el propietario (2026-11-22): Munchie = Variante A (Round).** B se conserva como base posible del Runner. A recibió un rework menor (ojos/boca más grandes, piernas separadas) y se re-exportó en FBX/GLB, todavía sin rig.
 - Convención de assets 3D: 1 BU = 1 stud (Unit System None), personaje mirando a -Y, pies en Z = 0 y origen de cada pieza en su articulación. FBX: Forward Z, Up Y, FBX Unit Scale (según la documentación de Roblox para Blender).
 - Rig propuesto para P0: Motor6D rígido segmentado (sin skinning); 7 animaciones listadas en el brief. Nada importado en Roblox Studio todavía: no había ninguna instancia conectada.
 

@@ -24,6 +24,10 @@
 - Economía Coins/XP, tres daily quests fáciles, reset UTC/guardado seguro, bandas de recompensa, dirección musical original, SFX por contacto y settings de accesibilidad.
 - Documentos `PLAYER_JOURNEY_UI_V04.md`, `COMBAT_PHYSICS_ANIMATION_V04.md`, `REWARDS_DAILY_AUDIO_V04.md` + vínculos a decisiones, roadmap y analytics. **Solo documentación; no implementado en Studio ni productos creados.**
 
+## DTP-3D-003 — Variante A aprobada, 2026-11-22
+- El propietario eligió **A — Munchie Round**. Rework menor de A (ojos y pupilas +~10 %, boca más ancha, piernas y pies más separados) y regeneración de fuente, renders, comparativa y export FBX/GLB (3364 tris, sin cambios de escala).
+- Sin import en Roblox Studio todavía (ninguna instancia conectada); sin rig ni NPC.
+
 ## DTP-3D-003 Zombie Munchie — blockouts A/B, 2026-11-22
 - Primeros archivos 3D reales: `art/source/Zombie_Munchie_A.blend` (Round) y `Zombie_Munchie_B.blend` (Noodle), generados con Blender 5.2.3 LTS por scripts propios y sin add-ons (`tools/asset_generation/`, `run_all.ps1`).
 - Renders frontales e isométricos de ambos, lineup con proxies (chef, Runner, Big Eater, pizza), silueta a ~100 px y game-cam móvil 844×390 en `art/renders/munchie/`.

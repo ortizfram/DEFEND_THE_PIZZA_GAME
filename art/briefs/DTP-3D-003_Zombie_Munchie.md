@@ -1,7 +1,7 @@
 # ASSET BRIEF + EVALUACIÓN — DTP-3D-003 Zombie Munchie (2 golpes)
 
 - **ID:** DTP-3D-003 · **Nombre:** Zombie Munchie · **Gate:** P0
-- **Estado:** `IN_PROGRESS` — blockouts editables reales A y B + export FBX/GLB de A. **No** hay QA_PASS: falta importar en Studio, el rig, las animaciones, la prueba en un dispositivo móvil y la aprobación del propietario.
+- **Estado:** `IN_PROGRESS` — **el propietario aprobó la variante A (2026-11-22)**. Blockouts editables reales A y B + export FBX/GLB de A con el rework aplicado. **No** hay QA_PASS: falta importar en Studio, el rig, las animaciones y la prueba en un dispositivo móvil.
 - **Fecha:** 2026-11-22 · **Herramienta:** Blender 5.2.3 LTS (headless, `--factory-startup`, sin add-ons) · **Implementó:** Claude Code
 - **Objetivo jugable:** enemigo común que camina hacia la pizza; el 1.er golpe lo tambalea y el 2.º lo derrota y lo lanza con física caricaturesca.
 - **Primer vistazo (3 s):** "monstruito verde, gracioso y hambriento que viene por la pizza", sin miedo ni gore.
@@ -58,9 +58,12 @@ Pruebas hechas: un render de silueta plana a 640×256, donde A mide ≈98 px de 
 4. La escala relativa (más bajo que el chef) refuerza la fantasía del chef pequeño pero poderoso.
 
 **B no se elimina:** queda como base para un futuro **Runner** o una variante Noodle (sus brazos y piernas ya son "rápidos"); si se reutiliza, conviene engrosar las extremidades y saturar el verde.
-**Aprobación del propietario: PENDIENTE.** El export de A se hizo como candidato y no implica una decisión final.
+**Aprobación del propietario: A APROBADA (2026-11-22).** B se conserva sin cambios.
 
-## Mejoras sugeridas para A antes del rig final (QA_REWORK menor)
+## Rework aplicado a A tras la aprobación (2026-11-22)
+Ojos +~10 %, pupilas más grandes, boca más ancha con los dientes reubicados, y piernas y pies separados (cadera ±0.62, tobillo ±0.70). Sin cambio de tris (3364) ni de altura (4.74). Renders y export regenerados.
+
+### Sugerencias originales
 1. Ojos y pupilas un 10 % más grandes y boca un poco más ancha: a 100 px la expresión se reduce a 2 puntos.
 2. Sacar las piernas 0.1–0.15 studs para separarlas visualmente del torso al caminar.
 3. Opcional: *palette texture* de 256 px para unir los detalles en su segmento (21 → 11 MeshParts y menos draw calls).
@@ -111,7 +114,7 @@ Las animaciones de Roblox no escalan partes; el *squash* se simula con la pose (
 - [x] Renders frontal e iso de ambas + lineup + silueta a 100 px + game-cam móvil
 - [x] Tris dentro del target interno; 0 non-manifold; pies en Z = 0; nombres y pivotes organizados
 - [x] Export FBX/GLB de A re-importado en Blender sin pérdidas
-- [ ] Aprobación del propietario (A vs B)
+- [x] Aprobación del propietario: A (2026-11-22)
 - [ ] Import en Roblox Studio (Baseplate nuevo) y escala vs avatar
 - [ ] Rig Motor6D + 7 animaciones
 - [ ] NPC P0 con server autoritativo + analítica

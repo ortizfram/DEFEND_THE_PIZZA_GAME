@@ -68,7 +68,7 @@
       "rightsNote": "100% procedural geometry from repo scripts (tools/asset_generation/). No third-party meshes, textures, add-ons or paid tools. Owner may re-confirm.",
       "brief": "art/briefs/DTP-3D-003_Zombie_Munchie.md",
       "recommendedVariant": "A",
-      "ownerApproval": "PENDING",
+      "ownerApproval": "APPROVED_A_2026-11-22",
       "variants": [
         {
           "id": "A",
@@ -109,15 +109,16 @@
             "art/renders/munchie/B_front.png",
             "art/renders/munchie/B_iso.png"
           ],
-          "exports": []
+          "exports": [],
+          "note": "Not chosen for Munchie; kept as possible Runner base"
         }
       ],
       "qaPending": [
         "Roblox Studio import + scale vs avatar (no Studio connected 2026-11-22)",
         "rig + animations",
-        "mobile device test",
-        "owner approval of A vs B"
-      ]
+        "mobile device test"
+      ],
+      "chosenVariant": "A"
     },
     {
       "id": "DTP-3D-004",

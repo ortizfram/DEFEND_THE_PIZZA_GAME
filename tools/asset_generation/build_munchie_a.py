@@ -64,21 +64,21 @@ def build():
     rig.part("Head", H(mc.blob((1.18, 1.0, 0.95), (0, -0.08, 3.38), u=20, v=12, box=0.55, shape=head_taper)),
              M["skin"], pivot=neck, parent="Body")
     # mismatched eyes: big right eye (-X), small left eye (+X) sitting higher
-    rig.part("Eye_R", H(mc.blob((0.44, 0.3, 0.46), (-0.48, -1.0, 3.58), u=14, v=8)),
+    rig.part("Eye_R", H(mc.blob((0.48, 0.32, 0.51), (-0.48, -1.0, 3.58), u=14, v=8)),
              M["white"], pivot=(-0.48, -1.0, 3.58), parent="Head", role="detail")
-    rig.part("Eye_L", H(mc.blob((0.31, 0.24, 0.33), (0.52, -1.02, 3.7), u=12, v=8)),
+    rig.part("Eye_L", H(mc.blob((0.35, 0.26, 0.37), (0.52, -1.02, 3.7), u=12, v=8)),
              M["white"], pivot=(0.52, -1.02, 3.7), parent="Head", role="detail")
-    rig.part("Pupils", [H(mc.blob((0.17, 0.07, 0.17), (-0.40, -1.27, 3.66), u=8, v=5)),
-                        H(mc.blob((0.12, 0.05, 0.12), (0.60, -1.22, 3.62), u=8, v=5))],
+    rig.part("Pupils", [H(mc.blob((0.19, 0.07, 0.19), (-0.40, -1.29, 3.66), u=8, v=5)),
+                        H(mc.blob((0.135, 0.05, 0.135), (0.61, -1.24, 3.62), u=8, v=5))],
              M["dark"], pivot=(0, -1.25, 3.64), parent="Head", role="detail")
 
     def lopsided(c):
         return Vector((c.x, c.y, c.z + 0.18 * c.x))
 
-    rig.part("Mouth", H(mc.blob((0.46, 0.18, 0.3), (0.06, -1.0, 3.0), u=10, v=8, shape=lopsided)),
+    rig.part("Mouth", H(mc.blob((0.54, 0.19, 0.33), (0.06, -1.0, 3.0), u=10, v=8, shape=lopsided)),
              M["dark"], pivot=(0.06, -1.0, 3.0), parent="Head", role="detail")
-    rig.part("Teeth", [H(mc.blob((0.11, 0.06, 0.1), (-0.12, -1.15, 3.2), u=6, v=4, box=0.6)),
-                       H(mc.blob((0.1, 0.06, 0.09), (0.2, -1.15, 3.24), u=6, v=4, box=0.6))],
+    rig.part("Teeth", [H(mc.blob((0.11, 0.06, 0.1), (-0.16, -1.16, 3.22), u=6, v=4, box=0.6)),
+                       H(mc.blob((0.1, 0.06, 0.09), (0.24, -1.16, 3.27), u=6, v=4, box=0.6))],
              M["white"], pivot=(0.04, -1.15, 3.22), parent="Head", role="detail")
     rig.part("Tongue", H(mc.blob((0.2, 0.07, 0.1), (0.14, -1.15, 2.84), u=8, v=6)),
              M["bib"], pivot=(0.14, -1.15, 2.84), parent="Head", role="detail")
@@ -109,9 +109,9 @@ def build():
     # ---------------- legs: short stubs + rounded toy feet
     for side in (-1, 1):
         s = "Right" if side < 0 else "Left"
-        hip, ankle = (side * 0.55, 0, 1.15), (side * 0.6, -0.05, 0.4)
+        hip, ankle = (side * 0.62, 0, 1.15), (side * 0.7, -0.05, 0.4)
         rig.part(f"{s}Leg", mc.capsule(hip, ankle, 0.36, 0.32, u=10, v=6), M["skin"], pivot=hip, parent="Body")
-        rig.part(f"{s}Foot", mc.blob((0.38, 0.52, 0.22), (side * 0.62, -0.2, 0.22), u=10, v=8, box=0.7),
+        rig.part(f"{s}Foot", mc.blob((0.38, 0.52, 0.22), (side * 0.72, -0.2, 0.22), u=10, v=8, box=0.7),
                  M["dark"], pivot=ankle, parent=f"{s}Leg")
     return scene, rig
 
