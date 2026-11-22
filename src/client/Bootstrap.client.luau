@@ -3,6 +3,15 @@ local CAS = game:GetService("ContextActionService")
 local shared = game:GetService("ReplicatedStorage"):WaitForChild("DTP")
 local round = shared:WaitForChild("Round")
 local hit = round:WaitForChild("Hit")
+local SwingPlayer = require(script.Parent.SwingPlayer)
+round:WaitForChild("SwingFx").OnClientEvent:Connect(function(player, index)
+	if player == Players.LocalPlayer then
+		SwingPlayer.sync(index) -- server echo corrects the combo guess; visual already played
+	elseif player.Character then
+		SwingPlayer.play(player.Character, index)
+	end
+end)
+round:WaitForChild("ImpactFx").OnClientEvent:Connect(SwingPlayer.impact)
 task.spawn(function()
 	local clips = shared:WaitForChild("MunchieClips",10)
 	if clips then require(script.Parent.MunchiePlayback)(clips,workspace:WaitForChild("DTP_PizzaShop")) end
@@ -24,7 +33,13 @@ CAS:BindAction("PizzaHit", function(_, input)
 			button.ImageColor3 = Color3.fromRGB(255,192,67)
 			task.delay(0.12,function() if button.Parent then button.ImageColor3 = Color3.new(1,1,1) end end)
 		end
-		hit:FireServer()
+		-- Instant local swing (prediction); the server alone decides combo order, hit and damage.
+		local index = SwingPlayer.predict()
+		local character = Players.LocalPlayer.Character
+		if index and character then
+			SwingPlayer.play(character, index)
+			hit:FireServer()
+		end
 	end
 	return Enum.ContextActionResult.Pass
 end,true,Enum.UserInputType.MouseButton1,Enum.KeyCode.F,Enum.KeyCode.ButtonR2)

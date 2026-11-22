@@ -1,5 +1,19 @@
 -- Visual playback of the authored blockout poses. Game rules run on the server.
 local RunService = game:GetService("RunService")
+-- Extra body reaction on top of the HitReaction clip, by swing kind (1 overhead, 2 uppercut, 3 side).
+local function reaction(kind, elapsed)
+	local e = math.max(0, 1 - elapsed / 0.32)
+	e *= e
+	if kind == 1 then
+		return CFrame.new(0, -0.55 * e, 0) * CFrame.Angles(math.rad(-18 * e), 0, 0) -- squashed into the floor
+	elseif kind == 2 then
+		return CFrame.Angles(math.rad(38 * e), 0, 0) -- popped up and back
+	elseif kind == 3 then
+		return CFrame.Angles(0, math.rad(35 * e), math.rad(26 * e)) -- spun and rolled sideways
+	end
+	return CFrame.identity
+end
+
 local function readClips(folder)
 	local clips = {}
 	for _, seq in folder:GetChildren() do
@@ -56,7 +70,9 @@ return function(folder, arena)
 			for joint in actor.joints do
 				if not joint.Part1 then continue end
 				local key=joint.Part1.Name
-				joint.Transform=(left.poses[key] or CFrame.identity):Lerp(right.poses[key] or CFrame.identity,alpha)
+				local transform=(left.poses[key] or CFrame.identity):Lerp(right.poses[key] or CFrame.identity,alpha)
+				if name=="HitReaction" and key=="Body" then transform*=reaction(model:GetAttribute("HitKind"),elapsed) end
+				joint.Transform=transform
 			end
 		end
 	end)

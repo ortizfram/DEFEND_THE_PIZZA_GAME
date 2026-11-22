@@ -48,3 +48,16 @@ Código versionado en GitHub no equivale a que Roblox Studio haya ejecutado este
 - Dos ragdolls: 11 sockets, 11 motores deshabilitados, 0 piezas ancladas y propiedad de red del servidor. Velocidades medidas tras lanzamiento de aproximadamente 40 y 44 studs/s horizontales y 13 ascendentes. Ambos clientes observaron un ragdoll y progresión replicada de porciones.
 - Las muestras de clientes omitieron estados intermedios por frecuencia de observación; no constituyen prueba de sincronización frame a frame. Distancia total de vuelo, estabilidad durante todo el TTL, interrupción del wind-up y valoración visual humana siguen pendientes.
 - Sin corrección del código de producción: el desfase verificado era la versión instalada en Studio. Scripts de prueba temporales retirados y Play finalizado. Sintaxis de scripts ejecutados validada por Studio; CI previo documentado arriba.
+
+## V0.7 · combo de espátula en 3 golpes (22/11/2026)
+Place 122513508386436: respaldo previo = versión 12; guardado final = **versión 16**. Config `0.3.0-three-swing-combo`.
+
+**Probado en Studio (Play, servidor + 1 cliente, personaje R15 real):**
+- Trayectorias distintas: punta de la hoja (studs, relativo al chef) en ventana/impacto/seguimiento — Overhead (2.5,3.7,3.1)→(1.2,-1.3,-4.5)→(1.4,-2.2,-4.2); Uppercut (1.3,-2.8,-1.4)→(0.9,0.6,-4.3)→(1.6,5.1,0.1); Side (0.9,0.3,5.2)→(-0.5,0.2,-5.0)→(-4.0,0.3,-1.6). Capturas con pose retenida y en vivo (estela incluida) revisadas.
+- Brazos y torso se mueven: cintura 32°/24°/42°, hombro hasta 168°/115°/88°, agachada de raíz −0,42 en los dos primeros.
+- Daño en el contacto: el HP cambia 0,22–0,31 s tras pulsar (= impacto configurado + 20–40 ms de red). Cada swing = 1 cambio de HP, sin duplicados; 12 disparos crudos al remoto en ~1,1 s → 2 swings aceptados.
+- Combo 1→2→3→1 y reinicio tras pausa de 1,7 s (eco `1,1`). Dos golpes derrotan a Munchie en los tres estilos (kills observados: overhead, uppercut; side-kill sólo en un caso mezclado, ver abajo).
+- Ragdoll (21 piezas, extremidades ≤3,0 studs del torso, sin separaciones): overhead voló 28,9 studs, tumbo ≈250°; uppercut 20,5 studs con **+7,2 de altura** y ≈400°; otro overhead hacia la pizza sólo 9,5 (choca con la escena). Primer golpe: uppercut empuja 6,4 studs rectos con hop +2,2; side empuja 5,4 studs (4,6 hacia la izquierda del chef).
+- Mecánicas previas: HUD `BITE n/3`, 8 porciones, rondas de 30 s con reinicio y `Pizza eaten!`, sin errores de script en consola (sólo el warning previo de audio 203785492).
+
+**No probado / pendiente:** dos clientes (sincronía de swings ajenos), táctil y mando reales (el botón HIT/CAS no cambió), persiana/puerta durante el nuevo swing, victoria `Pizza saved!`, side-swing como golpe final (sólo cubierto como primer golpe), sonido a oído: **whoosh = `action_jump.mp3` y impacto = `impact_explosion_03.mp3` recortado son marcadores de posición**. Limitación heredada: la regla "zombi más cercano" puede golpear a uno pegado o detrás del chef.

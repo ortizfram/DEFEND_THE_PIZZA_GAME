@@ -11,6 +11,12 @@ hit.Name = "Hit"
 local state = Instance.new("Folder")
 state.Name = "Round"
 hit.Parent = state
+local swingFx = Instance.new("RemoteEvent")
+swingFx.Name = "SwingFx"
+swingFx.Parent = state
+local impactFx = Instance.new("RemoteEvent")
+impactFx.Name = "ImpactFx"
+impactFx.Parent = state
 state.Parent = shared
 
 local template
@@ -42,11 +48,11 @@ local function motion(model,name,restart)
 end
 local Munchie = require(script.Parent.Munchie)
 local Ragdoll = require(script.Parent.MunchieRagdoll)
+local Swings = require(shared.SpatulaSwings)
 local active = {}
 local cooldown = {}
 local firstHit = {}
-local grips = {}
-local swingTokens = {}
+local combo = {}
 local playing = false
 local remaining, round, closedUntil, sliceBites = 0, 0, 0, 0
 
@@ -67,11 +73,22 @@ local function equip(character)
 	weld.Part0, weld.Part1, weld.C0 = handle, blade, CFrame.new(0, 1.7, 0)
 	weld.Parent = handle
 	local grip = Instance.new("Motor6D")
+	grip.Name = "SpatulaGrip"
 	grip.Part0, grip.Part1 = hand, handle
 	grip.C0 = CFrame.new(0, -0.5, -0.3) * CFrame.Angles(-math.pi/2, 0, 0)
 	grip.Parent = handle
-	grips[character] = grip
-	character.Destroying:Once(function() grips[character], swingTokens[character] = nil, nil end)
+	-- Blade trail: clients switch it on only during the fast part of each swing.
+	local top = Instance.new("Attachment")
+	top.Name, top.Position = "TrailTop", Vector3.new(0, 0.7, 0)
+	top.Parent = blade
+	local bottom = Instance.new("Attachment")
+	bottom.Name, bottom.Position = "TrailBottom", Vector3.new(0, -0.7, 0)
+	bottom.Parent = blade
+	local trail = Instance.new("Trail")
+	trail.Name, trail.Attachment0, trail.Attachment1 = "SwingTrail", top, bottom
+	trail.Lifetime, trail.LightEmission, trail.FaceCamera, trail.Enabled = 0.16, 0.7, true, false
+	trail.Transparency = NumberSequence.new({ NumberSequenceKeypoint.new(0, 0.1), NumberSequenceKeypoint.new(1, 1) })
+	trail.Parent = blade
 end
 local function joined(player)
 	player.CharacterAdded:Connect(equip)
@@ -79,11 +96,16 @@ local function joined(player)
 end
 Players.PlayerAdded:Connect(joined)
 for _, player in Players:GetPlayers() do joined(player) end
-Players.PlayerRemoving:Connect(function(p) cooldown[p], firstHit[p] = nil, nil end)
+Players.PlayerRemoving:Connect(function(p) cooldown[p], firstHit[p], combo[p] = nil, nil, nil end)
 
 local function pose(enemy)
 	local cf = CFrame.lookAt(enemy.pos, Vector3.new(target.X, enemy.pos.Y, target.Z))
-	enemy.model:PivotTo(cf * CFrame.new(0, enemy.height, 0) * enemy.offset)
+	local hop = 0
+	if enemy.hopUntil then
+		local left = enemy.hopUntil - os.clock()
+		if left > 0 then hop = enemy.hopHeight * math.sin(math.pi * (1 - left / 0.38)) else enemy.hopUntil = nil end
+	end
+	enemy.model:PivotTo(cf * CFrame.new(0, enemy.height + hop, 0) * enemy.offset)
 end
 local function spawnEnemy(lane)
 	local model = template and template:Clone() or Instance.new("Model")
@@ -110,27 +132,10 @@ local function aliveRoot(p)
 	local human = ch and ch:FindFirstChildOfClass("Humanoid")
 	return human and human.Health > 0 and ch:FindFirstChild("HumanoidRootPart")
 end
-hit.OnServerEvent:Connect(function(player)
+local function resolveImpact(player, index, thisRound)
 	local root = aliveRoot(player)
-	local now = os.clock()
-	if not playing or not root or now < (cooldown[player] or 0) then return end
-	cooldown[player] = now + 0.4
-	local grip = grips[player.Character]
-	if grip then
-		-- Exaggerated slap: wind up, snap through the target, then recover.
-		-- Keep this visual-only: the server still validates damage below.
-		local character = player.Character
-		local token = (swingTokens[character] or 0) + 1
-		swingTokens[character] = token
-		local rest = CFrame.new(0,-0.5,-0.3) * CFrame.Angles(-math.pi/2,0,0)
-		grip.C0 = rest * CFrame.Angles(0,0,math.rad(85))
-		local snap = TweenService:Create(grip,TweenInfo.new(0.10,Enum.EasingStyle.Quad,Enum.EasingDirection.In),{C0=rest * CFrame.Angles(0,0,math.rad(-105))})
-		snap:Play()
-		task.delay(0.11,function()
-			if swingTokens[character] ~= token or not grip.Parent then return end
-			TweenService:Create(grip,TweenInfo.new(0.20,Enum.EasingStyle.Back,Enum.EasingDirection.Out),{C0=rest}):Play()
-		end)
-	end
+	if not playing or thisRound ~= round or not root then return end
+	local style = config.P0.Swing[index]
 	local nearest, distance = nil, 9
 	for enemy in active do
 		local delta = enemy.pos + Vector3.yAxis * enemy.height - root.Position
@@ -146,29 +151,54 @@ hit.OnServerEvent:Connect(function(player)
 	local away = nearest.pos - Vector3.new(root.Position.X, nearest.pos.Y, root.Position.Z)
 	if away.Magnitude < 0.01 then away = nearest.pos - target end
 	if away.Magnitude < 0.01 then away = root.CFrame.LookVector end
+	away = away.Unit
+	-- Side swing travels right -> centre, so it shoves the zombie toward the chef's left.
+	local push = if style.Lateral > 0 then (away * 0.45 - root.CFrame.RightVector * style.Lateral).Unit else away
 	local hp, knockbackTarget = Munchie.hit(nearest.hp)
 	nearest.hp = hp
-	nearest.pendingBiteAt = nil -- A slap before bite impact cancels that bite.
+	nearest.pendingBiteAt = nil -- A swing that connects before the bite impact cancels that bite.
+	local model = nearest.model
+	model:SetAttribute("HitKind", index)
+	model:SetAttribute("Hp", hp)
+	local contact = nearest.pos + Vector3.yAxis * nearest.height
 	if hp > 0 then
-		nearest.knockDir = away.Unit
-		nearest.knockRemaining = knockbackTarget
-		nearest.stun = now + 0.42
-		motion(nearest.model,"HitReaction",true)
+		nearest.knockDir = push
+		nearest.knockRemaining = knockbackTarget * style.Push
+		nearest.stun = os.clock() + 0.42
+		if style.Hop > 0 then nearest.hopUntil, nearest.hopHeight = os.clock() + 0.38, style.Hop end
+		motion(model,"HitReaction",true)
 	else
 		active[nearest] = nil
-		local launched = Ragdoll.launch(nearest.model, away.Unit,
-			config.P0.FinalRagdollHorizontalSpeed, config.P0.FinalRagdollUpSpeed)
+		local spin
+		if style.Spin == "Forward" then spin = Vector3.yAxis:Cross(push) * style.SpinSpeed
+		elseif style.Spin == "Back" then spin = push:Cross(Vector3.yAxis) * style.SpinSpeed
+		else spin = Vector3.yAxis * style.SpinSpeed + push * 5 end
+		local launched = Ragdoll.launch(model, push, style.KillSpeed, style.KillUp, spin)
 		if not launched then
 			-- No rig (graybox block): visible flight rather than doing nothing.
-			local block = nearest.model:FindFirstChildWhichIsA("BasePart")
+			local block = model:FindFirstChildWhichIsA("BasePart")
 			if block then
 				TweenService:Create(block,TweenInfo.new(0.60,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),
-					{CFrame=block.CFrame + away.Unit*knockbackTarget + Vector3.yAxis*6}):Play()
+					{CFrame=block.CFrame + push*knockbackTarget + Vector3.yAxis*6}):Play()
 			end
-			motion(nearest.model,"Knockback",true)
+			motion(model,"Knockback",true)
 		end
-		Debris:AddItem(nearest.model,config.P0.RagdollLifetimeSeconds)
+		Debris:AddItem(model,config.P0.RagdollLifetimeSeconds)
 	end
+	impactFx:FireAllClients(contact, index, hp <= 0)
+end
+hit.OnServerEvent:Connect(function(player)
+	local root = aliveRoot(player)
+	local now = os.clock()
+	if not playing or not root or now < (cooldown[player] or 0) then return end
+	cooldown[player] = now + config.P0.Combo.ServerCooldownSeconds
+	local chain = combo[player] or { index = 0, at = -math.huge }
+	combo[player] = chain
+	local index = Swings.nextIndex(chain.index, chain.at, now, config.P0.Combo.ResetSeconds)
+	chain.index, chain.at = index, now
+	swingFx:FireAllClients(player, index) -- visuals only; damage waits for the visual contact below
+	local thisRound = round
+	task.delay(Swings.list[index].impact, resolveImpact, player, index, thisRound)
 end)
 
 local function shutter(closed)
@@ -265,6 +295,7 @@ while true do
 					enemy.pendingBiteAt = now + config.P0.BiteHitDelaySeconds
 				end
 			end
+			if enemy.hopUntil then pose(enemy) end
 			if enemy.pendingBiteAt and now >= enemy.pendingBiteAt then
 				enemy.pendingBiteAt = nil
 				-- Damage follows the bite contact, and is canceled by stun/knockback.

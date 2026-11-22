@@ -3,7 +3,7 @@
 -- No player characters, no Toolbox scripts, and no gameplay rewards here.
 local Ragdoll = {}
 
-function Ragdoll.launch(model: Model, direction: Vector3, horizontalSpeed: number, upSpeed: number): boolean
+function Ragdoll.launch(model: Model, direction: Vector3, horizontalSpeed: number, upSpeed: number, spin: Vector3?): boolean
     local root = model:FindFirstChild("HumanoidRootPart", true)
     local body = model:FindFirstChild("Body", true)
     local humanoid = model:FindFirstChildOfClass("Humanoid")
@@ -76,8 +76,22 @@ function Ragdoll.launch(model: Model, direction: Vector3, horizontalSpeed: numbe
     local flat = Vector3.new(direction.X, 0, direction.Z)
     if flat.Magnitude < 0.001 then flat = Vector3.new(0, 0, -1) end
     local velocity = flat.Unit * horizontalSpeed + Vector3.yAxis * upSpeed
-    root:ApplyImpulse(velocity * root.AssemblyMass)
-    root:ApplyAngularImpulse(Vector3.new(0, 0.8, 0.4) * root.AssemblyMass)
+    -- Every limb gets the launch velocity itself. An impulse on the torso alone left the limbs dragging
+    -- it to ~half the commanded speed (measured in Studio), so jumps looked flat.
+    for _, item in model:GetDescendants() do
+        if item:IsA("BasePart") then
+            item.AssemblyLinearVelocity = velocity
+        end
+    end
+    if spin then
+        for _, item in model:GetDescendants() do
+            if item:IsA("BasePart") then
+                item.AssemblyAngularVelocity = spin -- swing-specific tumble (world axes, rad/s)
+            end
+        end
+    else
+        root:ApplyAngularImpulse(Vector3.new(0, 0.8, 0.4) * root.AssemblyMass)
+    end
     return true
 end
 

@@ -55,6 +55,13 @@
 - Economía Coins/XP, tres daily quests fáciles, reset UTC/guardado seguro, bandas de recompensa, dirección musical original, SFX por contacto y settings de accesibilidad.
 - Documentos `PLAYER_JOURNEY_UI_V04.md`, `COMBAT_PHYSICS_ANIMATION_V04.md`, `REWARDS_DAILY_AUDIO_V04.md` + vínculos a decisiones, roadmap y analytics. **Solo documentación; no implementado en Studio ni productos creados.**
 
+## Combate V0.7 — combo de espátula en 3 golpes, 2026-11-22
+- Secuencia 1 Overhead Slam → 2 Uppercut → 3 Side Swing → 1…; una pausa >1,5 s vuelve al golpe 1. Datos y tiempos configurables en `src/shared/SpatulaSwings.luau` y `Config.P0.Combo/Swing`; reproducción local en `src/client/SwingPlayer.luau` (hombro, codo, muñeca, cintura, cuello, raíz, caderas, rodillas y agarre de la espátula).
+- Servidor autoritativo: valida cooldown y orden del combo, y **aplica el daño en el instante del contacto visual** (0,27 / 0,23 / 0,20 s tras el golpe), no al pulsar. Cada swing se resuelve una sola vez. Estela (Trail) en la hoja, whoosh, impacto con chispas y pequeño sacudón de cámara.
+- Reacciones por golpe sin cambiar el daño (2 golpes siguen derrotando a Munchie): primer golpe empuja/aplasta, rebota hacia arriba (uppercut) o empuja hacia la izquierda del chef (lateral); el golpe final lanza el ragdoll con tumbo propio (voltereta adelante / mortal atrás / giro lateral). `MunchieRagdoll.launch` ahora da la velocidad exacta a cada pieza (antes el impulso sólo al torso daba ~la mitad).
+- Hallazgo: este Studio crea personajes R15 con `AnimationConstraint` (no Motor6D) y esos joints se resuelven en la física, así que la pose se escribe en `PreSimulation`.
+- **No se probó** con dos clientes, dispositivo táctil/mando ni a oído (sonidos de archivo stock, provisionales). Detalle en `docs/COMBAT_TUNING_PVZ_V06.md`.
+
 ## DTP-3D-003 — Palette texture + 7 animaciones blockout, 2026-11-22
 - `munchie_common.apply_palette`: 1 material + `art/source/textures/T_Munchie_Palette.png` (256 px). Los colores viajan dentro del FBX/GLB (verificado al re-importar en Blender). A y B regenerados; renders sin cambios visuales.
 - `tools/studio/munchie_animations.luau`: Idle, Walk, PizzaBite, AttackChef, HitReaction, Knockback y Defeat, con markers Footstep/Bite/HitWindow/Despawn, en `ServerStorage.RBX_ANIMSAVES`. Poses clave verificadas en Studio; corregido Defeat, que atravesaba el piso.
