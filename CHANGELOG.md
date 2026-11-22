@@ -55,6 +55,10 @@
 - Economía Coins/XP, tres daily quests fáciles, reset UTC/guardado seguro, bandas de recompensa, dirección musical original, SFX por contacto y settings de accesibilidad.
 - Documentos `PLAYER_JOURNEY_UI_V04.md`, `COMBAT_PHYSICS_ANIMATION_V04.md`, `REWARDS_DAILY_AUDIO_V04.md` + vínculos a decisiones, roadmap y analytics. **Solo documentación; no implementado en Studio ni productos creados.**
 
+## Combate V0.7.2 — contacto de la pala y zombi común más lento, 2026-11-22
+- **Contacto:** además del arco, un zombi recibe el golpe si algún punto del recorrido de la hoja (`Config.P0.Swing[n].Tips`, medidos en Studio) queda a menos de `TouchRadius` = 2,6 studs de su cuerpo. Probado en el motor: zombi a 68° del eje (fuera del arco de 65°) tocado por el side swing → golpeado. Sigue bloqueándolo una pared sólida y el servidor decide el daño.
+- **Zombi común:** velocidad de caminata 10 → **5 studs/s** (`Config.P0.MunchieSpeed`, medido 4,95). La animación Walk no se ajustó a la nueva velocidad.
+
 ## Combate V0.7.1 — pulido y QA del combo, 2026-11-22
 - **Hitbox por arco** (`src/shared/SpatulaHit.luau`, probado en CI): cada swing sólo alcanza zombis dentro de su arco frontal y alcance (overhead ±45°, uppercut ±40°, side ±65°, alcance 8 studs en los tres; ampliados a petición del propietario: el daño no exige tocar con la hoja). Un rayo del servidor (`RespectCanCollide`) impide golpear a través de paredes, postes y la persiana cerrada. Cada swing daña a un zombi como máximo una vez.
 - **Remates**: siempre vuelan en sentido contrario a la pizza. Overhead = golpe descendente + rebote bajo; uppercut = vuelo alto (+7 studs); side = lanzamiento lateral con giro. Los miembros del ragdoll ahora colisionan con el suelo (grupo de colisión propio, sin colisión entre piezas).

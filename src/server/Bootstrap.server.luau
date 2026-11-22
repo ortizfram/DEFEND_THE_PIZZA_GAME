@@ -152,6 +152,16 @@ local function resolveImpact(player, index, thisRound, swingId)
 		function(c)
 			local to = Vector3.new(c.x, c.enemy.pos.Y + c.enemy.height, c.z)
 			return workspace:Raycast(eye, to - eye, params) == nil -- walls, doorposts and the closed shutter block the blade
+		end,
+		function(c)
+			-- Contact rule: any blade-tip point of this stroke close enough to the zombie's body counts as a hit.
+			for _, tip in style.Tips do
+				local w = root.CFrame:PointToWorldSpace(Vector3.new(tip[1], tip[2], tip[3]))
+				if SpatulaHit.touches(w.X, w.Y, w.Z, c.x, c.z, c.enemy.pos.Y, c.enemy.pos.Y + 2 * c.enemy.height, config.P0.TouchRadius) then
+					return true
+				end
+			end
+			return false
 		end)
 	if not pick then return end
 	local nearest = pick.enemy
@@ -309,7 +319,7 @@ while true do
 				enemy.knockRemaining -= distance
 				pose(enemy)
 			else
-				local step, bite = Munchie.advance(toward.Magnitude, dt, now, enemy.stun, closedUntil > now and atDoor, enemy.bite)
+				local step, bite = Munchie.advance(toward.Magnitude, dt, now, enemy.stun, closedUntil > now and atDoor, enemy.bite, config.P0.MunchieSpeed)
 				if closedUntil > now and atDoor and now >= enemy.stun then motion(enemy.model,"Idle") end
 				if step > 0 then
 					motion(enemy.model,"Walk")

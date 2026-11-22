@@ -8,6 +8,9 @@ local function expect(distance, blocked, stun, nextBite, expectedStep, expectedB
 end
 expect(24, false, 0, 0, 2, false)
 expect(24, true, 0, 0, 0, false)
+-- Configured speed: the common zombie walks at 5 studs/s (1 stud per 0.2 s step).
+local slowStep = Munchie.advance(24, 0.2, 10, 0, false, 0, Config.P0.MunchieSpeed)
+assert(Config.P0.MunchieSpeed == 5 and math.abs(slowStep - 1) < 0.001)
 expect(5, false, 0, 0, 0.55, false)
 expect(4.45, false, 11, 0, 0, false)
 expect(4.45, false, 10, 10, 0, true)
@@ -72,4 +75,12 @@ assert(chosen == front, "rear zombie must not be chosen")
 chosen = SpatulaHit.select(0, 0, 0, -1, { blocked, front }, 7, 35, function(c) return c ~= blocked end)
 assert(chosen == front, "wall-blocked zombie must be skipped")
 assert(SpatulaHit.select(0, 0, 0, -1, { rear }, 7, 35, nil) == nil)
+-- Contact rule: a zombie outside the arc but touched by the blade is still hit; an untouched one is not.
+assert(SpatulaHit.touches(-4, 0.3, -1.6, -4.5, -2, 0, 4, Config.P0.TouchRadius))
+assert(not SpatulaHit.touches(-4, 0.3, -1.6, 5, 5, 0, 4, Config.P0.TouchRadius))
+local side = { x = -4.0, z = -1.6 } -- 68 degrees off-axis: outside the side swing's 65 degree arc
+assert(SpatulaHit.select(0, 0, 0, -1, { side }, 8, 65, nil, nil) == nil)
+assert(SpatulaHit.select(0, 0, 0, -1, { side }, 8, 65, nil, function() return true end) == side)
+assert(SpatulaHit.select(0, 0, 0, -1, { rear }, 8, 65, nil, function() return false end) == nil)
+for _, style in Config.P0.Swing do assert(#style.Tips >= 2) end
 print("Munchie: movement, shutter, stun, bite timing and both hits and three bites per shared pizza slice and the 3-swing combo rules and spatula arc/reach selection passed")
