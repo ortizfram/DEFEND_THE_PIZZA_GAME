@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.1-p0-prototype — 2026-11-22 — RAMA, NO MERGEADO, SIN TEST STUDIO
+- Owner autorizó reimport FBX con palette, implementación NPC/espátula y upload de siete animaciones, sin autorizar publicar el juego LIVE.
+- Código en rama `feat/p0-munchie-combat-20261122`: enemigo con 2 HP autoritativo, golpe en cono frontal/alcance/cooldown, primer hit tambalea, segundo lanza con impulso; IA camino a pizza y consume una de 8 porciones runtime; botón HIT táctil/PC/gamepad y BONK/WHAM validado.
+- Analítica preparada (FirstAttackValidated, FirstKnockback, custom events) sin datos reales ni QA publicado. `default.project.json` restringe Rojo al Place 122513508386436, scripts comprueban PlaceId.
+- No se ha ejecutado Studio en esta sesión: reimport con colores, corrección de físicas, pulido y publicación de animaciones, guardar Place, Play tests y mobile QA PENDIENTES. Integración y ledger: `docs/P0_MUNCHIE_INTEGRATION.md`.
+
+
 ## 0.1.0-preproduction — 2026-11-21
 - Preparación de repositorio separado para Defend the Pizza! con estructura Rojo, scripts bootstrap sin gameplay, configuración, reglas de IA, documentación y comprobación de estructura.
 - 2026-11-21: Se añadió `docs/SYNC_POLICY.md`, un script PowerShell seguro de check/pull/push y reglas explícitas para IAs.
