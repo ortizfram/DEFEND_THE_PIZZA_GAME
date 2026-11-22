@@ -18,13 +18,15 @@ local Config = {
         -- Combo 1 overhead -> 2 uppercut -> 3 side. Client prediction uses CooldownSeconds; the server
         -- accepts a slightly shorter gap so network jitter never drops a swing the player saw.
         Combo = { CooldownSeconds = 0.4, ServerCooldownSeconds = 0.34, ResetSeconds = 1.5 },
-        -- Per swing: first-hit push multiplier, hop height, extra lateral push, and the kill launch
-        -- (KillSpeed/KillUp are real studs/s launch velocities; gravity is 196 studs/s^2).
+        -- Per swing. Reach/ArcDeg: where the blade can connect (ground-plane studs, +-degrees around the chef's
+        -- facing). Push/Hop/Lateral: first-hit shove. Kill*: launch of the final hit, in real studs/s (gravity 196):
+        -- the flight direction is always AWAY from the pizza; Spin Forward = falls onto its back, Yaw = lateral twist.
+        -- Slam (overhead only): downward speed first, then the bounce after SlamDelay seconds.
         -- Damage is identical for all three swings; only the style of the reaction changes.
         Swing = {
-            { Push = 1.15, Hop = 0, Lateral = 0, KillSpeed = 46, KillUp = 14, Spin = "Forward", SpinSpeed = 7 },
-            { Push = 1.0, Hop = 2.2, Lateral = 0, KillSpeed = 26, KillUp = 52, Spin = "Back", SpinSpeed = 9 },
-            { Push = 1.0, Hop = 0, Lateral = 0.95, KillSpeed = 40, KillUp = 18, Spin = "Yaw", SpinSpeed = 10 },
+            { Reach = 7.0, ArcDeg = 35, Push = 1.15, Hop = 0, Lateral = 0, KillSpeed = 30, KillUp = 24, Spin = "Forward", SpinSpeed = 5, Slam = 34, SlamDelay = 0.1 },
+            { Reach = 7.0, ArcDeg = 30, Push = 1.0, Hop = 2.2, Lateral = 0, KillSpeed = 24, KillUp = 52, Spin = "Forward", SpinSpeed = 9 },
+            { Reach = 7.5, ArcDeg = 65, Push = 1.0, Hop = 0, Lateral = 0.95, KillSpeed = 40, KillUp = 18, Spin = "Yaw", SpinSpeed = 10 },
         },
     },
 }

@@ -1,6 +1,7 @@
 local Munchie = require("../src/server/Munchie")
 local Swings = require("../src/shared/SpatulaSwings")
 local Config = require("../src/shared/Config")
+local SpatulaHit = require("../src/shared/SpatulaHit")
 local function expect(distance, blocked, stun, nextBite, expectedStep, expectedBite)
 	local step, bite = Munchie.advance(distance, 0.2, 10, stun, blocked, nextBite)
 	assert(math.abs(step - expectedStep) < 0.001 and bite == expectedBite)
@@ -52,4 +53,23 @@ for i, swing in Swings.list do
 	assert(swing.trail[1] < swing.impact and swing.trail[2] > swing.impact, "trail covers impact " .. i)
 end
 assert(Config.P0.Combo.ServerCooldownSeconds < Config.P0.Combo.CooldownSeconds)
-print("Munchie: movement, shutter, stun, bite timing and both hits and three bites per shared pizza slice and the 3-swing combo rules passed")
+-- Spatula arc: chef at the origin facing -Z (lx,lz) = (0,-1). Only front targets inside reach/arc connect.
+for index, style in Config.P0.Swing do
+	local inFront = SpatulaHit.inArc(0, 0, 0, -1, 0, -5, style.Reach, style.ArcDeg)
+	local behind = SpatulaHit.inArc(0, 0, 0, -1, 0, 1.8, style.Reach, style.ArcDeg)
+	local beside = SpatulaHit.inArc(0, 0, 0, -1, 2.5, 0, style.Reach, style.ArcDeg)
+	local tooFar = SpatulaHit.inArc(0, 0, 0, -1, 0, -(style.Reach + 1), style.Reach, style.ArcDeg)
+	assert(inFront and not behind and not beside and not tooFar, "arc swing " .. index)
+end
+-- The side swing sweeps wider than the overhead: a target 50 degrees off-axis is hit only by the side swing.
+local x50, z50 = 5 * math.sin(math.rad(50)), -5 * math.cos(math.rad(50))
+assert(not SpatulaHit.inArc(0, 0, 0, -1, x50, z50, Config.P0.Swing[1].Reach, Config.P0.Swing[1].ArcDeg))
+assert(SpatulaHit.inArc(0, 0, 0, -1, x50, z50, Config.P0.Swing[3].Reach, Config.P0.Swing[3].ArcDeg))
+-- select(): nearest valid target wins; a blocked (wall) or rear target is skipped.
+local front, rear, blocked = { x = 0, z = -4 }, { x = 0, z = 1 }, { x = 0, z = -3 }
+local chosen = SpatulaHit.select(0, 0, 0, -1, { rear, front }, 7, 35, nil)
+assert(chosen == front, "rear zombie must not be chosen")
+chosen = SpatulaHit.select(0, 0, 0, -1, { blocked, front }, 7, 35, function(c) return c ~= blocked end)
+assert(chosen == front, "wall-blocked zombie must be skipped")
+assert(SpatulaHit.select(0, 0, 0, -1, { rear }, 7, 35, nil) == nil)
+print("Munchie: movement, shutter, stun, bite timing and both hits and three bites per shared pizza slice and the 3-swing combo rules and spatula arc/reach selection passed")

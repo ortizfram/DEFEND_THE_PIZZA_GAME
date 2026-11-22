@@ -55,6 +55,12 @@
 - Economía Coins/XP, tres daily quests fáciles, reset UTC/guardado seguro, bandas de recompensa, dirección musical original, SFX por contacto y settings de accesibilidad.
 - Documentos `PLAYER_JOURNEY_UI_V04.md`, `COMBAT_PHYSICS_ANIMATION_V04.md`, `REWARDS_DAILY_AUDIO_V04.md` + vínculos a decisiones, roadmap y analytics. **Solo documentación; no implementado en Studio ni productos creados.**
 
+## Combate V0.7.1 — pulido y QA del combo, 2026-11-22
+- **Hitbox por arco** (`src/shared/SpatulaHit.luau`, probado en CI): cada swing sólo alcanza zombis dentro de su arco frontal y alcance (overhead ±35°/7, uppercut ±30°/7, side ±65°/7,5 studs). Un rayo del servidor (`RespectCanCollide`) impide golpear a través de paredes, postes y la persiana cerrada. Cada swing daña a un zombi como máximo una vez.
+- **Remates**: siempre vuelan en sentido contrario a la pizza. Overhead = golpe descendente + rebote bajo; uppercut = vuelo alto (+7 studs); side = lanzamiento lateral con giro. Los miembros del ragdoll ahora colisionan con el suelo (grupo de colisión propio, sin colisión entre piezas).
+- **Táctil**: el botón HIT (45 px) quedaba debajo del botón de salto en teléfonos; ahora mide ≥64 px y se coloca a su izquierda.
+- Probado en Studio (servidor + 1 cliente, simulador de iPhone 17 Pro y Galaxy A06). **No se probó** con dos clientes reales, toque físico ni mando físico, y los sonidos no pudieron escucharse. Detalle en `docs/COMBAT_TUNING_PVZ_V06.md`.
+
 ## Combate V0.7 — combo de espátula en 3 golpes, 2026-11-22
 - Secuencia 1 Overhead Slam → 2 Uppercut → 3 Side Swing → 1…; una pausa >1,5 s vuelve al golpe 1. Datos y tiempos configurables en `src/shared/SpatulaSwings.luau` y `Config.P0.Combo/Swing`; reproducción local en `src/client/SwingPlayer.luau` (hombro, codo, muñeca, cintura, cuello, raíz, caderas, rodillas y agarre de la espátula).
 - Servidor autoritativo: valida cooldown y orden del combo, y **aplica el daño en el instante del contacto visual** (0,27 / 0,23 / 0,20 s tras el golpe), no al pulsar. Cada swing se resuelve una sola vez. Estela (Trail) en la hoja, whoosh, impacto con chispas y pequeño sacudón de cámara.

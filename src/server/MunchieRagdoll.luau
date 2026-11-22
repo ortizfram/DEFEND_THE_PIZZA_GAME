@@ -3,7 +3,19 @@
 -- No player characters, no Toolbox scripts, and no gameplay rewards here.
 local Ragdoll = {}
 
-function Ragdoll.launch(model: Model, direction: Vector3, horizontalSpeed: number, upSpeed: number, spin: Vector3?): boolean
+-- Limbs must collide with the floor (otherwise they sink through it, measured 0.5 studs in Studio), but not
+-- with each other: a collision group that ignores itself keeps the 21-part ragdoll stable and cheap.
+local PhysicsService = game:GetService("PhysicsService")
+local GROUP = "DTP_Ragdoll"
+pcall(function() PhysicsService:RegisterCollisionGroup(GROUP) end)
+pcall(function() PhysicsService:CollisionGroupSetCollidable(GROUP, GROUP, false) end)
+local COLLIDES = {
+    Body = true, Head = true,
+    LeftUpperArm = true, LeftLowerArm = true, LeftHand = true, RightUpperArm = true, RightLowerArm = true, RightHand = true,
+    LeftLeg = true, LeftFoot = true, RightLeg = true, RightFoot = true,
+}
+
+function Ragdoll.launch(model: Model, direction: Vector3, horizontalSpeed: number, upSpeed: number, spin: Vector3?, slam: {Down: number, Delay: number}?): boolean
     local root = model:FindFirstChild("HumanoidRootPart", true)
     local body = model:FindFirstChild("Body", true)
     local humanoid = model:FindFirstChildOfClass("Humanoid")
@@ -59,9 +71,9 @@ function Ragdoll.launch(model: Model, direction: Vector3, horizontalSpeed: numbe
         if item:IsA("BasePart") then
             item.Anchored = false
             item.CanTouch = false
-            -- Only large shapes collide with the floor. Avoid self-collision
-            -- on the 21-part mesh and keep physics inexpensive for mobile.
-            item.CanCollide = item.Name == "Body" or item.Name == "Head"
+            -- Body, head and limbs collide with the floor; face/belly details ride on their segment.
+            item.CollisionGroup = GROUP
+            item.CanCollide = COLLIDES[item.Name] == true
         end
     end
     root.CanCollide = false
@@ -78,18 +90,28 @@ function Ragdoll.launch(model: Model, direction: Vector3, horizontalSpeed: numbe
     local velocity = flat.Unit * horizontalSpeed + Vector3.yAxis * upSpeed
     -- Every limb gets the launch velocity itself. An impulse on the torso alone left the limbs dragging
     -- it to ~half the commanded speed (measured in Studio), so jumps looked flat.
-    for _, item in model:GetDescendants() do
-        if item:IsA("BasePart") then
-            item.AssemblyLinearVelocity = velocity
-        end
-    end
-    if spin then
+    local function setVelocities(linear: Vector3, angular: Vector3?)
         for _, item in model:GetDescendants() do
             if item:IsA("BasePart") then
-                item.AssemblyAngularVelocity = spin -- swing-specific tumble (world axes, rad/s)
+                item.AssemblyLinearVelocity = linear
+                if angular then
+                    item.AssemblyAngularVelocity = angular -- swing-specific tumble (world axes, rad/s)
+                end
             end
         end
+    end
+    if slam then
+        -- Overhead: driven into the floor first, then it bounces away from the pizza.
+        setVelocities(flat.Unit * horizontalSpeed * 0.2 - Vector3.yAxis * slam.Down, nil)
+        task.delay(slam.Delay, function()
+            if model.Parent and model:GetAttribute("Ragdolled") then
+                setVelocities(velocity, spin)
+            end
+        end)
     else
+        setVelocities(velocity, spin)
+    end
+    if not spin then
         root:ApplyAngularImpulse(Vector3.new(0, 0.8, 0.4) * root.AssemblyMass)
     end
     return true

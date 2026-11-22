@@ -45,6 +45,24 @@ CAS:BindAction("PizzaHit", function(_, input)
 end,true,Enum.UserInputType.MouseButton1,Enum.KeyCode.F,Enum.KeyCode.ButtonR2)
 CAS:SetTitle("PizzaHit","HIT")
 CAS:SetPosition("PizzaHit",UDim2.new(1,-225,1,-165))
+-- Touch layout: the stock jump button used to sit on top of HIT on phones (verified in the iPhone simulator).
+-- Keep HIT immediately left of the jump button and at least 64 px (design token: 60 px touch targets).
+local UIS = game:GetService("UserInputService")
+local placed = ""
+local function placeHit()
+	local button = CAS:GetButton("PizzaHit")
+	local jump = Players.LocalPlayer.PlayerGui:FindFirstChild("JumpButton", true)
+	if not (button and button.Parent and jump) then return end
+	local size = math.max(64, jump.AbsoluteSize.X)
+	local frame = button.Parent
+	local x = jump.AbsolutePosition.X - size - 14 - frame.AbsolutePosition.X
+	local y = jump.AbsolutePosition.Y + (jump.AbsoluteSize.Y - size) / 2 - frame.AbsolutePosition.Y
+	local key = string.format("%.0f,%.0f,%.0f", x, y, size)
+	if key == placed then return end
+	placed = key
+	button.Size = UDim2.fromOffset(size, size)
+	CAS:SetPosition("PizzaHit", UDim2.fromOffset(x, y))
+end
 while gui.Parent do
 	local phase = round:GetAttribute("Phase")
 	if phase == "Defend" then
@@ -55,5 +73,6 @@ while gui.Parent do
 	else
 		status.Text = phase or "Waiting"
 	end
+	if UIS.TouchEnabled then placeHit() end
 	task.wait(0.15)
 end

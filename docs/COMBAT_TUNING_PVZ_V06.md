@@ -61,3 +61,18 @@ Place 122513508386436: respaldo previo = versión 12; guardado final = **versió
 - Mecánicas previas: HUD `BITE n/3`, 8 porciones, rondas de 30 s con reinicio y `Pizza eaten!`, sin errores de script en consola (sólo el warning previo de audio 203785492).
 
 **No probado / pendiente:** dos clientes (sincronía de swings ajenos), táctil y mando reales (el botón HIT/CAS no cambió), persiana/puerta durante el nuevo swing, victoria `Pizza saved!`, side-swing como golpe final (sólo cubierto como primer golpe), sonido a oído: **whoosh = `action_jump.mp3` y impacto = `impact_explosion_03.mp3` recortado son marcadores de posición**. Limitación heredada: la regla "zombi más cercano" puede golpear a uno pegado o detrás del chef.
+
+## V0.7.1 · pulido y QA del combo (22/11/2026)
+Place 122513508386436: respaldo previo = versión 16; guardado final = **versión 19**. Parámetros en `Config.P0.Swing`.
+
+**Hitbox:** de espaldas = 0 impactos; con pared sólida entre chef y zombi = 0; de frente despejado = 1. Arcos/alcances y selección cubiertos por CI.
+
+**Remates como segundo golpe** (misma zombi, servidor + cliente, 21 piezas conectadas, miembros ≤3,1 studs del torso):
+| Golpe | Vuelo | Dirección | Altura máx. |
+|---|---|---|---|
+| Overhead (tras side) | 18,7–22,7 studs | 18,7–22,6 **lejos de la pizza**, 0,4 lateral | +0,7 a +1,1 (golpe al suelo y rebote) |
+| Uppercut (tras overhead) | 18,4–18,8 studs | 13,8–16,0 lejos de la pizza | **+7,2** |
+| Side (tras uppercut) | 25,9–27,7 studs | **23,9–26,4 a la izquierda del chef**, 6,9–9,9 lejos de la pizza | +0,8 |
+Reposo en el suelo: superficie visible más baja −0,04 studs en tres caídas con orientaciones distintas (la métrica por cajas daba 0,5 y era un artefacto).
+
+**Clientes y controles:** F, R2 de mando (evento sintético) y clic de ratón → swings aceptados en orden 1,2,3. Simulador táctil: `TouchEnabled`, botón HIT existe; antes se solapaba con el salto (toque que caía en el salto), ahora 70 px sin solape en iPhone 17 Pro (750×381) y Galaxy A06 (705×338). Ruta de observador (swing de otro personaje) verificada sobre un clon. **Pendiente:** dos clientes reales, toque físico/`SendTouchEvent` (requiere capacidad no disponible), mando físico, y escucha humana del audio (whoosh a +10–14 ms del tiempo configurado, impacto recortado a 0,5/0,9 s, ambos reproduciéndose).

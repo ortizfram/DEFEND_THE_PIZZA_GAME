@@ -49,6 +49,7 @@ end
 local Munchie = require(script.Parent.Munchie)
 local Ragdoll = require(script.Parent.MunchieRagdoll)
 local Swings = require(shared.SpatulaSwings)
+local SpatulaHit = require(shared.SpatulaHit)
 local active = {}
 local cooldown = {}
 local firstHit = {}
@@ -132,18 +133,31 @@ local function aliveRoot(p)
 	local human = ch and ch:FindFirstChildOfClass("Humanoid")
 	return human and human.Health > 0 and ch:FindFirstChild("HumanoidRootPart")
 end
-local function resolveImpact(player, index, thisRound)
+local function resolveImpact(player, index, thisRound, swingId)
 	local root = aliveRoot(player)
 	if not playing or thisRound ~= round or not root then return end
 	local style = config.P0.Swing[index]
-	local nearest, distance = nil, 9
+	-- Candidates: only zombies inside this swing's frontal arc and reach, with nothing solid in between.
+	local ignore = {}
+	for _, p in Players:GetPlayers() do if p.Character then table.insert(ignore, p.Character) end end
+	local list = {}
 	for enemy in active do
-		local delta = enemy.pos + Vector3.yAxis * enemy.height - root.Position
-		if delta.Magnitude <= distance and (delta.Magnitude < 2 or root.CFrame.LookVector:Dot(delta.Unit) >= 0.1) then
-			nearest, distance = enemy, delta.Magnitude
-		end
+		table.insert(ignore, enemy.model)
+		table.insert(list, {x = enemy.pos.X, z = enemy.pos.Z, enemy = enemy})
 	end
-	if not nearest then return end
+	local params = RaycastParams.new()
+	params.FilterType, params.RespectCanCollide, params.FilterDescendantsInstances = Enum.RaycastFilterType.Exclude, true, ignore
+	local eye = root.Position
+	local pick = SpatulaHit.select(eye.X, eye.Z, root.CFrame.LookVector.X, root.CFrame.LookVector.Z, list, style.Reach, style.ArcDeg,
+		function(c)
+			local to = Vector3.new(c.x, c.enemy.pos.Y + c.enemy.height, c.z)
+			return workspace:Raycast(eye, to - eye, params) == nil -- walls, doorposts and the closed shutter block the blade
+		end)
+	if not pick then return end
+	local nearest = pick.enemy
+	local key = player.UserId .. ":" .. swingId
+	if nearest.lastSwing == key then return end -- one swing damages a zombie at most once
+	nearest.lastSwing = key
 	if not firstHit[player] then
 		firstHit[player] = true
 		print("DTP FirstAttackValidated", round)
@@ -169,17 +183,28 @@ local function resolveImpact(player, index, thisRound)
 		motion(model,"HitReaction",true)
 	else
 		active[nearest] = nil
+		-- Final hit: always fly AWAY from the pizza (its rear), never into it.
+		local toPizza = Vector3.new(target.X - nearest.pos.X, 0, target.Z - nearest.pos.Z)
+		toPizza = if toPizza.Magnitude > 0.01 then toPizza.Unit else root.CFrame.LookVector
+		local fly = -toPizza
+		if style.Lateral > 0 then
+			fly = fly * 0.45 - root.CFrame.RightVector * style.Lateral
+			local into = fly:Dot(toPizza)
+			if into > 0 then fly -= toPizza * into end -- strip any component that points at the pizza
+			fly = if fly.Magnitude > 0.01 then fly.Unit else -toPizza
+		end
 		local spin
-		if style.Spin == "Forward" then spin = Vector3.yAxis:Cross(push) * style.SpinSpeed
-		elseif style.Spin == "Back" then spin = push:Cross(Vector3.yAxis) * style.SpinSpeed
-		else spin = Vector3.yAxis * style.SpinSpeed + push * 5 end
-		local launched = Ragdoll.launch(model, push, style.KillSpeed, style.KillUp, spin)
+		if style.Spin == "Forward" then spin = Vector3.yAxis:Cross(fly) * style.SpinSpeed
+		elseif style.Spin == "Back" then spin = fly:Cross(Vector3.yAxis) * style.SpinSpeed
+		else spin = Vector3.yAxis * style.SpinSpeed + fly * 5 end
+		local slam = if style.Slam then {Down = style.Slam, Delay = style.SlamDelay} else nil
+		local launched = Ragdoll.launch(model, fly, style.KillSpeed, style.KillUp, spin, slam)
 		if not launched then
 			-- No rig (graybox block): visible flight rather than doing nothing.
 			local block = model:FindFirstChildWhichIsA("BasePart")
 			if block then
 				TweenService:Create(block,TweenInfo.new(0.60,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),
-					{CFrame=block.CFrame + push*knockbackTarget + Vector3.yAxis*6}):Play()
+					{CFrame=block.CFrame + fly*knockbackTarget + Vector3.yAxis*6}):Play()
 			end
 			motion(model,"Knockback",true)
 		end
@@ -196,9 +221,10 @@ hit.OnServerEvent:Connect(function(player)
 	combo[player] = chain
 	local index = Swings.nextIndex(chain.index, chain.at, now, config.P0.Combo.ResetSeconds)
 	chain.index, chain.at = index, now
+	chain.id = (chain.id or 0) + 1
 	swingFx:FireAllClients(player, index) -- visuals only; damage waits for the visual contact below
 	local thisRound = round
-	task.delay(Swings.list[index].impact, resolveImpact, player, index, thisRound)
+	task.delay(Swings.list[index].impact, resolveImpact, player, index, thisRound, chain.id)
 end)
 
 local function shutter(closed)
