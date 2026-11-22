@@ -60,7 +60,7 @@ Fecha de inicio: 2026-11-21.
 - **Recomendación de Claude: A (Round).** B se confunde con el Runner a 100 px, pierde contraste en la cámara de juego móvil y necesita 16 juntas contra las 10 de A. Detalle en [art/briefs/DTP-3D-003_Zombie_Munchie.md](../art/briefs/DTP-3D-003_Zombie_Munchie.md).
 - **APROBADO por el propietario (2026-11-22): Munchie = Variante A (Round).** B se conserva como base posible del Runner. A recibió un rework menor (ojos/boca más grandes, piernas separadas) y se re-exportó en FBX/GLB, todavía sin rig.
 - Convención de assets 3D: 1 BU = 1 stud (Unit System None), personaje mirando a -Y, pies en Z = 0 y origen de cada pieza en su articulación. FBX: Forward Z, Up Y, FBX Unit Scale (según la documentación de Roblox para Blender).
-- Rig propuesto para P0: Motor6D rígido segmentado (sin skinning); 7 animaciones listadas en el brief. Nada importado en Roblox Studio todavía: no había ninguna instancia conectada.
+- Rig para P0: Motor6D rígido segmentado (sin skinning), **construido y probado en Studio el 2026-11-22** con `tools/studio/rig_munchie_a.luau`. El Importer de Studio descarta los colores de material planos del FBX: los assets futuros necesitan palette texture o vertex colors para conservarlos.
 
 ## Aún no verificado
 - Datos detallados del análisis de Creator Exchange (URLs, visitas, fechas); no inventar.

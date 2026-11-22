@@ -33,7 +33,7 @@ Reconstruir todo: `powershell -ExecutionPolicy Bypass -File tools/asset_generati
 |---|---|---|
 | Triángulos (target interno ≤3500, no es un límite de Roblox) | **3364** | **3104** |
 | Objetos de malla | 21 | 23 |
-| Segmentos móviles para el rig | **11** (10 juntas) | **17** (16 juntas) |
+| Segmentos móviles para el rig | **12** (11 juntas + Root) | **17** (16 juntas) |
 | Materiales | 5 | 5 |
 | Tamaño W×D×H (studs) | 3.26 × 3.37 × **4.74** | 2.53 × 3.38 × **6.21** |
 | Proxy de chef (R15 aprox. + gorro) | ~5.9 de alto | ~5.9 de alto |
@@ -54,7 +54,7 @@ Pruebas hechas: un render de silueta plana a 640×256, donde A mide ≈98 px de 
 **Recomendación de Claude: A — MUNCHIE ROUND.** Razones:
 1. Es la única silueta que no se confunde con otro tipo de zombie planificado (B ≈ Runner).
 2. Es más legible a 100 px y con varios zombies amontonados.
-3. Su rig es la mitad de complejo, así que llega antes al test del golpe de P0.
+3. Su rig es bastante más simple (11 juntas contra 16), así que llega antes al test del golpe de P0.
 4. La escala relativa (más bajo que el chef) refuerza la fantasía del chef pequeño pero poderoso.
 
 **B no se elimina:** queda como base para un futuro **Runner** o una variante Noodle (sus brazos y piernas ya son "rápidos"); si se reutiliza, conviene engrosar las extremidades y saturar el verde.
@@ -74,7 +74,16 @@ Ojos +~10 %, pupilas más grandes, boca más ancha con los dientes reubicados, y
 - **Re-importados en Blender:** ambos archivos devuelven los 21 objetos, 3364 tris, el mismo tamaño 3.263 × 3.374 × 4.739, el pie en Z = 0, 0 non-manifold, 0 caras degeneradas y los 5 materiales.
 - **NO verificado en Roblox Studio:** el 2026-11-22 no había ninguna instancia conectada por MCP. Falta: `File > Import 3D` en un **Baseplate nuevo**, con "Scale Unit to Stud" en el Importer, comparar contra un dummy R15 y revisar orientación, normales, colores y pivotes por MeshPart.
 
-## Rig propuesto (simple, P0) — NO construido todavía
+## Prueba en Roblox Studio (2026-11-22)
+- **Place:** "Defend The Pizza" (placeId 122513508386436), modo Edit. El propietario importó `Zombie_Munchie_A.fbx` con el 3D Importer (pivote en el origen de la escena, anclado). **Claude no guardó ni publicó el Place.**
+- **Geometría y escala:** 21 MeshParts y **3.26 × 4.74 × 3.37 studs**, idéntico a Blender. La convención 1 BU = 1 stud + FBX Unit Scale funciona sin reescalar. Mira a −Z (LookVector) y no está espejado: el ojo chico queda a la izquierda del personaje.
+- **Escala vs avatar:** un dummy R15 mide 5.18 studs, así que el Munchie mide un **91 %** del avatar y es más ancho. Captura: `art/qa/studio/A_vs_R15_scale.jpg`.
+- **Colores:** **el Importer los descartó** y todas las piezas quedaron gris por defecto. Se restauraron en Studio con los tokens por pieza (SmoothPlastic). Esa corrección vive solo en la copia del Place: para que sobreviva a una nueva importación hace falta una *palette texture* o colores de vértice en el export.
+- **Ubicación:** había quedado encima del SpawnLocation; se movió a (0, 0, −14) sobre el Baseplate, mirando al spawn.
+- **Rig construido** con `tools/studio/rig_munchie_a.luau`: HumanoidRootPart (caja invisible 2.4 × 2.4 × 2, anclada, colisión única) + Humanoid (HipHeight 1.15) + Animator, **12 Motor6D** (Root, Neck, Right/LeftShoulder, Elbow, Wrist, Right/LeftHip, Ankle), 9 WeldConstraints para los detalles. Las 22 piezas quedaron conectadas a la raíz y nada se desplazó (1e-7 studs). Las MeshParts tienen CanCollide=false y CanQuery=true.
+- **Prueba de juntas:** se aplicó una pose de prueba (cabeza atrás, brazos y pierna) y luego se restauró la pose neutra (error 1e-7). Capturas: `art/qa/studio/A_rig_pose_test.jpg`, `A_rig_neutral.jpg`.
+
+## Rig (plan original; construido el 2026-11-22, ver arriba)
 **Tipo:** rig rígido segmentado con **Motor6D** (sin skinning). Cada segmento es un MeshPart y los detalles se sueldan a su segmento con WeldConstraint. Es la forma más barata y robusta para un NPC que recibe impulsos de física; el skinning puede venir después si el polish lo pide.
 
 ```
@@ -103,8 +112,8 @@ Las animaciones de Roblox no escalan partes; el *squash* se simula con la pose (
 
 ## Separación de etapas (importar la malla ≠ NPC funcional)
 1. **Modelado:** HECHO como blockout (A y B).
-2. **Import en Studio y escala:** PENDIENTE, requiere un Studio conectado y un Baseplate nuevo.
-3. **Rig Motor6D:** PENDIENTE, después de que el propietario apruebe A.
+2. **Import en Studio y escala:** HECHO (2026-11-22).
+3. **Rig Motor6D:** HECHO (2026-11-22), en el Place, sin guardar por Claude.
 4. **Animaciones:** PENDIENTE (Animation Editor, propiedad/permiso del creador).
 5. **Scripting del servidor (P0):** PENDIENTE. Máquina de estados autoritativa: `Approach → Bite/AttackChef → Hit1 (Stagger, knockback 8 studs) → Hit2 (Launch: ApplyImpulse con dueño de red el servidor, IA desactivada, Knockback) → Defeat (al aterrizar o 1.2 s) → pool`. El cliente solo pide el golpe; el servidor valida rango, cooldown y timing, aplica el daño y registra los eventos de analítica.
 
@@ -115,7 +124,9 @@ Las animaciones de Roblox no escalan partes; el *squash* se simula con la pose (
 - [x] Tris dentro del target interno; 0 non-manifold; pies en Z = 0; nombres y pivotes organizados
 - [x] Export FBX/GLB de A re-importado en Blender sin pérdidas
 - [x] Aprobación del propietario: A (2026-11-22)
-- [ ] Import en Roblox Studio (Baseplate nuevo) y escala vs avatar
-- [ ] Rig Motor6D + 7 animaciones
+- [x] Import en Roblox Studio y escala vs avatar (Place del juego, 2026-11-22; colores restaurados a mano)
+- [x] Rig Motor6D (12 Motor6D, probado con una pose)
+- [ ] 7 animaciones
+- [ ] Colores persistentes en el export (palette texture o vertex colors)
 - [ ] NPC P0 con server autoritativo + analítica
 - [ ] Prueba en dispositivo móvil real

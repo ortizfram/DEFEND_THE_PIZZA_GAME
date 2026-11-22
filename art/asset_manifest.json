@@ -63,7 +63,11 @@
         "art/renders/munchie/lineup_silhouette.png",
         "art/renders/munchie/lineup_100px_silhouette.png",
         "art/renders/munchie/lineup_100px_color.png",
-        "art/renders/munchie/gamecam_mobile_844x390.png"
+        "art/renders/munchie/gamecam_mobile_844x390.png",
+        "art/qa/studio/A_vs_R15_scale.jpg",
+        "art/qa/studio/A_rig_pose_test.jpg",
+        "art/qa/studio/A_rig_neutral.jpg",
+        "tools/studio/rig_munchie_a.luau"
       ],
       "rightsNote": "100% procedural geometry from repo scripts (tools/asset_generation/). No third-party meshes, textures, add-ons or paid tools. Owner may re-confirm.",
       "brief": "art/briefs/DTP-3D-003_Zombie_Munchie.md",
@@ -114,11 +118,28 @@
         }
       ],
       "qaPending": [
-        "Roblox Studio import + scale vs avatar (no Studio connected 2026-11-22)",
-        "rig + animations",
-        "mobile device test"
+        "7 animations (Idle, Walk, PizzaBite, AttackChef, HitReaction, Knockback, Defeat)",
+        "server-authoritative NPC (P0)",
+        "mobile device test",
+        "colors live only in the Studio copy: fix via palette texture or vertex colors before re-import"
       ],
-      "chosenVariant": "A"
+      "chosenVariant": "A",
+      "studioTest": {
+        "date": "2026-11-22",
+        "place": "Defend The Pizza (placeId 122513508386436), Edit mode, NOT saved/published by Claude",
+        "importedBy": "owner via Studio 3D Importer (FBX)",
+        "meshParts": 21,
+        "sizeStuds_WxHxD": [
+          3.263,
+          4.739,
+          3.374
+        ],
+        "matchesBlender": true,
+        "orientation": "faces -Z (LookVector), not mirrored",
+        "r15DummyHeight": 5.183,
+        "colorsDropped": "importer left default grey; restored token colors per part in Studio (SmoothPlastic)",
+        "rig": "Motor6D rigid: HumanoidRootPart + Humanoid/Animator, 12 Motor6D (Root + 11 joints), 9 WeldConstraints, 22 parts connected, drift 1e-7"
+      }
     },
     {
       "id": "DTP-3D-004",

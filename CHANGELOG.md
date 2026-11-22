@@ -24,6 +24,12 @@
 - Economía Coins/XP, tres daily quests fáciles, reset UTC/guardado seguro, bandas de recompensa, dirección musical original, SFX por contacto y settings de accesibilidad.
 - Documentos `PLAYER_JOURNEY_UI_V04.md`, `COMBAT_PHYSICS_ANIMATION_V04.md`, `REWARDS_DAILY_AUDIO_V04.md` + vínculos a decisiones, roadmap y analytics. **Solo documentación; no implementado en Studio ni productos creados.**
 
+## DTP-3D-003 — Import en Studio + rig Motor6D, 2026-11-22
+- El propietario importó `Zombie_Munchie_A.fbx` en el Place "Defend The Pizza". Claude verificó por MCP: 21 MeshParts, 3.26 × 4.74 × 3.37 studs (igual que Blender), orientación correcta y 91 % de la altura de un dummy R15.
+- El Importer descartó los colores; se restauraron los tokens por pieza en Studio. Se movió el modelo fuera del SpawnLocation.
+- Rig rígido construido con `tools/studio/rig_munchie_a.luau` (HRP + Humanoid/Animator, 12 Motor6D, 9 welds) y probado con una pose temporal. El R15 de referencia era temporal y se eliminó.
+- **El Place no fue guardado ni publicado por Claude.** Sin animaciones ni lógica de NPC todavía.
+
 ## DTP-3D-003 — Variante A aprobada, 2026-11-22
 - El propietario eligió **A — Munchie Round**. Rework menor de A (ojos y pupilas +~10 %, boca más ancha, piernas y pies más separados) y regeneración de fuente, renders, comparativa y export FBX/GLB (3364 tris, sin cambios de escala).
 - Sin import en Roblox Studio todavía (ninguna instancia conectada); sin rig ni NPC.
