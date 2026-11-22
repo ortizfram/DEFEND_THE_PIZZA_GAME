@@ -21,3 +21,7 @@ Antes de crear el primer mesh, leer `docs/SETUP_WINDOWS_FIRST_MUNCHIE.md`; disti
 ## Hito vigente: probar P0, no crear más assets a ciegas
 
 Leer `docs/NEXT_P0_PLAYTEST_GATE.md` antes de proponer P1. El repo ya incluye Munchie A/B, A elegida, rig/animaciones, Pizza Shop y pruebas de Studio; no repetir modelado. Verificar estado real del Place y los cambios concurrentes antes de tocarlo. Primero QA en teléfono físico / observación con 3–5 jugadores reales; registrar resultados sin inventarlos y resolver errores críticos, incluido el warning 203785492 si sigue activo. Sólo luego considerar Slice Thief y después revive; sin monetización ni otros mapas todavía.
+
+## Eficiencia de crédito / contexto
+
+Aplicar `docs/WORK_CREDIT_EFFICIENCY.md` aunque el motor sea Claude Code, GPT Work, Codex u otra IA: un objetivo verificable, lectura de 2–5 archivos pertinentes, diffs, pruebas selectivas, evitar investigación y generaciones innecesarias, reportar bloqueo y STOP cuando pase el gate. Consultar siempre el remoto y sincronizar sin sobrescribir. Las instrucciones de P0 físico tienen prioridad sobre refinamientos de contenido.

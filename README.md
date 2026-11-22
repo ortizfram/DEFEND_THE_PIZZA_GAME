@@ -112,3 +112,7 @@ powershell -ExecutionPolicy Bypass -File tools/sync_repo.ps1 -Mode Status
 # Después de revisar los cambios y aprobar el commit:
 powershell -ExecutionPolicy Bypass -File tools/sync_repo.ps1 -Mode Push -Message 'docs: update game decisions'
 ```
+
+## GPT Work: política de ahorro de créditos
+
+[WORK_CREDIT_EFFICIENCY.md](docs/WORK_CREDIT_EFFICIENCY.md) define el procedimiento de **una tarea / sesión**, lecturas limitadas, pruebas relevantes y sincronización verificada. Referenciado desde `AGENTS.md` y `CLAUDE.md` para futuras sesiones autorizadas. No reduce ni cambia límites del plan por sí mismo.

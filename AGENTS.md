@@ -40,3 +40,7 @@ Este es el **código del juego**, NO la biblioteca de conocimiento. Consultar el
 ## Regla permanente de sincronización (solicitud del propietario 21/11/2026)
 
 Antes y después de **cada cambio autorizado**, seguir `docs/SYNC_POLICY.md`: comprobar `git status` y remoto, actualizar archivos de decisiones/changelog, ejecutar QA, hacer commit y push a `ortizfram/DEFEND_THE_PIZZA_GAME` cuando el remoto exista. Para conocimiento general, actualizar el `roblox-vault` por separado y enlazar. No afirmar push si no se verificó el commit remoto. No forzar ni sobrescribir trabajo ajeno. Sin remoto/credenciales, marcar `NO SINCRONIZADO` y proporcionar artefacto local. Git no sustituye la sincronización comprobada con Roblox Studio.
+
+## Regla permanente: ahorrar créditos de GPT Work / agentes (2026-11-22)
+
+**OBLIGATORIO en nuevas sesiones:** leer [docs/WORK_CREDIT_EFFICIENCY.md](docs/WORK_CREDIT_EFFICIENCY.md). Una meta por sesión, 2–5 archivos pertinentes, cambios mínimos, pruebas esenciales sin repetir ciclos, no navegar ni releer todo el vault, y terminar tras commit/push verificado. La optimización nunca justifica omitir permisos, protección de datos, QA crítico ni sync. Esta política de repositorio se aplica cuando el agente lo lee; no altera los límites del plan ni ejecuta procesos en segundo plano.
