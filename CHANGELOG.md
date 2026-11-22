@@ -1,5 +1,9 @@
 # Changelog
 
+## Pizza Shop · integración Studio · 2026-11-22
+- Animaciones del Munchie conectadas al ciclo de combate. HIT móvil separado del salto.
+- Verificados derrota, victoria y reinicio en solo, victoria compartida con dos clientes, cierre/reapertura de persiana y entrada táctil emulada. Guardado en versión 11 de Studio. Detalle en `docs/ROADMAP.md`.
+
 ## 0.2.0-p0 · 2026-11-22
 - Pizza Shop jugable desde el código Rojo: ocho porciones, tres entradas, persiana central, Munchie de dos golpes, espátula, HUD multiplataforma y ronda de 30 s con reinicio.
 - QA en Play, cooperativo, móvil físico y conexión de animaciones pendientes.

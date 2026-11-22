@@ -7,13 +7,13 @@
 - [ ] Miniatura principal storyboard aprobada visualmente.
 - [ ] Competidores directos y evidencia de mercado archivados.
 
-## Gate 1: P0 graybox — código en src, pendiente QA en Play
+## Gate 1: P0 graybox — prueba de integración completada en Studio
 - [ ] Baseplate NUEVO / Place verificado y respaldado.
 - [ ] Rojo y Claude Code conectados/validados con permiso del propietario.
-- [ ] Una cocina gris + pizza con 8 porciones que cambian visualmente.
-- [ ] 3 entradas de enemigos, 1 Munchie, trayectoria simple a la pizza.
+- [x] Una cocina gris + pizza con 8 porciones que cambian visualmente.
+- [x] 3 entradas de enemigos, 1 Munchie, trayectoria simple a la pizza.
 - [ ] Espátula con hitbox en arco generoso, daño y knockback validado servidor, feedback instantáneo cliente.
-- [ ] 1 oleada de 30 s y perder/ganar/retry; controles móvil/PC.
+- [x] 1 oleada de 30 s y perder/ganar/retry; controles móvil/PC.
 - [ ] Propuesta V0.2: zombie común puede morder a chef que lo intercepta, con sistema básico de vida/caída y respawn gratis; probar diversión antes de ampliar IA.
 - [ ] Analytics FTUE y core registrados por servidor (local debug/producción según disponibilidad).
 - [ ] QA 1 jugador, 2 jugadores, móvil, red lenta, respawn.
@@ -79,3 +79,9 @@
 - [ ] Monetización responsable solo con aprobación expresa y validación de receipts.
 - [ ] Pruebas, documentación real de builds, revisión del propietario.
 - [ ] Publicación y Ads solo mediante autorización expresa posterior.
+
+## Prueba de integración en Studio · 22/11/2026
+- Solo, con cliente automatizado: derrota con 0 porciones, victoria con 8 y reinicio con 8.
+- Servidor y dos clientes simulados: ambos cargaron HUD, atacaron, observaron movimiento de articulaciones y recibieron victoria. El servidor verificó el cierre y reapertura de la persiana.
+- Simulador iPhone 17 Pro horizontal: separadas las áreas de HIT y salto, ataque táctil validado en servidor. Pendientes dispositivo físico, red lenta y valoración de jugadores humanos.
+- Se reprodujeron poses del rig importado en partida. Consola: aviso de recurso 203785492 con tipo incompatible; origen sin identificar. Place 122513508386436, versión de edición 11.

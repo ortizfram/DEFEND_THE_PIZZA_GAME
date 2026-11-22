@@ -20,6 +20,26 @@ for _, candidate in workspace:GetChildren() do
 		break
 	end
 end
+local storage = game:GetService("ServerStorage")
+local saves = storage:FindFirstChild("RBX_ANIMSAVES")
+local saved = saves and saves:FindFirstChild("Zombie_Munchie_A")
+if saved then
+	local clips = Instance.new("Folder")
+	clips.Name = "MunchieClips"
+	for _, sequence in saved:GetChildren() do
+		if sequence:IsA("KeyframeSequence") then sequence:Clone().Parent = clips end
+	end
+	clips.Parent = shared
+end
+for _, candidate in workspace:GetChildren() do
+	if candidate:IsA("Model") and candidate.Name == "Zombie_Munchie_A" then candidate.Parent = storage end
+end
+local function motion(model,name,restart)
+	if restart or model:GetAttribute("Motion") ~= name then
+		model:SetAttribute("MotionAt",workspace:GetServerTimeNow())
+		model:SetAttribute("Motion",name)
+	end
+end
 local Munchie = require(script.Parent.Munchie)
 local active = {}
 local cooldown = {}
@@ -72,9 +92,10 @@ local function spawnEnemy(lane)
 	end
 	for _, p in model:GetDescendants() do
 		if p:IsA("BasePart") then
-			p.Anchored, p.CanCollide, p.CanTouch = true, false, false
+			p.Anchored, p.CanCollide, p.CanTouch = (not model.PrimaryPart or p == model.PrimaryPart), false, false
 		end
 	end
+	motion(model,"Walk")
 	model.Name = "Munchie"
 	local box, size = model:GetBoundingBox()
 	local enemy = {model=model, pos=entries[lane], hp=2, lane=lane, stun=0, bite=0, height=size.Y/2, offset=box:ToObjectSpace(model:GetPivot())}
@@ -116,10 +137,10 @@ hit.OnServerEvent:Connect(function(player)
 	nearest.pos += away.Unit * knockback
 	nearest.stun = now + 0.35
 	pose(nearest)
+	motion(nearest.model,if hp == 0 then "Knockback" else "HitReaction",true)
 	if nearest.hp == 0 then
 		active[nearest] = nil
-		nearest.model:PivotTo(nearest.model:GetPivot() * CFrame.Angles(math.rad(-60),0,0))
-		Debris:AddItem(nearest.model, 0.25)
+		Debris:AddItem(nearest.model, 1.32)
 	end
 end)
 
@@ -176,10 +197,13 @@ while true do
 			local toward = target-enemy.pos
 			local atDoor = enemy.lane == 2 and (enemy.pos-entries[2]).Magnitude < 2
 			local step, bite = Munchie.advance(toward.Magnitude, dt, now, enemy.stun, closedUntil > now and atDoor, enemy.bite)
+			if closedUntil > now and atDoor and now >= enemy.stun then motion(enemy.model,"Idle") end
 			if step > 0 then
+				motion(enemy.model,"Walk")
 				enemy.pos += toward.Unit * step
 				pose(enemy)
 			elseif bite then
+				motion(enemy.model,"PizzaBite",true)
 				enemy.bite = now+2
 				showSlice(remaining,false)
 				remaining -= 1

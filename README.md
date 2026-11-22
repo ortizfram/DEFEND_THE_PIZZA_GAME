@@ -1,6 +1,6 @@
 # DEFEND THE PIZZA! — Roblox Game
 
-**Estado actual (22/11/2026)** · Pizza Shop P0 implementado en `src/`. La ronda empieza al entrar, dura 30 segundos y vuelve a empezar tras 4 segundos. HIT con clic, F, R2 o botón táctil. La persiana central se cierra desde el prompt de proximidad. El servidor utiliza una copia del Munchie con rig si existe en Workspace y una figura provisional en un Baseplate vacío. Pendiente playtest de integración.
+**Estado actual (22/11/2026)** · Pizza Shop P0 implementado en `src/`. La ronda empieza al entrar, dura 30 segundos y vuelve a empezar tras 4 segundos. HIT con clic, F, R2 o botón táctil. La persiana central se cierra desde el prompt de proximidad. El servidor utiliza una copia del Munchie con rig si existe en Workspace y una figura provisional en un Baseplate vacío. Playtest completado en Studio el 22/11/2026, Place 122513508386436, versión guardada 11. Ver resultados en el roadmap.
 
 Juego cooperativo arcade de defensa física: chefs diminutos protegen una pizza enorme de monstruos hambrientos. El diferenciador propuesto es que ciertos monstruos **roban porciones y corren hacia una salida**; los jugadores pueden recuperarlas golpeándolos.
 

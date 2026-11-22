@@ -75,3 +75,6 @@ Fecha de inicio: 2026-11-21.
 
 ## Implementación P0 · 22/11/2026
 Se priorizó una oleada de Pizza Shop. La persiana bloquea durante 4 s a los enemigos que llegan por la entrada central. Munchie recibe dos golpes. El prototipo clona el rig presente o usa un bloque provisional en un Place vacío. Balance, mordida al chef, reproducción de clips y QA móvil quedan abiertos.
+
+## Integración autorizada en Studio · 22/11/2026
+El propietario autorizó a Codex a editar este Place para terminar el playtest. Se reutilizan secuencias originales guardadas en ServerStorage. El servidor decide el estado del enemigo y cada cliente interpola sus poses de Motor6D. AttackChef queda reservado para la mecánica de daño a chefs. Se apartan los modelos de referencia del mapa durante la ejecución.

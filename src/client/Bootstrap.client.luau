@@ -3,6 +3,10 @@ local CAS = game:GetService("ContextActionService")
 local shared = game:GetService("ReplicatedStorage"):WaitForChild("DTP")
 local round = shared:WaitForChild("Round")
 local hit = round:WaitForChild("Hit")
+task.spawn(function()
+	local clips = shared:WaitForChild("MunchieClips",10)
+	if clips then require(script.Parent.MunchiePlayback)(clips,workspace:WaitForChild("DTP_PizzaShop")) end
+end)
 local gui = Instance.new("ScreenGui")
 gui.Name, gui.ResetOnSpawn = "PizzaShopHUD", false
 gui.Parent = Players.LocalPlayer:WaitForChild("PlayerGui")
@@ -25,7 +29,7 @@ CAS:BindAction("PizzaHit", function(_, input)
 	return Enum.ContextActionResult.Pass
 end,true,Enum.UserInputType.MouseButton1,Enum.KeyCode.F,Enum.KeyCode.ButtonR2)
 CAS:SetTitle("PizzaHit","HIT")
-CAS:SetPosition("PizzaHit",UDim2.new(1,-145,1,-115))
+CAS:SetPosition("PizzaHit",UDim2.new(1,-225,1,-165))
 while gui.Parent do
 	local phase = round:GetAttribute("Phase")
 	if phase == "Defend" then
