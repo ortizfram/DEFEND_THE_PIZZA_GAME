@@ -3,6 +3,8 @@
 local P0 = table.freeze({
     Enabled = true,
     MunchieModelName = "Zombie_Munchie_A",
+    WaveDurationSeconds = 30, -- later full-wave gate; not active in this combat slice
+    EnemySpawnPaths = 3, -- later full-map gate; not active in this combat slice
     MunchieHealth = 2,
     MunchieWalkSpeed = 10,
     SwingCooldownSeconds = 0.55,
