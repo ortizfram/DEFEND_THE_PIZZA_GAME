@@ -39,6 +39,7 @@ return function(folder, arena)
 	RunService.PreSimulation:Connect(function()
 		local now=workspace:GetServerTimeNow()
 		for model, actor in actors do
+			if model:GetAttribute("Ragdolled") then continue end
 			local name=model:GetAttribute("Motion")
 			local elapsed=math.max(0,now-(model:GetAttribute("MotionAt") or now))
 			if name=="Knockback" and elapsed>=0.5 then name="Defeat" elapsed-=0.5 end

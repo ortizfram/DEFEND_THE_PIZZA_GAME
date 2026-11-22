@@ -1,5 +1,12 @@
 # Changelog
 
+## P0 V0.6 — combate exagerado y tres mordidas, 2026-11-22
+- Se incorporó un primer ajuste al código de Pizza Shop: tres mordidas compartidas por porción, ritmo 1 s entre mordidas de cada zombie y daño sincronizado ~0.55 s tras comenzar el clip, visuales intermedios de porción y HUD.
+- Espátula con arco de windup/snap/recovery más exagerado, empuje progresivo del primer golpe y segundo golpe con ragdoll físico de Munchie A mediante BallSocket, impulso server-side y TTL de limpieza. Fallback visual cuando el modelo real no está importado.
+- Nuevas reglas en Config, `src/server/MunchieRagdoll.luau` y tests puros en `tests/munchie.luau`. Documentación [COMBAT_TUNING_PVZ_V06.md](docs/COMBAT_TUNING_PVZ_V06.md).
+- **Este cambio solo está codificado en GitHub; queda pendiente QA en Roblox Studio y móvil físico.** No se cambió ningún Place/pagos/campañas en esta sesión.
+
+
 ## Preparación del playtest P0 · 2026-11-22
 - Comprobada correspondencia Studio/GitHub, diez rondas solo alternadas con ráfagas de HIT y respawn.
 - Añadidos reporte técnico, hoja anónima para cinco participantes y checklist de teléfono físico.

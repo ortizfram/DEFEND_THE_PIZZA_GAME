@@ -24,3 +24,13 @@
 - DTP-3D-003 Munchie: los 3 primeros puntos verificados en Blender el 2026-11-22; Studio y móvil pendientes.
 
 La lista conserva requisitos del gate completo. Ver resultados técnicos y pendientes en `P0_REGRESSION_2026_11_22.md` y registrar las sesiones humanas en `P0_PLAYER_OBSERVATION.md`.
+
+## V0.6 — mordidas + swing + ragdoll (QA pendiente)
+- [ ] Un zombie muerde 3 veces para quitar UNA porción; el estado 1/3 y 2/3 es visualmente distinguible.
+- [ ] Dos zombies comparten el daño de mordidas sobre la porción actual (no 3 cada uno).
+- [ ] Un golpe interrumpe mordida antes del instante de daño, sin descontar progreso.
+- [ ] 1.er hit empuja hacia atrás gradualmente y mantiene 1 HP, 2.º termina y ragdoll físico de Munchie A.
+- [ ] Ragdoll con BallSockets y control servidor, sin efectos raros, sin caer fuera del mapa, cleanup ~2 s.
+- [ ] UI/hit móvil no se superpone; 2 clientes ven mismas porciones y cadáver; 30 FPS teléfono físico.
+- [ ] Regresión derrota/victoria/retry y warning existente 203785492.
+Ver [COMBAT_TUNING_PVZ_V06.md](COMBAT_TUNING_PVZ_V06.md). No marcar CHECK sin Studio/pruebas realmente ejecutadas.

@@ -41,12 +41,14 @@ local function motion(model,name,restart)
 	end
 end
 local Munchie = require(script.Parent.Munchie)
+local Ragdoll = require(script.Parent.MunchieRagdoll)
 local active = {}
 local cooldown = {}
 local firstHit = {}
 local grips = {}
+local swingTokens = {}
 local playing = false
-local remaining, round, closedUntil = 0, 0, 0
+local remaining, round, closedUntil, sliceBites = 0, 0, 0, 0
 
 local function equip(character)
 	local hand = character:WaitForChild("RightHand", 3) or character:FindFirstChild("Right Arm")
@@ -69,7 +71,7 @@ local function equip(character)
 	grip.C0 = CFrame.new(0, -0.5, -0.3) * CFrame.Angles(-math.pi/2, 0, 0)
 	grip.Parent = handle
 	grips[character] = grip
-	character.Destroying:Once(function() grips[character] = nil end)
+	character.Destroying:Once(function() grips[character], swingTokens[character] = nil, nil end)
 end
 local function joined(player)
 	player.CharacterAdded:Connect(equip)
@@ -98,7 +100,7 @@ local function spawnEnemy(lane)
 	motion(model,"Walk")
 	model.Name = "Munchie"
 	local box, size = model:GetBoundingBox()
-	local enemy = {model=model, pos=entries[lane], hp=2, lane=lane, stun=0, bite=0, height=size.Y/2, offset=box:ToObjectSpace(model:GetPivot())}
+	local enemy = {model=model, pos=entries[lane], hp=2, lane=lane, stun=0, bite=0, pendingBiteAt=nil, knockRemaining=0, knockDir=Vector3.zero, height=size.Y/2, offset=box:ToObjectSpace(model:GetPivot())}
 	pose(enemy)
 	model.Parent = arena
 	active[enemy] = true
@@ -115,9 +117,19 @@ hit.OnServerEvent:Connect(function(player)
 	cooldown[player] = now + 0.4
 	local grip = grips[player.Character]
 	if grip then
+		-- Exaggerated slap: wind up, snap through the target, then recover.
+		-- Keep this visual-only: the server still validates damage below.
+		local character = player.Character
+		local token = (swingTokens[character] or 0) + 1
+		swingTokens[character] = token
 		local rest = CFrame.new(0,-0.5,-0.3) * CFrame.Angles(-math.pi/2,0,0)
-		grip.C0 = rest * CFrame.Angles(0,0,-1.3)
-		TweenService:Create(grip, TweenInfo.new(0.22), {C0=rest}):Play()
+		grip.C0 = rest * CFrame.Angles(0,0,math.rad(85))
+		local snap = TweenService:Create(grip,TweenInfo.new(0.10,Enum.EasingStyle.Quad,Enum.EasingDirection.In),{C0=rest * CFrame.Angles(0,0,math.rad(-105))})
+		snap:Play()
+		task.delay(0.11,function()
+			if swingTokens[character] ~= token or not grip.Parent then return end
+			TweenService:Create(grip,TweenInfo.new(0.20,Enum.EasingStyle.Back,Enum.EasingDirection.Out),{C0=rest}):Play()
+		end)
 	end
 	local nearest, distance = nil, 9
 	for enemy in active do
@@ -131,16 +143,31 @@ hit.OnServerEvent:Connect(function(player)
 		firstHit[player] = true
 		print("DTP FirstAttackValidated", round)
 	end
-	local away = nearest.pos - target
-	local hp, knockback = Munchie.hit(nearest.hp)
+	local away = nearest.pos - Vector3.new(root.Position.X, nearest.pos.Y, root.Position.Z)
+	if away.Magnitude < 0.01 then away = nearest.pos - target end
+	if away.Magnitude < 0.01 then away = root.CFrame.LookVector end
+	local hp, knockbackTarget = Munchie.hit(nearest.hp)
 	nearest.hp = hp
-	nearest.pos += away.Unit * knockback
-	nearest.stun = now + 0.35
-	pose(nearest)
-	motion(nearest.model,if hp == 0 then "Knockback" else "HitReaction",true)
-	if nearest.hp == 0 then
+	nearest.pendingBiteAt = nil -- A slap before bite impact cancels that bite.
+	if hp > 0 then
+		nearest.knockDir = away.Unit
+		nearest.knockRemaining = knockbackTarget
+		nearest.stun = now + 0.42
+		motion(nearest.model,"HitReaction",true)
+	else
 		active[nearest] = nil
-		Debris:AddItem(nearest.model, 1.32)
+		local launched = Ragdoll.launch(nearest.model, away.Unit,
+			config.P0.FinalRagdollHorizontalSpeed, config.P0.FinalRagdollUpSpeed)
+		if not launched then
+			-- No rig (graybox block): visible flight rather than doing nothing.
+			local block = nearest.model:FindFirstChildWhichIsA("BasePart")
+			if block then
+				TweenService:Create(block,TweenInfo.new(0.60,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),
+					{CFrame=block.CFrame + away.Unit*knockbackTarget + Vector3.yAxis*6}):Play()
+			end
+			motion(nearest.model,"Knockback",true)
+		end
+		Debris:AddItem(nearest.model,config.P0.RagdollLifetimeSeconds)
 	end
 end)
 
@@ -158,8 +185,31 @@ prompt.Triggered:Connect(function(player)
 	end
 end)
 
-local function showSlice(i, visible)
-	for _, p in slices[i]:GetChildren() do p.Transparency = visible and 0 or 1 end
+local function showSlice(i, visible, biteCount)
+	if not slices[i] then return end
+	local bites = biteCount or 0
+	for _, p in slices[i]:GetChildren() do
+		if p:IsA("BasePart") then
+			-- 0: fresh; 1: nibbled; 2: nearly eaten; 3: missing.
+			if not visible then
+				p.Transparency = 1
+			elseif bites == 1 then
+				p.Transparency = 0.12
+			elseif bites == 2 then
+				p.Transparency = 0.42
+			else
+				p.Transparency = 0
+			end
+			if p.Name == "Cheese" then
+				p.Color = if bites == 0 then Color3.fromRGB(255,192,67)
+					else if bites == 1 then Color3.fromRGB(235,158,54)
+					else Color3.fromRGB(195,103,47)
+			elseif p.Name == "Pepperoni" then
+				p.Color = if bites == 0 then Color3.fromRGB(194,63,48)
+					else Color3.fromRGB(128,48,42)
+			end
+		end
+	end
 end
 local function finish(result)
 	playing = false
@@ -174,10 +224,11 @@ shutter(false)
 while true do
 	while #Players:GetPlayers() == 0 do task.wait(0.25) end
 	round += 1
-	remaining, closedUntil, playing = #slices, 0, true
+	remaining, closedUntil, sliceBites, playing = #slices, 0, 0, true
 	for i in slices do showSlice(i,true) end
 	shutter(false)
 	state:SetAttribute("Slices",remaining)
+	state:SetAttribute("SliceBites",0)
 	state:SetAttribute("EndsAt",workspace:GetServerTimeNow()+config.P0.WaveDurationSeconds)
 	state:SetAttribute("Phase","Defend")
 	print("DTP_MapStarted",round,#Players:GetPlayers())
@@ -196,19 +247,42 @@ while true do
 		for enemy in active do
 			local toward = target-enemy.pos
 			local atDoor = enemy.lane == 2 and (enemy.pos-entries[2]).Magnitude < 2
-			local step, bite = Munchie.advance(toward.Magnitude, dt, now, enemy.stun, closedUntil > now and atDoor, enemy.bite)
-			if closedUntil > now and atDoor and now >= enemy.stun then motion(enemy.model,"Idle") end
-			if step > 0 then
-				motion(enemy.model,"Walk")
-				enemy.pos += toward.Unit * step
+			if enemy.knockRemaining > 0 then
+				local distance = math.min(enemy.knockRemaining,config.P0.FirstHitPushSpeed*dt)
+				enemy.pos += enemy.knockDir * distance
+				enemy.knockRemaining -= distance
 				pose(enemy)
-			elseif bite then
-				motion(enemy.model,"PizzaBite",true)
-				enemy.bite = now+2
-				showSlice(remaining,false)
-				remaining -= 1
-				state:SetAttribute("Slices",remaining)
-				if remaining == 0 then finish("Pizza eaten!") break end
+			else
+				local step, bite = Munchie.advance(toward.Magnitude, dt, now, enemy.stun, closedUntil > now and atDoor, enemy.bite)
+				if closedUntil > now and atDoor and now >= enemy.stun then motion(enemy.model,"Idle") end
+				if step > 0 then
+					motion(enemy.model,"Walk")
+					enemy.pos += toward.Unit * step
+					pose(enemy)
+				elseif bite and not enemy.pendingBiteAt then
+					motion(enemy.model,"PizzaBite",true)
+					enemy.bite = now + config.P0.BiteIntervalSeconds
+					enemy.pendingBiteAt = now + config.P0.BiteHitDelaySeconds
+				end
+			end
+			if enemy.pendingBiteAt and now >= enemy.pendingBiteAt then
+				enemy.pendingBiteAt = nil
+				-- Damage follows the bite contact, and is canceled by stun/knockback.
+				if now >= enemy.stun and enemy.knockRemaining <= 0
+					and (target-enemy.pos).Magnitude <= 4.5 and remaining > 0 then
+					local done
+					sliceBites, done = Munchie.bite(sliceBites, config.P0.BitesPerSlice)
+					showSlice(remaining,true,sliceBites)
+					state:SetAttribute("SliceBites",sliceBites)
+					if done then
+						showSlice(remaining,false)
+						remaining -= 1
+						sliceBites = 0
+						state:SetAttribute("Slices",remaining)
+						state:SetAttribute("SliceBites",0)
+						if remaining == 0 then finish("Pizza eaten!") break end
+					end
+				end
 			end
 		end
 	end

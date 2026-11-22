@@ -88,3 +88,7 @@ Cada golpe ligero válido quita **1 HP de enemigo**. HP se muestra como corazone
 5. **P4**: pulido de audio, cutscenes, cosméticos; compras únicamente tras autorización separada.
 
 **Ningún enemigo, golpe, IA, animación o física está implementado en Roblox Studio al redactar esto.**
+
+## Ajuste posterior de P0 — versión V0.6 (2026-11-22)
+
+Los valores anteriores de knockback 3/7 studs y pizza mordida cada 2.5 s se sustituyen **para P0 actual** por los de [COMBAT_TUNING_PVZ_V06.md](COMBAT_TUNING_PVZ_V06.md). Nueva lógica: un solo zombie requiere tres mordidas (~una por segundo) para consumir una porción, compartidas entre zombies, impacto al punto visible, cancelación al golpearlo; espátula daña Munchie 2 hits, empuje del primero ~5 studs en el tiempo y ragdoll físico lanzado en segundo. Velocidades/TTL son hipótesis de test; no garantizan distancia final concreta.

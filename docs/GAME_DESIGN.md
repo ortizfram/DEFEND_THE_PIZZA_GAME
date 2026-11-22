@@ -35,3 +35,7 @@ Leer [MAPS_AND_OBJECTIVES_V03.md](MAPS_AND_OBJECTIVES_V03.md): PIZZA SHOP (CLOSE
 - [REWARDS_DAILY_AUDIO_V04.md](REWARDS_DAILY_AUDIO_V04.md): monedas, Chef XP/levels, misiones diarias, tiendas Coins, músicas originales, sonidos y contratos de guardado.
 
 **Todo es diseño propuesto y balance para playtests: NO se implementaron menús, monedas, música, IA, animaciones ni compras.** P0: una puerta, pizza, un zombie de 2 golpes, espátula con slap, UI mínima y recompensa simple. No construir lobby complejo ni tres mapas antes del loop divertido.
+
+## Actualización P0 V0.6 — ritmo PvZ / física más divertida (2026-11-22)
+
+[COMBAT_TUNING_PVZ_V06.md](COMBAT_TUNING_PVZ_V06.md): **cada porción resiste 3 mordidas compartidas entre zombies (~1 por segundo por zombie)**, con daño aplicado al contacto de la animación y cancelación por golpe; Munchie 2 hits, primero más retroceso, segundo impulso y ragdoll físico en rig importado, swing más exagerado. **Código preparado para QA de Roblox Studio**, no calificado como jugable hasta verificar rig/animaciones/compilación y prueba física móvil.

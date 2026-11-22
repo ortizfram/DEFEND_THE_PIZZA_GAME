@@ -61,6 +61,14 @@
 - [ ] Ajustar únicamente errores de experiencia/hit/retroceso/primer minuto, volver a probar.
 - [ ] Si pasa gate, siguiente feature: un ladrón roba porción y huye; un golpe la recupera. No añadir tienda/lobby/mapas antes.
 
+## P0 V0.6 — nuevo balance para validar en Studio
+- [x] [COMBAT_TUNING_PVZ_V06.md](COMBAT_TUNING_PVZ_V06.md) especifica PvZ original (~3 segundos para un girasol de 300 HP), 3 mordidas compartidas por porción de pizza, golpe exagerado y ragdoll físico.
+- [ ] Compilar/regresión del cambio de Luau en GitHub Actions; verificar que no se quebró P0.
+- [ ] Probar en Studio una mordida/segundo, daño solo en tercer impacto compartido, mordidas interrumpibles, 2 clientes.
+- [ ] Probar Munchie A rig real con 2.º golpe/ragdoll, distancia visual, clipping, no desmembramiento ni lag móvil; caída visual si falta rig.
+- [ ] Ajustar swing en móvil y teclado: visible y exagerado, sin demora por lag y sin tapar cámara.
+- [ ] Realizar el playtest humano del P0 previo a expandir contenido.
+
 ## Gate 2: diferenciación — estado: NO IMPLEMENTADO
 - [ ] Ladrón Thief roba una porción y huye; recuperación servidor una sola vez.
 - [ ] Propuesta V0.2: rescatar compañero caído gratis con interacción cercana y clara en móvil.

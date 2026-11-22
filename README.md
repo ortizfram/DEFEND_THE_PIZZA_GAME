@@ -95,6 +95,10 @@ Hay dos blockouts editables en Blender (`art/source/Zombie_Munchie_A.blend` y `_
 
 El diseño de Munchie avanzó a fuentes Blender A/B, selección **A Round** y rig/animaciones de prueba; Pizza Shop P0 ya fue integrado y ensayado con clientes simulados. **Siguiente paso:** [playtest a ciegas del primer bucle](docs/NEXT_P0_PLAYTEST_GATE.md), con teléfono físico, 3–5 personas nuevas, registro de confusión y mejoras del golpe. No asumir que un simulador móvil equivale a dispositivo físico ni que QA de Studio fue revisión de jugadores.
 
+## Ajuste P0 V0.6 — mordidas y física cómica
+
+[COMBAT_TUNING_PVZ_V06.md](docs/COMBAT_TUNING_PVZ_V06.md): 3 mordidas compartidas por porción de pizza como traducción de PvZ (Sunflower ~300 HP / zombie ~100 daño por segundo, **no 3 mordiscos exactos**), swing de espátula exagerado, primer empuje progresivo, segundo golpe con ragdoll e impulso físico. **Es código de GitHub pendiente de pruebas en Studio**. No instalar objetos ajenos, no publicar ni monetizar por este cambio.
+
 ## Próximo hito
 
 **P0**: probar el primer golpe, la oleada y el retry en solo, cooperativo y móvil antes de ampliar contenido.

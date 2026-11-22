@@ -34,7 +34,9 @@ while gui.Parent do
 	local phase = round:GetAttribute("Phase")
 	if phase == "Defend" then
 		local seconds = math.max(0,math.ceil((round:GetAttribute("EndsAt") or 0)-workspace:GetServerTimeNow()))
-		status.Text = string.format("SAVE THE PIZZA   %d/8   ·   %ds",round:GetAttribute("Slices") or 8,seconds)
+		local bites = round:GetAttribute("SliceBites") or 0
+		local biteText = bites > 0 and string.format("  ·  BITE %d/3", bites) or ""
+		status.Text = string.format("SAVE THE PIZZA   %d/8%s   ·   %ds",round:GetAttribute("Slices") or 8,biteText,seconds)
 	else
 		status.Text = phase or "Waiting"
 	end

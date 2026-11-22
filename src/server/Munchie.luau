@@ -13,7 +13,15 @@ end
 
 function Munchie.hit(hp)
 	local remaining = math.max(0, hp - 1)
-	return remaining, if remaining == 0 then 7 else 3
+	return remaining, if remaining == 0 then 20 else 5
+end
+
+-- Bite progress is shared per slice across all zombies; damage is applied on the
+-- server at the visual bite marker, not when the chewing animation begins.
+function Munchie.bite(currentBites, bitesPerSlice)
+	assert(bitesPerSlice >= 1, "bitesPerSlice must be positive")
+	local bites = math.min(bitesPerSlice, currentBites + 1)
+	return bites, bites >= bitesPerSlice
 end
 
 return Munchie

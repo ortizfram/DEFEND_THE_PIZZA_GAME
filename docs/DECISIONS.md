@@ -78,3 +78,6 @@ Se priorizó una oleada de Pizza Shop. La persiana bloquea durante 4 s a los ene
 
 ## Integración autorizada en Studio · 22/11/2026
 El propietario autorizó a Codex a editar este Place para terminar el playtest. Se reutilizan secuencias originales guardadas en ServerStorage. El servidor decide el estado del enemigo y cada cliente interpola sus poses de Motor6D. AttackChef queda reservado para la mecánica de daño a chefs. Se apartan los modelos de referencia del mapa durante la ejecución.
+
+## Solicitud de gameplay y especificación P0 V0.6 — 2026-11-22
+El propietario solicitó ampliar la distancia de vuelo/ragdoll y exagerar la animación de espátula. Solicitó que **cada porción requiera tres mordidas** y comparar con el zombie común de Plants vs. Zombies. La consulta externa indica girasol normal ~300 HP y zombie común ~100 daño/s, destrucción ~3 s; PvZ no necesariamente aplica un contador discreto de tres mordidas. Para Roblox se elige tres golpes discretos compartidos por todos los zombies que mastican una misma porción, con telegraph/impacto claro. Munchie conserva 2 HP; ragdoll real solo con rig A, fallback con bloque visual. Detalle [COMBAT_TUNING_PVZ_V06.md](COMBAT_TUNING_PVZ_V06.md). **Implementación GitHub requiere QA de Studio antes de marcar completa**; no autoriza monetización ni publicación.
