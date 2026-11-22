@@ -16,3 +16,16 @@ jobs:
         run: |
           python tools/validate_scaffold.py
           python tools/validate_art_manifest.py
+      - name: Check out Luau compiler and runtime
+        uses: actions/checkout@v4
+        with:
+          repository: luau-lang/luau
+          ref: 3e1c94ec2c1a077497b7ac21f580745c7aeeefae
+          path: .luau
+          persist-credentials: false
+      - name: Compile gameplay scripts and check Munchie rules
+        run: |
+          cmake -S .luau -B .luau/build -DLUAU_BUILD_TESTS=OFF -DCMAKE_BUILD_TYPE=Release
+          cmake --build .luau/build --target Luau.Compile.CLI Luau.Repl.CLI -j 4
+          find src tests -name '*.luau' -exec .luau/build/luau-compile {} + > /dev/null
+          .luau/build/luau tests/munchie.luau

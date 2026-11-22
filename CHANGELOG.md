@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.0-p0 · 2026-11-22
+- Pizza Shop jugable desde el código Rojo: ocho porciones, tres entradas, persiana central, Munchie de dos golpes, espátula, HUD multiplataforma y ronda de 30 s con reinicio.
+- QA en Play, cooperativo, móvil físico y conexión de animaciones pendientes.
+
 ## 0.1.0-preproduction — 2026-11-21
 - Preparación de repositorio separado para Defend the Pizza! con estructura Rojo, scripts bootstrap sin gameplay, configuración, reglas de IA, documentación y comprobación de estructura.
 - 2026-11-21: Se añadió `docs/SYNC_POLICY.md`, un script PowerShell seguro de check/pull/push y reglas explícitas para IAs.

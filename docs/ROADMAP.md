@@ -7,7 +7,7 @@
 - [ ] Miniatura principal storyboard aprobada visualmente.
 - [ ] Competidores directos y evidencia de mercado archivados.
 
-## Gate 1: P0 graybox — estado: NO IMPLEMENTADO
+## Gate 1: P0 graybox — código en src, pendiente QA en Play
 - [ ] Baseplate NUEVO / Place verificado y respaldado.
 - [ ] Rojo y Claude Code conectados/validados con permiso del propietario.
 - [ ] Una cocina gris + pizza con 8 porciones que cambian visualmente.
@@ -18,6 +18,8 @@
 - [ ] Analytics FTUE y core registrados por servidor (local debug/producción según disponibilidad).
 - [ ] QA 1 jugador, 2 jugadores, móvil, red lenta, respawn.
 - [ ] Test: golpear es divertido incluso sin monedas ni colección.
+
+> Implementado en `src/` el 22/11: arena, ocho porciones, tres entradas, persiana, IA de aproximación y mordida a la pizza, espátula, HUD, ronda y reinicio. Las casillas funcionales se cierran tras QA en Studio.
 
 ## Tres mapas propuestos — construcción secuencial
 - [x] Diseño conceptual de 3 mapas con una acción local cada uno: [MAPS_AND_OBJECTIVES_V03.md](MAPS_AND_OBJECTIVES_V03.md).
@@ -47,8 +49,9 @@
 ## Setup de Windows / primer Zombie Munchie
 - [x] Checklist y prompt de setup [SETUP_WINDOWS_FIRST_MUNCHIE.md](SETUP_WINDOWS_FIRST_MUNCHIE.md) (Blender/Studio/Git/VS Code, Claude Code y Rojo opcionales por etapa).
 - [ ] Confirmar herramientas instaladas en la PC del usuario; clonar el remoto de este repo.
-- [ ] Modelar dos variantes `.blend`: A Munchie Round y B Munchie Noodle. Comparar capturas de silueta tamaño móvil y elegir una; no se han creado aún.
-- [ ] Exportar el modelo elegido e importarlo en Studio de prueba, luego rig/animations y QA móvil; no confundir mesh estático con NPC funcional.
+- [x] Modelar A/B y comparar siluetas. Variante A elegida.
+- [x] Exportar e importar A, construir rig y siete secuencias de animación de prueba.
+- [ ] Verificar la integración de animaciones y lectura en dispositivo móvil.
 
 ## Gate 2: diferenciación — estado: NO IMPLEMENTADO
 - [ ] Ladrón Thief roba una porción y huye; recuperación servidor una sola vez.

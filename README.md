@@ -1,6 +1,6 @@
 # DEFEND THE PIZZA! — Roblox Game
 
-**Estado:** repositorio inicial de código — PREPRODUCCIÓN / SCAFFOLD V0.1 (2026-11-21). **No hay gameplay funcional todavía.**
+**Estado actual (22/11/2026)** · Pizza Shop P0 implementado en `src/`. La ronda empieza al entrar, dura 30 segundos y vuelve a empezar tras 4 segundos. HIT con clic, F, R2 o botón táctil. La persiana central se cierra desde el prompt de proximidad. El servidor utiliza una copia del Munchie con rig si existe en Workspace y una figura provisional en un Baseplate vacío. Pendiente playtest de integración.
 
 Juego cooperativo arcade de defensa física: chefs diminutos protegen una pizza enorme de monstruos hambrientos. El diferenciador propuesto es que ciertos monstruos **roban porciones y corren hacia una salida**; los jugadores pueden recuperarlas golpeándolos.
 
@@ -23,7 +23,7 @@ Juego cooperativo arcade de defensa física: chefs diminutos protegen una pizza 
    ```
 3. Instalar y abrir **Roblox Studio** y el **plugin Rojo** de una fuente confiable. Instalar el ejecutable Rojo por el método oficial de tu elección y verificar `rojo --version`.
 4. Abrir un **Baseplate NUEVO**, sin usar STOMPIES, BOOP ni DON'T WAKE THE GIANT. Ejecutar en la carpeta `rojo serve default.project.json`, conectar el plugin Rojo desde Studio al proyecto e inspeccionar la jerarquía. No sincronizar sobre un Place existente sin backup.
-5. Verificar que aparezcan `ReplicatedStorage/DTP`, `ServerScriptService/DTPServer` y `StarterPlayer/StarterPlayerScripts/DTPClient`. Por ahora solo hay bootstrap/logs y un módulo de configuración; **no se crean modelos ni se publican experiencias**.
+5. En Play, comprobar el HUD, las tres entradas, el golpe, la puerta y ambos resultados de ronda.
 6. Correr `python tools/validate_scaffold.py` para verificar la estructura. Cualquier próxima etapa requiere pruebas locales y gate correspondiente.
 
 ## Estructura
@@ -93,7 +93,7 @@ Hay dos blockouts editables en Blender (`art/source/Zombie_Munchie_A.blend` y `_
 
 ## Próximo hito
 
-**P0**: una cocina gris, una pizza con 8 porciones visuales, un enemigo, espátula con golpe/knockback y una ronda corta, con entradas de analítica desde el comienzo. Si el golpe no es divertido, no desarrollar el resto.
+**P0**: probar el primer golpe, la oleada y el retry en solo, cooperativo y móvil antes de ampliar contenido.
 
 ## Sincronización permanente
 

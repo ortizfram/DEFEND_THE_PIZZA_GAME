@@ -72,3 +72,6 @@ Fecha de inicio: 2026-11-21.
 - Publicar experiencias Roblox, invertir en Ads, comprar assets, activar monetización o cambiar otros juegos.
 
 **Diseño completo:** https://github.com/ortizfram/roblox-vault/blob/main/Projects/DefendThePizza/PREPRODUCTION_V01.md
+
+## Implementación P0 · 22/11/2026
+Se priorizó una oleada de Pizza Shop. La persiana bloquea durante 4 s a los enemigos que llegan por la entrada central. Munchie recibe dos golpes. El prototipo clona el rig presente o usa un bloque provisional en un Place vacío. Balance, mordida al chef, reproducción de clips y QA móvil quedan abiertos.
