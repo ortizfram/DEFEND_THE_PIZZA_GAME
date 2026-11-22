@@ -7,7 +7,8 @@
 - [ ] Miniatura principal storyboard aprobada visualmente.
 - [ ] Competidores directos y evidencia de mercado archivados.
 
-## Gate 1: P0 graybox — estado: NO IMPLEMENTADO
+## Gate 1: P0 graybox — estado: IMPLEMENTACIÓN DE CÓDIGO PARCIAL (SIN QA STUDIO)
+- Código de primera iteración (NPC Munchie 2-hit, input HIT, mini pizza runtime, analítica) disponible SOLO en rama `feat/p0-munchie-combat-20261122`, sin prueba de Play; no marcar checks hasta validar el Place. Ver `docs/P0_MUNCHIE_INTEGRATION.md`.
 - [ ] Baseplate NUEVO / Place verificado y respaldado.
 - [ ] Rojo y Claude Code conectados/validados con permiso del propietario.
 - [ ] Una cocina gris + pizza con 8 porciones que cambian visualmente.

@@ -16,3 +16,4 @@ jobs:
         run: |
           python tools/validate_scaffold.py
           python tools/validate_art_manifest.py
+          python tools/validate_p0_contract.py
