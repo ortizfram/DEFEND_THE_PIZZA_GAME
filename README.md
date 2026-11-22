@@ -91,6 +91,10 @@ El diseño es una propuesta. **Ninguno de los 8 assets planificados existe como 
 
 Hay dos blockouts editables en Blender (`art/source/Zombie_Munchie_A.blend` y `_B.blend`), renders comparativos en `art/renders/munchie/` y un export candidato de A en `art/export/`. Brief y evaluación: [art/briefs/DTP-3D-003_Zombie_Munchie.md](art/briefs/DTP-3D-003_Zombie_Munchie.md). Para regenerarlos: `powershell -ExecutionPolicy Bypass -File tools/asset_generation/run_all.ps1` (requiere Blender 5.2). Todavía **no** se importó en Studio y no hay rig ni NPC.
 
+## Prioridad tras los avances reales de Studio (22/11/2026)
+
+El diseño de Munchie avanzó a fuentes Blender A/B, selección **A Round** y rig/animaciones de prueba; Pizza Shop P0 ya fue integrado y ensayado con clientes simulados. **Siguiente paso:** [playtest a ciegas del primer bucle](docs/NEXT_P0_PLAYTEST_GATE.md), con teléfono físico, 3–5 personas nuevas, registro de confusión y mejoras del golpe. No asumir que un simulador móvil equivale a dispositivo físico ni que QA de Studio fue revisión de jugadores.
+
 ## Próximo hito
 
 **P0**: probar el primer golpe, la oleada y el retry en solo, cooperativo y móvil antes de ampliar contenido.

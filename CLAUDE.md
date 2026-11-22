@@ -17,3 +17,7 @@ Antes de editar, leer `docs/ART_DIRECTION_AI_ASSETS_V05.md`, `art/design_tokens.
 ## Primer asset Munchie: instrucciones de instalación y producción
 
 Antes de crear el primer mesh, leer `docs/SETUP_WINDOWS_FIRST_MUNCHIE.md`; distinguir Munchie Round A de Munchie Noodle B, construir fuentes `.blend` reales únicamente si Blender está instalado, comparar a escala móvil, elegir silueta y después exportar y preparar rig. No afirmar que hay .blend/.fbx/Studio test si solo hubo prompt o script. Claude Code puede requerir cuenta de pago, no suponer que está instalado ni tiene control remoto sobre el PC.
+
+## Hito vigente: probar P0, no crear más assets a ciegas
+
+Leer `docs/NEXT_P0_PLAYTEST_GATE.md` antes de proponer P1. El repo ya incluye Munchie A/B, A elegida, rig/animaciones, Pizza Shop y pruebas de Studio; no repetir modelado. Verificar estado real del Place y los cambios concurrentes antes de tocarlo. Primero QA en teléfono físico / observación con 3–5 jugadores reales; registrar resultados sin inventarlos y resolver errores críticos, incluido el warning 203785492 si sigue activo. Sólo luego considerar Slice Thief y después revive; sin monetización ni otros mapas todavía.

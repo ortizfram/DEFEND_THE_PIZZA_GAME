@@ -53,6 +53,14 @@
 - [x] Exportar e importar A, construir rig y siete secuencias de animación de prueba.
 - [ ] Verificar la integración de animaciones y lectura en dispositivo móvil.
 
+## PRIORIDAD ACTUAL: prueba P0 a ciegas antes de más contenido
+- [x] Guía ejecutable del hito: [NEXT_P0_PLAYTEST_GATE.md](NEXT_P0_PLAYTEST_GATE.md).
+- [ ] Probar en teléfono físico real (no simulador) y en 2 clientes, registrar FPS/error y lectura de HIT/ACT.
+- [ ] Probar a ciegas con 3–5 jugadores nuevos: primer HIT ≤10 s, comprensión pizza/porciones, deseo de replay y errores críticos.
+- [ ] Localizar aviso de asset 203785492 con tipo incompatible, sin asumir origen.
+- [ ] Ajustar únicamente errores de experiencia/hit/retroceso/primer minuto, volver a probar.
+- [ ] Si pasa gate, siguiente feature: un ladrón roba porción y huye; un golpe la recupera. No añadir tienda/lobby/mapas antes.
+
 ## Gate 2: diferenciación — estado: NO IMPLEMENTADO
 - [ ] Ladrón Thief roba una porción y huye; recuperación servidor una sola vez.
 - [ ] Propuesta V0.2: rescatar compañero caído gratis con interacción cercana y clara en móvil.
