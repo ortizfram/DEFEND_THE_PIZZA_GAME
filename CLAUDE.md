@@ -13,3 +13,7 @@ Cuando se autorice P0: construir lo mínimo para demostrar que golpear enemigos 
 ## Para cualquier tarea de UI / modelado / arte
 
 Antes de editar, leer `docs/ART_DIRECTION_AI_ASSETS_V05.md`, `art/design_tokens.json`, `art/asset_manifest.json`, `art/ASSET_BRIEF_TEMPLATE.md` y el prompt puntual `art/AI_ASSET_PROMPTS.md`. GPT dirige y hace QA de briefs; Claude sólo puede decir que **generó un .blend/.fbx/UI funcional** si efectivamente produjo y verificó ese archivo/objeto. Si falta Blender o Studio, entregar script/pasos auditables con estado PARCIAL. Respetar derechos, performance móvil, naming, pivot, colisiones, safe areas y botones reales. Guardar fuente/export y actualizar manifest/QA antes de commit/push; no comenzar por cosméticos ni UGC antes del P0 de pizza/espátula/zombie.
+
+## Primer asset Munchie: instrucciones de instalación y producción
+
+Antes de crear el primer mesh, leer `docs/SETUP_WINDOWS_FIRST_MUNCHIE.md`; distinguir Munchie Round A de Munchie Noodle B, construir fuentes `.blend` reales únicamente si Blender está instalado, comparar a escala móvil, elegir silueta y después exportar y preparar rig. No afirmar que hay .blend/.fbx/Studio test si solo hubo prompt o script. Claude Code puede requerir cuenta de pago, no suponer que está instalado ni tiene control remoto sobre el PC.

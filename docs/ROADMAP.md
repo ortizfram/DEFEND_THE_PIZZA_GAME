@@ -44,6 +44,12 @@
 - [ ] Validar componentes UI en phone/tablet/desktop, safe area y gamepad; al aprobar, agregar SHOP/LOADOUT/DAILY.
 - [ ] UGC global Marketplace únicamente después de cumplir reglas técnicas, elegibilidad/costos, revisión de derechos y autorización explícita.
 
+## Setup de Windows / primer Zombie Munchie
+- [x] Checklist y prompt de setup [SETUP_WINDOWS_FIRST_MUNCHIE.md](SETUP_WINDOWS_FIRST_MUNCHIE.md) (Blender/Studio/Git/VS Code, Claude Code y Rojo opcionales por etapa).
+- [ ] Confirmar herramientas instaladas en la PC del usuario; clonar el remoto de este repo.
+- [ ] Modelar dos variantes `.blend`: A Munchie Round y B Munchie Noodle. Comparar capturas de silueta tamaño móvil y elegir una; no se han creado aún.
+- [ ] Exportar el modelo elegido e importarlo en Studio de prueba, luego rig/animations y QA móvil; no confundir mesh estático con NPC funcional.
+
 ## Gate 2: diferenciación — estado: NO IMPLEMENTADO
 - [ ] Ladrón Thief roba una porción y huye; recuperación servidor una sola vez.
 - [ ] Propuesta V0.2: rescatar compañero caído gratis con interacción cercana y clara en móvil.

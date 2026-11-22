@@ -83,6 +83,10 @@ DEFEND_THE_PIZZA_GAME/
 
 El diseño es una propuesta. **Ninguno de los 8 assets planificados existe como .blend/.fbx o GUI jugable por crear el manifest.** La aprobación de Marketplace UGC es un flujo distinto al uso de cosméticos internos.
 
+## Primer modelo 3D: qué instalar en Windows
+
+[SETUP_WINDOWS_FIRST_MUNCHIE.md](docs/SETUP_WINDOWS_FIRST_MUNCHIE.md): descargas oficiales (Blender, Roblox Studio, Git, VS Code, Claude Code opcional, Rojo cuando se programe), comandos para clonar GitHub, dos variantes de Zombie Munchie y proceso para crear .blend editables, elegir silueta, exportar/importar y verificar QA. **No implica que el modelo exista todavía.**
+
 ## Próximo hito
 
 **P0**: una cocina gris, una pizza con 8 porciones visuales, un enemigo, espátula con golpe/knockback y una ronda corta, con entradas de analítica desde el comienzo. Si el golpe no es divertido, no desarrollar el resto.

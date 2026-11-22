@@ -28,3 +28,6 @@
 - Art Bible Toy Pizza Panic; paleta y tokens JSON, plan de assets con estados PLANNED, plantilla de brief por asset y prompts GPT/Claude Code para archivos reales, import y QA.
 - Guía reutilizable creada y sincronizada en el Roblox Vault. Separación explícita entre accesorios cosméticos internos y UGC Marketplace con derechos/costos/validación.
 - Preparación de validador estático del manifest y tokens. **No se generaron .blend/.fbx finales, no se conectó Studio, no se publicó UGC ni se activó tienda.**
+
+## Instalación Windows y primera criatura — 2026-11-22
+- Se añadió `docs/SETUP_WINDOWS_FIRST_MUNCHIE.md` con descargas oficiales, comandos seguros, prompts y dos variantes de Zombie Munchie, propuesta A Round / B Noodle. Claude y Blender no fueron controlados remotamente; ninguna malla real o animación se generó por documentar este proceso.
