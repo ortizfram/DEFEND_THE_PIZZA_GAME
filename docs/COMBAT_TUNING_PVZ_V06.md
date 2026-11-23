@@ -114,3 +114,8 @@ Place 122513508386436: respaldo previo = versión 31; guardado = **versión 33**
 ## V0.9.1 - pulido Thief y validación (22/11/2026)
 Respaldo previo = versión 33. **Probado (un cliente):** manos/porción numéricamente alineadas; contorno `CarryGlow` presente al cargar; cámara por defecto emulada (sólo prueba) muestra al ladrón con la porción; Config de Studio restaurada (ladrón 9 studs/s, aparición 9-12 s); sin objetos temporales. Mediciones previas: aparición 10,1 y 10,6 s desde el inicio real de ronda; robo ~12,4-13,0 s (distintos).
 **PENDIENTE / NO completado:** todas las pruebas con **dos clientes reales** (mismo ladrón visto por ambos, recuperación única, golpes simultáneos sin duplicar, corazones independientes, revive por otro jugador, soltar antes de 2 s, sincronía HUD). No se puede lanzar un segundo cliente desde este entorno; requieren Test > Local Server con 2 jugadores.
+
+## QA regresión Thief (22/11/2026, un cliente)
+Sin cambios de código ni de Place (v35 intacta). Rondas reales sin defender: aparición del ladrón a 9,05 / 9,20 / 11,30 / 11,50 / 11,90 s (dentro de 9-12 s); robo 2,3-2,6 s después (11,4-14,1 s). Contorno `CarryGlow` y `CarryAt` aparecen sólo en el instante del robo; al escapar: `Lost=1`, ladrón destruido, sin restos; cada ronda nueva arranca con 8 porciones, `Carried=0`, `Lost=0`.
+**No verificado:** golpe al ladrón con porción (suelta, baja brazos, contorno desaparece, recuperación única): 3 intentos automatizados con swings enviados por el cliente no conectaron (el ladrón escapó); no es prueba de fallo del juego, sólo de mi método. **Dos clientes: no ejecutado** (una sola instancia controlable). Ver `docs/PLAYTEST_CHECKLIST.md`.
+
