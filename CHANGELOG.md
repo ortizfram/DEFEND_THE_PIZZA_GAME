@@ -61,6 +61,10 @@
 - **DOWNED** a 0 corazones: no puede atacar, cartel `HELP!`, `PlatformStand`, los zombis lo ignoran. **Revive gratis:** otro chef lo levanta manteniendo `REVIVE` 2 s (`ProximityPrompt`, usable en PC, táctil y mando; el servidor valida distancia <= 9, estado y que no sea uno mismo, y es un no-op repetido). Si nadie lo ayuda, se levanta solo a los 12 s. Se levanta con 3 corazones y 2 s de invulnerabilidad; cada ronda reinicia los corazones.
 - Sin revive de pago, productos ni creaturas nuevas. Detalle de pruebas en `docs/COMBAT_TUNING_PVZ_V06.md`.
 
+## Preparación de playtest V1.0.1, 2026-11-23
+- Revisión completa de 3 oleadas sin bugs críticos. Única mejora: pista `CLICK or F = HIT` en la barra superior sólo en Wave 1 y sólo en PC (en táctil ya existe el botón HIT).
+- `docs/PLAYTEST_CHECKLIST.md` reescrito: preparación del acceso privado, tabla de observación y pasos para 2 clientes.
+
 ## Partida de 3 oleadas V1.0, 2026-11-22
 - **Waves** (`Config.P0.Waves`, provisional): WAVE 1/3 DEFEND (20 s, Munchie cada 3 s, sin ladrón), WAVE 2/3 THIEF (20 s, cada 3 s, ladrón 9-12 s tras iniciar la oleada), WAVE 3/3 PIZZA RUSH (20 s, cada 2,5 s, ladrón). Velocidad (Munchie 5, ladrón 9) y vida sin cambios; la presión sube sólo por frecuencia y ladrón.
 - **Progreso conservado:** 8 porciones al inicio de la partida; lo perdido no se recupera entre oleadas; corazones y contabilidad del ladrón también persisten. Transición de 2 s (`GET READY`) que sólo limpia enemigos. Una oleada no termina (ni hay victoria) mientras una porción robada siga en disputa.

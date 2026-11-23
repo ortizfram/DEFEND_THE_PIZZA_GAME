@@ -82,8 +82,10 @@ while gui.Parent do
 		local bites = round:GetAttribute("SliceBites") or 0
 		local biteText = bites > 0 and string.format("  ·  BITE %d/3", bites) or ""
 		local stolenText = round:GetAttribute("Carried") == 1 and "  ·  THIEF HAS A SLICE - HIT HIM!" or ""
-		status.Text = string.format("WAVE %d/%d %s  -  PIZZA %d/8%s%s  -  %ds",round:GetAttribute("Wave") or 1,round:GetAttribute("WaveCount") or 3,
-			round:GetAttribute("WaveName") or "",round:GetAttribute("Slices") or 8,biteText,stolenText,seconds)
+		-- PC players have no on-screen HIT button: a short hint in wave 1 only (touch shows the real button).
+		local hint = (not UIS.TouchEnabled and (round:GetAttribute("Wave") or 1) == 1) and "  -  CLICK or F = HIT" or ""
+		status.Text = string.format("WAVE %d/%d %s  -  PIZZA %d/8%s%s  -  %ds%s",round:GetAttribute("Wave") or 1,round:GetAttribute("WaveCount") or 3,
+			round:GetAttribute("WaveName") or "",round:GetAttribute("Slices") or 8,biteText,stolenText,seconds,hint)
 	elseif phase == "Transition" then
 		status.Text = string.format("WAVE %d/%d - %s  -  GET READY",round:GetAttribute("Wave") or 2,round:GetAttribute("WaveCount") or 3,round:GetAttribute("WaveName") or "")
 	else

@@ -129,3 +129,7 @@ Place 122513508386436: respaldo previo = versión 35; guardado = ver informe fin
 - Reinicio: 4 s después vuelve a Wave 1 con 8 porciones, Carried 0, Lost 0. HUD verificado en captura (`WAVE 1/3 DEFEND - PIZZA 8/8 - 17s`).
 **Balance observado (autojugador, NO humano):** el autojugador defiende casi perfecto; no dice nada sobre dificultad real. Sin defensa la pizza se acaba en ~15-30 s.
 **No probado:** dos clientes reales (pendiente); la espera por una porción en disputa al terminar una oleada está revisada en código pero no se produjo en las pruebas (los ladrones se resolvían antes de los 20 s); sensación/dificultad con humanos. Aviso 203785492 sigue en consola (sin impacto).
+
+## V1.0.1 - revisión pre-playtest (23/11/2026)
+Un cliente, sin humanos. Probado: partida completa W1->W2->W3->`Pizza saved!` (8 porciones, autojugador), chef con 3 mordidas -> DOWNED (HELP + prompt REVIVE) -> de pie solo a los 12,0 s con 3 corazones; reinicio limpio (Wave 1, 8/8, Lost 0, hearts 3, 1 Munchie nuevo, 0 ladrones, 0 contornos, 0 porciones cargadas huérfanas). Daño conservado y regresión del ladrón: ver V1.0.
+**Primeros 10 s (cámara normal, captura):** los Munchies verdes y la pizza se leen bien, corazones y porciones legibles. Observaciones SIN cambiar: la pizza es pequeña frente al arena (no "gigante") y el chef a veces la tapa; en PC no había pista del golpe -> añadida.
