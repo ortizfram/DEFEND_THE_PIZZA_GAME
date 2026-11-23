@@ -82,9 +82,12 @@ while gui.Parent do
 		local bites = round:GetAttribute("SliceBites") or 0
 		local biteText = bites > 0 and string.format("  ·  BITE %d/3", bites) or ""
 		local stolenText = round:GetAttribute("Carried") == 1 and "  ·  THIEF HAS A SLICE - HIT HIM!" or ""
-		status.Text = string.format("SAVE THE PIZZA   %d/8%s%s   ·   %ds",round:GetAttribute("Slices") or 8,biteText,stolenText,seconds)
+		status.Text = string.format("WAVE %d/%d %s  -  PIZZA %d/8%s%s  -  %ds",round:GetAttribute("Wave") or 1,round:GetAttribute("WaveCount") or 3,
+			round:GetAttribute("WaveName") or "",round:GetAttribute("Slices") or 8,biteText,stolenText,seconds)
+	elseif phase == "Transition" then
+		status.Text = string.format("WAVE %d/%d - %s  -  GET READY",round:GetAttribute("Wave") or 2,round:GetAttribute("WaveCount") or 3,round:GetAttribute("WaveName") or "")
 	else
-		status.Text = phase or "Waiting"
+		status.Text = string.upper(phase or "Waiting")
 	end
 	local me = Players.LocalPlayer.Character
 	local hearts = me and me:GetAttribute("Hearts") or 3

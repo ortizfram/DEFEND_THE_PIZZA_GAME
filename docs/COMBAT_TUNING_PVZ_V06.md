@@ -119,3 +119,13 @@ Respaldo previo = versión 33. **Probado (un cliente):** manos/porción numéric
 Sin cambios de código ni de Place (v35 intacta). Rondas reales sin defender: aparición del ladrón a 9,05 / 9,20 / 11,30 / 11,50 / 11,90 s (dentro de 9-12 s); robo 2,3-2,6 s después (11,4-14,1 s). Contorno `CarryGlow` y `CarryAt` aparecen sólo en el instante del robo; al escapar: `Lost=1`, ladrón destruido, sin restos; cada ronda nueva arranca con 8 porciones, `Carried=0`, `Lost=0`.
 **No verificado:** golpe al ladrón con porción (suelta, baja brazos, contorno desaparece, recuperación única): 3 intentos automatizados con swings enviados por el cliente no conectaron (el ladrón escapó); no es prueba de fallo del juego, sólo de mi método. **Dos clientes: no ejecutado** (una sola instancia controlable). Ver `docs/PLAYTEST_CHECKLIST.md`.
 
+## V1.0 - partida de 3 oleadas (22/11/2026)
+Place 122513508386436: respaldo previo = versión 35; guardado = ver informe final. Un cliente; las porciones/ladrón se ejercitaron con el gancho Studio-only `DTP_WaveTest` (autojugador que ejecuta `resolveImpact`, el mismo camino de golpe legítimo del botón HIT).
+**Probado:** 5 partidas.
+- Secuencia 1->2->3 con transiciones de ~2 s y oleadas de 20,0 s; ladrón sólo en W2 y W3 (aparece 10,4-10,9 s tras iniciar la oleada, dentro de 9-12 s); nunca en W1.
+- Ladrón con porción (golpe legítimo): robo (Slices 7->6, Carried 1, contorno y CarryAt activos) -> primer golpe 0,11 s después: Slices 6->7 **una sola vez**, Carried 0, contorno y CarryAt desaparecen, Hp 1; segundo golpe lo derrota. Un solo `DTP_SliceRecovered`.
+- Escape en W2 (ignorado a propósito): Lost=1, Slices 8->7, el ladrón y su contorno desaparecen; W3 arranca con 7 y la victoria final se da con 7 porciones (`Pizza saved!`).
+- Derrota anticipada sin defender: 8->4 al pasar W1->W2 (conservadas), 0 en W2 -> `Pizza eaten!` inmediato.
+- Reinicio: 4 s después vuelve a Wave 1 con 8 porciones, Carried 0, Lost 0. HUD verificado en captura (`WAVE 1/3 DEFEND - PIZZA 8/8 - 17s`).
+**Balance observado (autojugador, NO humano):** el autojugador defiende casi perfecto; no dice nada sobre dificultad real. Sin defensa la pizza se acaba en ~15-30 s.
+**No probado:** dos clientes reales (pendiente); la espera por una porción en disputa al terminar una oleada está revisada en código pero no se produjo en las pruebas (los ladrones se resolvían antes de los 20 s); sensación/dificultad con humanos. Aviso 203785492 sigue en consola (sin impacto).

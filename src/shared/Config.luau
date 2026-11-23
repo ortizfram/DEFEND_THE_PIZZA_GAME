@@ -6,7 +6,14 @@ local Config = {
     PizzaSlices = 8,
     TargetMaxPlayers = 6,
     P0 = {
-        WaveDurationSeconds = 30,
+        -- Three consecutive waves (provisional balance, to playtest). Speeds and HP never change between waves:
+        -- pressure only comes from how often Munchies spawn and from the Slice Thief. Lost slices are NOT restored between waves.
+        Waves = {
+            { Name = "DEFEND", Seconds = 20, Interval = 3, Thief = false },
+            { Name = "THIEF", Seconds = 20, Interval = 3, Thief = true },
+            { Name = "PIZZA RUSH", Seconds = 20, Interval = 2.5, Thief = true },
+        },
+        WaveTransitionSeconds = 2,
         EnemySpawnPaths = 3,
         BitesPerSlice = 3,
         Walk = { Rate = 1.1, Stride = 2.5 }, -- Munchie walk playback (x speed, x leg swing): stance foot moves back at ~5 studs/s = MunchieSpeed, so no sliding

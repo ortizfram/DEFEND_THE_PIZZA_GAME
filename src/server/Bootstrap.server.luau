@@ -622,6 +622,47 @@ function finish(result)
 	state:SetAttribute("Phase", result)
 	print("DTP RoundFinished", round, result, remaining)
 end
+if RunService:IsStudio() then
+	-- Studio-only test hook (absent on live servers): drives legitimate swings (the same resolveImpact the HIT button uses)
+	-- from a chef placed in front of the target, so waves and thief recovery can be exercised unattended.
+	local tb = Instance.new("BindableFunction")
+	tb.Name = "DTP_WaveTest"
+	local mode, running, swingN = nil, false, 0
+	tb.OnInvoke = function(action, a)
+		if action ~= "auto" then return false end
+		mode = a
+		if mode and not running then
+			running = true
+			task.spawn(function()
+				while mode do
+					task.wait(0.2)
+					local player = Players:GetPlayers()[1]
+					local root = player and aliveRoot(player)
+					if not (playing and root) then continue end
+					local pick, best
+					for enemy in active do
+						if enemy.kind == "Thief" and ((mode == "skipThief" and thiefLedger.lost == 0) or (mode == "carryHit" and not enemy.slice)) then continue end
+						local score = (target - enemy.pos).Magnitude - (enemy.kind == "Thief" and enemy.slice and 1000 or 0)
+						if not best or score < best then pick, best = enemy, score end
+					end
+					if pick then
+						local goal = if pick.kind == "Thief" and pick.state ~= "Approach" then pick.exit else target
+						local dir = Vector3.new(goal.X - pick.pos.X, 0, goal.Z - pick.pos.Z)
+						dir = if dir.Magnitude > 0.01 then dir.Unit else Vector3.xAxis
+						local at = Vector3.new(pick.pos.X, root.Position.Y, pick.pos.Z)
+						root.CFrame = CFrame.lookAt(at + dir * 1.6, at)
+						pick.testN = (pick.testN or 0) % 3 + 1
+						swingN += 1
+						resolveImpact(player, pick.testN, round, "test" .. swingN)
+					end
+				end
+				running = false
+			end)
+		end
+		return true
+	end
+	tb.Parent = script
+end
 state:SetAttribute("Phase","Waiting")
 shutter(false)
 while true do
@@ -636,22 +677,56 @@ while true do
 	shutter(false)
 	state:SetAttribute("Slices",remaining)
 	state:SetAttribute("SliceBites",0)
-	state:SetAttribute("EndsAt",workspace:GetServerTimeNow()+config.P0.WaveDurationSeconds)
-	state:SetAttribute("Phase","Defend")
+	state:SetAttribute("WaveCount", #config.P0.Waves)
 	print("DTP_MapStarted",round,#Players:GetPlayers())
-	local started, nextSpawn, index = os.clock(), 0, 0
-	local thiefSpawned = false
-	local thiefAt = config.P0.Thief.SpawnMin + math.random() * (config.P0.Thief.SpawnMax - config.P0.Thief.SpawnMin)
+	-- Three waves in one game. Slices, hearts and the thief ledger carry over; only enemies are cleared between waves.
+	local waves = config.P0.Waves
+	local w, wave, index = 1, waves[1], 0
+	local started, nextSpawn, thiefSpawned, thiefAt, spawning, transitionUntil = 0, 0, true, 0, false, 0
+	local function startWave()
+		wave = waves[w]
+		started, nextSpawn, spawning = os.clock(), 0, true
+		thiefSpawned = not wave.Thief
+		thiefAt = config.P0.Thief.SpawnMin + math.random() * (config.P0.Thief.SpawnMax - config.P0.Thief.SpawnMin)
+		state:SetAttribute("Wave", w)
+		state:SetAttribute("WaveName", wave.Name)
+		state:SetAttribute("EndsAt", workspace:GetServerTimeNow() + wave.Seconds)
+		state:SetAttribute("Phase", "Defend")
+		print("DTP_WaveStarted", round, w, wave.Name, remaining)
+	end
+	startWave()
 	while playing do
 		local dt = math.min(RunService.Heartbeat:Wait(),0.2)
 		local now = os.clock()
 		if #Players:GetPlayers() == 0 then finish("Waiting") break end
-		if now-started >= config.P0.WaveDurationSeconds then finish(if remaining > 0 then "Pizza saved!" else "Pizza eaten!") break end
-		if not thiefSpawned and now - started >= thiefAt then thiefSpawned = true spawnThief() end
-		if now >= nextSpawn then
+		if transitionUntil > 0 then
+			if now >= transitionUntil then transitionUntil = 0 startWave() end
+			continue
+		end
+		if now - started >= wave.Seconds then
+			-- Never end a wave (nor declare victory) while a stolen slice is still in dispute.
+			if state:GetAttribute("Carried") ~= 1 then
+				if w >= #waves then finish("Pizza saved!") break end
+				for enemy in active do
+					if enemy.slice then enemy.slice:Destroy() end
+					enemy.model:Destroy()
+				end
+				table.clear(active)
+				w += 1
+				state:SetAttribute("Wave", w)
+				state:SetAttribute("WaveName", waves[w].Name)
+				state:SetAttribute("EndsAt", workspace:GetServerTimeNow() + config.P0.WaveTransitionSeconds)
+				state:SetAttribute("Phase", "Transition")
+				transitionUntil = now + config.P0.WaveTransitionSeconds
+				continue
+			end
+			spawning = false
+		end
+		if spawning and not thiefSpawned and now - started >= thiefAt then thiefSpawned = true spawnThief() end
+		if spawning and now >= nextSpawn then
 			index += 1
 			spawnEnemy((index-1)%#entries+1)
-			nextSpawn = now+3
+			nextSpawn = now + wave.Interval
 		end
 		if closedUntil > 0 and now >= closedUntil then closedUntil=0 shutter(false) end
 		for enemy in active do

@@ -61,6 +61,12 @@
 - **DOWNED** a 0 corazones: no puede atacar, cartel `HELP!`, `PlatformStand`, los zombis lo ignoran. **Revive gratis:** otro chef lo levanta manteniendo `REVIVE` 2 s (`ProximityPrompt`, usable en PC, táctil y mando; el servidor valida distancia <= 9, estado y que no sea uno mismo, y es un no-op repetido). Si nadie lo ayuda, se levanta solo a los 12 s. Se levanta con 3 corazones y 2 s de invulnerabilidad; cada ronda reinicia los corazones.
 - Sin revive de pago, productos ni creaturas nuevas. Detalle de pruebas en `docs/COMBAT_TUNING_PVZ_V06.md`.
 
+## Partida de 3 oleadas V1.0, 2026-11-22
+- **Waves** (`Config.P0.Waves`, provisional): WAVE 1/3 DEFEND (20 s, Munchie cada 3 s, sin ladrón), WAVE 2/3 THIEF (20 s, cada 3 s, ladrón 9-12 s tras iniciar la oleada), WAVE 3/3 PIZZA RUSH (20 s, cada 2,5 s, ladrón). Velocidad (Munchie 5, ladrón 9) y vida sin cambios; la presión sube sólo por frecuencia y ladrón.
+- **Progreso conservado:** 8 porciones al inicio de la partida; lo perdido no se recupera entre oleadas; corazones y contabilidad del ladrón también persisten. Transición de 2 s (`GET READY`) que sólo limpia enemigos. Una oleada no termina (ni hay victoria) mientras una porción robada siga en disputa.
+- **Fin:** `PIZZA SAVED!` tras la oleada 3 con porciones; `PIZZA EATEN!` al llegar a 0 (inmediato). A los 4 s la partida completa reinicia en Wave 1 con 8 porciones, corazones y ledger restaurados. HUD: `WAVE n/3 NOMBRE - PIZZA x/8 - segundos`.
+- Gancho de pruebas `DTP_WaveTest` (sólo Studio, no existe en servidores reales).
+
 ## Slice Thief V0.9.1 - pulido de manos y visibilidad, 2026-11-22
 - **Manos:** pose de brazos reafinada (`CarryPose`): la mano derecha toca el borde inferior de la porción (hueco -0,012) y la izquierda queda a 0,029, constantes en 127 fotogramas de carrera/giro. El sombrero es un disco más fino (0,05 de alto) y la cabeza se mantiene nivelada mientras carga (`MunchiePlayback`), lo que eliminó la variación de 0,08-0,19. La porción queda centrada a +0,005 sobre el sombrero.
 - **Visibilidad:** con la cámara de chef por defecto (emulada) el ladrón se veía pero pequeño a ~20 studs; se añade un contorno blanco (`Highlight` `CarryGlow`) sólo mientras lleva la porción. No mueve la cámara.
