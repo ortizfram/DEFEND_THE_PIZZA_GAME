@@ -70,7 +70,7 @@ return function(folder, arena)
 			local frames=clip.frames
 			local duration=frames[#frames].t
 			local isWalk=name=="Walk"
-			if isWalk then elapsed*=walkRate end
+			if isWalk then elapsed*=walkRate*(model:GetAttribute("GaitMul") or 1) end
 			if not clip.loop and FINISHED_TO_IDLE[name] and elapsed>duration and clips.Idle then
 				elapsed-=duration
 				name,clip,isWalk="Idle",clips.Idle,false

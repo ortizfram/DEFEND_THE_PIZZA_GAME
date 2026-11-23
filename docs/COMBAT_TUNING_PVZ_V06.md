@@ -83,3 +83,15 @@ Place 122513508386436: respaldo previo = versión 21. Un cliente (el segundo no 
 **Ritmo medido, ronda de 30 s sin defensa (servidor):** zombi 1 aparece a 0 s y llega a la pizza a **3,9 s** (empieza a morder al llegar); zombis 2–5 aparecen a 3,0 / 6,1 / 9,0 / 12,0 s y llegan a 6,9 / 9,9 / 13,0 s; porciones perdidas a 6,5 / 8,5 / 9,6 / 10,5 / 11,6 / 12,6 / 13,6 / 14,5 s. Las tres mordidas por porción siguen funcionando (HUD `BITE 1/3`, 2,6 s entre la llegada y la primera porción). Un defensor tiene ~3,9 s de caminata más 2,6 s de mordidas antes de perder la primera porción y cada zombi exige 2 golpes (~0,8 s): con un solo defensor la ronda parece **fácil**; ritmo de aproximación no es demasiado lento.
 
 **Si se quiere más presión (no aplicado):** intervalo de aparición (hoy 3 s, fijo en `Bootstrap.server.luau`), `Config.P0.MunchieSpeed` (5), `BiteIntervalSeconds` (1,0) y `BiteHitDelaySeconds` (0,55). Subir la velocidad a 6–6,5 o bajar el intervalo de aparición a 2–2,5 s sería lo primero a probar; si se cambia la velocidad, reajustar `Walk.Rate` (≈ velocidad/5).
+
+## V0.8 · Slice Thief (22/11/2026)
+Place 122513508386436: respaldo previo = versión 23. Un cliente; sin segundo jugador (se acordó que no hace falta).
+
+**Probado en Studio (Play, servidor + 1 cliente):** (con el ladrón adelantado a 4 s sólo para la prueba y restaurado a 9–12 s después)
+- **Robo y escape (chef sin defender):** aparece, llega a la pizza a los 2,3 s de correr, `Slices 8→7`, `Carried=1`, porción visible en sus manos; escapa 2,1 s después: `StolenLost=1`, `Carried=0` y las porciones **no se descuentan otra vez** (después sólo Munchie: 6→0; 1 perdida + 7 comidas = 8).
+- **Golpe y recuperación:** golpe 1 → `Slices 7→8` exactamente +1, `Carried=0`, la porción vuela de vuelta y desaparece de sus manos; el ladrón queda con 1 HP y sigue huyendo sin ella. Golpe 2 → muerto con ragdoll (21 piezas), `StolenLost=0`. Munchie sigue comiendo sobre el resto sin errores.
+- **Ronda terminando con el ladrón huyendo:** ladrón roba (2→1) y Munchie se come la última a los 0,4 s: `Pizza eaten!`, `Carried=0`, sin modelo de porción robada ni ladrones sobrantes; la ronda siguiente empieza con 8 porciones, `Carried 0`, `StolenLost 0`. Caso extra encontrado y corregido: si el ladrón roba la **última** porción, la ronda seguía hasta los 30 s; ahora termina cuando escapa con ella (16,07 s en la prueba).
+- **Aparición natural:** 10,1 s y 10,6 s; un solo ladrón; 9,0 studs/s frente a 5 de Munchie; roba a los 12,4–13,0 s.
+- **Compatibilidad:** swings 1 y 2 (arco/contacto) golpean al ladrón; ragdoll de 21 piezas; mordidas de Munchie y la velocidad de Munchie (5) y su intervalo de aparición (3 s) sin cambios.
+
+**No probado / pendiente:** dos jugadores simultáneos sobre el mismo ladrón (la doble recuperación/pérdida está cubierta por los tests de `SliceLedger` en CI, no en Studio con dos clientes); swing 3 sobre el ladrón; el aspecto visual es provisional (capturas parciales); con el chef defendiendo, el balance de 2 HP/9 studs/s no se afinó.

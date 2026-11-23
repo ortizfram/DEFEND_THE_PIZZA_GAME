@@ -50,6 +50,7 @@ local function motion(model,name,restart)
 end
 local Munchie = require(script.Parent.Munchie)
 local Ragdoll = require(script.Parent.MunchieRagdoll)
+local Ledger = require(script.Parent.SliceLedger)
 local Swings = require(shared.SpatulaSwings)
 local SpatulaHit = require(shared.SpatulaHit)
 local active = {}
@@ -58,6 +59,7 @@ local firstHit = {}
 local combo = {}
 local playing = false
 local remaining, round, closedUntil, sliceBites = 0, 0, 0, 0
+local onThiefHit -- assigned below (needs showSlice)
 
 local function equip(character)
 	local hand = character:WaitForChild("RightHand", 3) or character:FindFirstChild("Right Arm")
@@ -102,7 +104,8 @@ for _, player in Players:GetPlayers() do joined(player) end
 Players.PlayerRemoving:Connect(function(p) cooldown[p], firstHit[p], combo[p] = nil, nil, nil end)
 
 local function pose(enemy)
-	local cf = CFrame.lookAt(enemy.pos, Vector3.new(target.X, enemy.pos.Y, target.Z))
+	local aim = enemy.aim or target
+	local cf = CFrame.lookAt(enemy.pos, Vector3.new(aim.X, enemy.pos.Y, aim.Z))
 	local hop = 0
 	if enemy.hopUntil then
 		local left = enemy.hopUntil - os.clock()
@@ -187,6 +190,7 @@ local function resolveImpact(player, index, thisRound, swingId)
 	model:SetAttribute("HitKind", index)
 	model:SetAttribute("Hp", hp)
 	local contact = nearest.pos + Vector3.yAxis * nearest.height
+	if nearest.kind == "Thief" then onThiefHit(nearest) end -- a valid hit makes it drop the slice it carries
 	if hp > 0 then
 		nearest.knockDir = push
 		nearest.knockRemaining = knockbackTarget * style.Push
@@ -279,9 +283,158 @@ local function showSlice(i, visible, biteCount)
 		end
 	end
 end
-local function finish(result)
+-- ===== Slice Thief (provisional model = recoloured, smaller Munchie rig carrying a big slice) =====
+local thiefLedger = Ledger.new()
+local finish -- assigned below
+local function renderSlices(skip)
+	for i = 1, #slices do
+		if i == skip or i > remaining then
+			showSlice(i, false)
+		else
+			showSlice(i, true, if i == remaining then sliceBites else 0)
+		end
+	end
+end
+local function makeCarried(idx)
+	local clone = slices[idx]:Clone()
+	clone.Name = "StolenSlice"
+	for _, p in clone:GetDescendants() do
+		if p:IsA("BasePart") then p.Anchored, p.CanCollide, p.CanTouch, p.CanQuery, p.Transparency = true, false, false, false, 0 end
+	end
+	clone.WorldPivot = CFrame.new(clone:GetBoundingBox().Position) * CFrame.Angles(0, math.rad(idx * 45), 0)
+	clone:ScaleTo(1.6)
+	clone.Parent = arena
+	return clone
+end
+local function holdSlice(enemy)
+	if enemy.slice and enemy.model.Parent then
+		enemy.slice:PivotTo(enemy.model:GetPivot() * CFrame.new(0, 0.1, -1.6) * CFrame.Angles(0, math.pi, 0))
+	end
+end
+local function flySlice(clone, slot, thisRound)
+	task.spawn(function()
+		local from = clone:GetPivot()
+		local to = CFrame.new(slices[slot]:GetBoundingBox().Position)
+		for k = 1, 10 do
+			task.wait(0.035)
+			if not clone.Parent then return end
+			clone:PivotTo(from:Lerp(to, k / 10) + Vector3.new(0, math.sin(math.pi * k / 10) * 2.5, 0))
+		end
+		clone:Destroy()
+		if thisRound == round and playing then renderSlices() end
+	end)
+end
+local function spawnThief()
+	local cfg = config.P0.Thief
+	if not template then return end
+	local lane = ({1, 3})[math.random(1, 2)]
+	local model = template:Clone()
+	model:ScaleTo(cfg.Scale)
+	local purple, dark, gold = Color3.fromRGB(122, 84, 176), Color3.fromRGB(38, 36, 52), Color3.fromRGB(255, 209, 102)
+	local head
+	for _, p in model:GetDescendants() do
+		if p:IsA("MeshPart") then
+			local n = p.Name
+			if n == "Head" then head = p end
+			if n == "Body" or n == "Head" or n:find("Arm") or n:find("Leg") or n:find("Hand") then p.Color = purple
+			elseif n == "Belly" then p.Color = dark
+			elseif n == "Bib" then p.Color = gold end
+		end
+	end
+	if head then
+		local cap = Instance.new("Part")
+		cap.Name, cap.Color, cap.Material = "ThiefCap", dark, Enum.Material.SmoothPlastic
+		cap.Size = Vector3.new(head.Size.X * 1.06, head.Size.Y * 0.32, head.Size.Z * 1.06)
+		cap.CanCollide, cap.CanTouch, cap.CanQuery, cap.Massless = false, false, false, true
+		cap.CFrame = head.CFrame * CFrame.new(0, head.Size.Y * 0.46, 0)
+		cap.Parent = model
+		local weld = Instance.new("WeldConstraint")
+		weld.Part0, weld.Part1, weld.Parent = head, cap, cap
+	end
+	for _, p in model:GetDescendants() do
+		if p:IsA("BasePart") then
+			p.Anchored, p.CanCollide, p.CanTouch = (not model.PrimaryPart or p == model.PrimaryPart), false, false
+		end
+	end
+	motion(model, "Walk")
+	model.Name = "Munchie" -- same rig and clips as the common zombie
+	model:SetAttribute("Thief", true)
+	model:SetAttribute("GaitMul", cfg.GaitMul)
+	local box, size = model:GetBoundingBox()
+	local enemy = {model=model, kind="Thief", state="Approach", pos=entries[lane], hp=cfg.Hp, lane=lane, exit=entries[lane],
+		stun=0, bite=0, knockRemaining=0, knockDir=Vector3.zero, height=size.Y/2, offset=box:ToObjectSpace(model:GetPivot())}
+	pose(enemy)
+	model.Parent = arena
+	active[enemy] = true
+	print("DTP_ThiefSpawned", round, lane)
+end
+local function stealSlice(enemy)
+	local idx = remaining
+	local left, ok = Ledger.steal(thiefLedger, remaining)
+	enemy.aim = enemy.exit -- runs for the exit either way
+	if not ok then enemy.state = "Flee" return end
+	enemy.slice = makeCarried(idx)
+	remaining, sliceBites, enemy.state = left, 0, "Escape"
+	state:SetAttribute("Slices", remaining)
+	state:SetAttribute("SliceBites", 0)
+	state:SetAttribute("Carried", 1)
+	renderSlices()
+	print("DTP_SliceStolen", round, remaining)
+end
+local function escapeThief(enemy)
+	if Ledger.escape(thiefLedger) then
+		state:SetAttribute("StolenLost", thiefLedger.lost)
+		state:SetAttribute("Carried", 0)
+		print("DTP_SliceLost", round, remaining)
+	end
+	if enemy.slice then enemy.slice:Destroy() enemy.slice = nil end
+	active[enemy] = nil
+	enemy.model:Destroy()
+	if remaining == 0 and playing then finish("Pizza eaten!") end -- the last slice is gone for good
+end
+onThiefHit = function(enemy)
+	local left, ok = Ledger.recover(thiefLedger, remaining, #slices)
+	if not ok then return end -- not carrying (or already recovered): nothing to give back
+	remaining = left
+	state:SetAttribute("Slices", remaining)
+	state:SetAttribute("Carried", 0)
+	local clone = enemy.slice
+	enemy.slice, enemy.state, enemy.aim = nil, "Flee", enemy.exit
+	renderSlices(remaining) -- the landing slot stays empty until the slice flies back
+	flySlice(clone, remaining, round)
+	print("DTP_SliceRecovered", round, remaining)
+end
+local function stepThief(enemy, dt, now)
+	local cfg = config.P0.Thief
+	if enemy.knockRemaining > 0 then
+		local d = math.min(enemy.knockRemaining, config.P0.FirstHitPushSpeed * dt)
+		enemy.pos += enemy.knockDir * d
+		enemy.knockRemaining -= d
+		pose(enemy)
+		return
+	end
+	if now < enemy.stun then return end
+	local dest = if enemy.state == "Approach" then target else enemy.exit
+	local to = Vector3.new(dest.X - enemy.pos.X, 0, dest.Z - enemy.pos.Z)
+	local dist = to.Magnitude
+	if enemy.state == "Approach" then
+		if dist <= cfg.StealDistance then stealSlice(enemy) return end
+	elseif dist <= cfg.ExitRadius then
+		escapeThief(enemy)
+		return
+	end
+	motion(enemy.model, "Walk")
+	enemy.pos += to.Unit * math.min(cfg.Speed * dt, dist)
+	pose(enemy)
+end
+
+function finish(result)
 	playing = false
-	for enemy in active do enemy.model:Destroy() end
+	for enemy in active do
+		if enemy.slice then enemy.slice:Destroy() end
+		enemy.model:Destroy()
+	end
+	state:SetAttribute("Carried", 0)
 	table.clear(active)
 	shutter(false)
 	state:SetAttribute("Phase", result)
@@ -294,6 +447,9 @@ while true do
 	round += 1
 	remaining, closedUntil, sliceBites, playing = #slices, 0, 0, true
 	for i in slices do showSlice(i,true) end
+	Ledger.reset(thiefLedger)
+	state:SetAttribute("Carried", 0)
+	state:SetAttribute("StolenLost", 0)
 	shutter(false)
 	state:SetAttribute("Slices",remaining)
 	state:SetAttribute("SliceBites",0)
@@ -301,11 +457,14 @@ while true do
 	state:SetAttribute("Phase","Defend")
 	print("DTP_MapStarted",round,#Players:GetPlayers())
 	local started, nextSpawn, index = os.clock(), 0, 0
+	local thiefSpawned = false
+	local thiefAt = config.P0.Thief.SpawnMin + math.random() * (config.P0.Thief.SpawnMax - config.P0.Thief.SpawnMin)
 	while playing do
 		local dt = math.min(RunService.Heartbeat:Wait(),0.2)
 		local now = os.clock()
 		if #Players:GetPlayers() == 0 then finish("Waiting") break end
-		if now-started >= config.P0.WaveDurationSeconds then finish("Pizza saved!") break end
+		if now-started >= config.P0.WaveDurationSeconds then finish(if remaining > 0 then "Pizza saved!" else "Pizza eaten!") break end
+		if not thiefSpawned and now - started >= thiefAt then thiefSpawned = true spawnThief() end
 		if now >= nextSpawn then
 			index += 1
 			spawnEnemy((index-1)%#entries+1)
@@ -313,6 +472,12 @@ while true do
 		end
 		if closedUntil > 0 and now >= closedUntil then closedUntil=0 shutter(false) end
 		for enemy in active do
+			if enemy.kind == "Thief" then
+				stepThief(enemy, dt, now)
+				holdSlice(enemy)
+				if not playing then break end
+				continue
+			end
 			local toward = target-enemy.pos
 			local atDoor = enemy.lane == 2 and (enemy.pos-entries[2]).Magnitude < 2
 			if enemy.knockRemaining > 0 then

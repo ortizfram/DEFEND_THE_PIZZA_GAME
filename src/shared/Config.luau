@@ -10,6 +10,8 @@ local Config = {
         EnemySpawnPaths = 3,
         BitesPerSlice = 3,
         Walk = { Rate = 1.1, Stride = 2.5 }, -- Munchie walk playback (x speed, x leg swing): stance foot moves back at ~5 studs/s = MunchieSpeed, so no sliding
+        -- Slice Thief (provisional balance): one per round, appears between SpawnMin and SpawnMax seconds.
+        Thief = { Hp = 2, Speed = 9, SpawnMin = 9, SpawnMax = 12, StealDistance = 3.2, ExitRadius = 2, GaitMul = 1.8, Scale = 0.85 },
         MunchieSpeed = 5, -- studs/s walking toward the pizza (was 10; the common zombie is now much slower)
         BiteIntervalSeconds = 1.0,
         BiteHitDelaySeconds = 0.55,
