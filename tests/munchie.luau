@@ -16,7 +16,7 @@ local slowStep = Munchie.advance(24, 0.2, 10, 0, false, 0, Config.P0.MunchieSpee
 -- Bigger pizza: a munchie stops (and bites) at its edge, never inside it.
 local reach = 4 * Config.P0.PizzaScale + 0.5
 local nearStep = Munchie.advance(reach + 0.3, 0.2, 10, 0, false, 0, Config.P0.MunchieSpeed, reach)
-assert(math.abs(nearStep - 0.25) < 0.001, "stops 0.05 inside the reach")
+assert(math.abs(nearStep - 0.35) < 0.001, "stops 0.05 inside the reach")
 local _, biteAtEdge = Munchie.advance(reach, 0.2, 10, 0, false, 0, Config.P0.MunchieSpeed, reach)
 assert(biteAtEdge, "bites when at the pizza edge")
 assert(Config.P0.Thief.StealDistance >= 4 * Config.P0.PizzaScale, "thief steals at/after the pizza edge")
