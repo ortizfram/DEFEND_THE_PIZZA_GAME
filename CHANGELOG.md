@@ -61,6 +61,10 @@
 - **DOWNED** a 0 corazones: no puede atacar, cartel `HELP!`, `PlatformStand`, los zombis lo ignoran. **Revive gratis:** otro chef lo levanta manteniendo `REVIVE` 2 s (`ProximityPrompt`, usable en PC, táctil y mando; el servidor valida distancia <= 9, estado y que no sea uno mismo, y es un no-op repetido). Si nadie lo ayuda, se levanta solo a los 12 s. Se levanta con 3 corazones y 2 s de invulnerabilidad; cada ronda reinicia los corazones.
 - Sin revive de pago, productos ni creaturas nuevas. Detalle de pruebas en `docs/COMBAT_TUNING_PVZ_V06.md`.
 
+## Pizza central 1,6x V1.1, 2026-11-23
+- `Config.P0.PizzaScale = 1.6`: radio 4 -> 6,4 studs (diámetro 8 -> 12,8), rebanadas de 4 -> 6,4 de largo, grosor y pepperoni escalados; siguen siendo 8 porciones. Mapa sin cambios.
+- Contacto: el Munchie se detiene y muerde a `4 x escala + 0,5` del centro (antes 4,5 fijo, que con la pizza grande lo habría metido dentro); `Munchie.advance` recibe `reach` (por defecto 4,5, pruebas en CI). El ladrón roba al borde (`StealDistance` 3,2 -> 6,6). La porción transportada mantiene su tamaño (`CarryScale / PizzaScale`: 4,6 de largo, igual que antes).
+
 ## Preparación de playtest V1.0.1, 2026-11-23
 - Revisión completa de 3 oleadas sin bugs críticos. Única mejora: pista `CLICK or F = HIT` en la barra superior sólo en Wave 1 y sólo en PC (en táctil ya existe el botón HIT).
 - `docs/PLAYTEST_CHECKLIST.md` reescrito: preparación del acceso privado, tabla de observación y pasos para 2 clientes.

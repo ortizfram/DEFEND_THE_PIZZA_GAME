@@ -5,7 +5,8 @@ local Debris = game:GetService("Debris")
 local TweenService = game:GetService("TweenService")
 local shared = ReplicatedStorage:WaitForChild("DTP")
 local config = require(shared.Config)
-local arena, target, slices, entries, door, prompt = require(script.Parent.PizzaShop).create()
+local arena, target, slices, entries, door, prompt = require(script.Parent.PizzaShop).create(config.P0.PizzaScale)
+local pizzaReach = 4 * config.P0.PizzaScale + 0.5 -- munchies stop and bite here (pizza edge + 0.5)
 local hit = Instance.new("RemoteEvent")
 hit.Name = "Hit"
 local state = Instance.new("Folder")
@@ -435,7 +436,7 @@ local function makeCarried(idx)
 		if p:IsA("BasePart") then p.Anchored, p.CanCollide, p.CanTouch, p.CanQuery, p.Transparency = true, false, false, false, 0 end
 	end
 	clone.WorldPivot = CFrame.new(clone:GetBoundingBox().Position) * CFrame.Angles(0, math.rad(idx * 45), 0)
-	clone:ScaleTo(config.P0.Thief.CarryScale)
+	clone:ScaleTo(config.P0.Thief.CarryScale / config.P0.PizzaScale) -- carried size is independent of the central pizza scale
 	clone.Parent = arena
 	return clone
 end
@@ -743,7 +744,7 @@ while true do
 				enemy.knockRemaining -= distance
 				pose(enemy)
 			else
-				local step, bite = Munchie.advance(toward.Magnitude, dt, now, enemy.stun, closedUntil > now and atDoor, enemy.bite, config.P0.MunchieSpeed)
+				local step, bite = Munchie.advance(toward.Magnitude, dt, now, enemy.stun, closedUntil > now and atDoor, enemy.bite, config.P0.MunchieSpeed, pizzaReach)
 				if closedUntil > now and atDoor and now >= enemy.stun then motion(enemy.model,"Idle") end
 				if step > 0 then
 					motion(enemy.model,"Walk")
@@ -788,7 +789,7 @@ while true do
 				enemy.pendingBiteAt = nil
 				-- Damage follows the bite contact, and is canceled by stun/knockback.
 				if now >= enemy.stun and enemy.knockRemaining <= 0
-					and (target-enemy.pos).Magnitude <= 4.5 and remaining > 0 then
+					and (target-enemy.pos).Magnitude <= pizzaReach + 0.05 and remaining > 0 then
 					local done
 					sliceBites, done = Munchie.bite(sliceBites, config.P0.BitesPerSlice)
 					showSlice(remaining,true,sliceBites)

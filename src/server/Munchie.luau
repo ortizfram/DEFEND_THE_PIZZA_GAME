@@ -1,12 +1,14 @@
 -- Pure timing rules used by the server and the headless P0 checks.
 local Munchie = {}
 
-function Munchie.advance(distance, dt, now, stunUntil, blocked, nextBite, speed)
+-- reach: distance from the pizza centre at which it stops (pizza radius + a small gap).
+function Munchie.advance(distance, dt, now, stunUntil, blocked, nextBite, speed, reach)
+	reach = reach or 4.5
 	if blocked or now < stunUntil then
 		return 0, false
 	end
-	if distance > 4.5 then
-		return math.min((speed or 10) * dt, distance - 4.45), false
+	if distance > reach then
+		return math.min((speed or 10) * dt, distance - (reach - 0.05)), false
 	end
 	return 0, now >= nextBite
 end

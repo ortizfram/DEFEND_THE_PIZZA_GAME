@@ -18,7 +18,8 @@ local Config = {
         BitesPerSlice = 3,
         Walk = { Rate = 1.1, Stride = 2.5 }, -- Munchie walk playback (x speed, x leg swing): stance foot moves back at ~5 studs/s = MunchieSpeed, so no sliding
         -- Slice Thief (provisional balance): one per round, appears between SpawnMin and SpawnMax seconds.
-        Thief = { Hp = 2, Speed = 9, SpawnMin = 9, SpawnMax = 12, StealDistance = 3.2, ExitRadius = 2, GaitMul = 1.8, Scale = 0.85,
+        Thief = { Hp = 2, Speed = 9, SpawnMin = 9, SpawnMax = 12, StealDistance = 6.6, ExitRadius = 2, -- StealDistance = pizza edge (4 x PizzaScale = 6.4) + 0.2
+            GaitMul = 1.8, Scale = 0.85,
             CarryScale = 1.15, -- stolen slice size while carried over the hat
             -- Arm pose while carrying (degrees, rx/ry/rz per Munchie arm part): both arms up, elbows bent ~30 deg, hands under the slice edges.
             -- Tuned on a live rig with a level head and a thin hat: right hand touches the slice bottom, left is within ~0.03.
@@ -30,6 +31,8 @@ local Config = {
         -- REVIVE for ReviveSeconds, otherwise the chef is back up on its own after DownedMaxSeconds. Always free.
         Chef = { Hearts = 3, InvulnSeconds = 1.0, BiteRange = 3.0, BiteWindup = 0.5, BiteCooldown = 1.8,
             ReviveSeconds = 2, ReviveRange = 8, DownedMaxSeconds = 12, ReviveInvulnSeconds = 2.0 },
+        -- Central pizza size multiplier (1.0 = radius 4 studs). 8 slices always.
+        PizzaScale = 1.6,
         MunchieSpeed = 5, -- studs/s walking toward the pizza (was 10; the common zombie is now much slower)
         BiteIntervalSeconds = 1.0,
         BiteHitDelaySeconds = 0.55,

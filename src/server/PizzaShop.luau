@@ -10,7 +10,9 @@ local function part(parent, class, name, size, frame, color)
 	return p
 end
 
-function Shop.create()
+-- scale: size multiplier of the central pizza (radius 4 studs at 1.0). Slice count stays 8.
+function Shop.create(scale)
+	scale = scale or 1
 	local model = Instance.new("Model")
 	model.Name = "DTP_PizzaShop"
 	local spawn = workspace:FindFirstChildWhichIsA("SpawnLocation", true)
@@ -21,16 +23,17 @@ function Shop.create()
 	local target = center + Vector3.yAxis * 0.22
 	local slices = {}
 	for i = 1, 8 do
-		local frame = CFrame.new(target + Vector3.yAxis * 0.4) * CFrame.Angles(0, math.rad(i * 45), 0)
+		local frame = CFrame.new(target + Vector3.yAxis * 0.4 * scale) * CFrame.Angles(0, math.rad(i * 45), 0)
 		local slice = Instance.new("Model")
 		slice.Name = "Slice" .. i
 		for _, sign in {-1, 1} do
-			local width = 4 * math.tan(math.pi / 8)
-			local orientation = CFrame.fromMatrix(Vector3.new(sign * width/2, 0, 2), -sign * Vector3.yAxis, sign * Vector3.xAxis)
-			local wedge = part(slice, "WedgePart", "Cheese", Vector3.new(0.55, width, 4), frame * orientation, cheese)
+			local radius = 4 * scale
+			local width = radius * math.tan(math.pi / 8)
+			local orientation = CFrame.fromMatrix(Vector3.new(sign * width/2, 0, radius / 2), -sign * Vector3.yAxis, sign * Vector3.xAxis)
+			local wedge = part(slice, "WedgePart", "Cheese", Vector3.new(0.55 * scale, width, radius), frame * orientation, cheese)
 			wedge.CanCollide = false
 		end
-		local topping = part(slice, "Part", "Pepperoni", Vector3.new(0.12, 0.8, 0.8), frame * CFrame.new(0, 0.32, 2.8) * CFrame.Angles(0, 0, math.pi/2), red)
+		local topping = part(slice, "Part", "Pepperoni", Vector3.new(0.12 * scale, 0.8 * scale, 0.8 * scale), frame * CFrame.new(0, 0.32 * scale, 2.8 * scale) * CFrame.Angles(0, 0, math.pi/2), red)
 		topping.Shape, topping.CanCollide = Enum.PartType.Cylinder, false
 		slice.Parent = model
 		slices[i] = slice

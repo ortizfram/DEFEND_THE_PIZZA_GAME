@@ -13,6 +13,13 @@ expect(24, true, 0, 0, 0, false)
 assert(Config.P0.Walk.Rate > 0 and Config.P0.Walk.Stride >= 1)
 -- Configured speed: the common zombie walks at 5 studs/s (1 stud per 0.2 s step).
 local slowStep = Munchie.advance(24, 0.2, 10, 0, false, 0, Config.P0.MunchieSpeed)
+-- Bigger pizza: a munchie stops (and bites) at its edge, never inside it.
+local reach = 4 * Config.P0.PizzaScale + 0.5
+local nearStep = Munchie.advance(reach + 0.3, 0.2, 10, 0, false, 0, Config.P0.MunchieSpeed, reach)
+assert(math.abs(nearStep - 0.25) < 0.001, "stops 0.05 inside the reach")
+local _, biteAtEdge = Munchie.advance(reach, 0.2, 10, 0, false, 0, Config.P0.MunchieSpeed, reach)
+assert(biteAtEdge, "bites when at the pizza edge")
+assert(Config.P0.Thief.StealDistance >= 4 * Config.P0.PizzaScale, "thief steals at/after the pizza edge")
 assert(Config.P0.MunchieSpeed == 5 and math.abs(slowStep - 1) < 0.001)
 expect(5, false, 0, 0, 0.55, false)
 expect(4.45, false, 11, 0, 0, false)
