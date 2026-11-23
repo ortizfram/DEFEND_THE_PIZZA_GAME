@@ -43,24 +43,47 @@ return function(folder, arena)
 		end
 		for _, x in model:GetDescendants() do add(x) end
 		local connection = model.DescendantAdded:Connect(add)
-		actors[model]={joints=joints,connection=connection}
+		actors[model]={joints=joints,connection=connection,current={},from={},signature=""}
 	end
 	arena.ChildAdded:Connect(added)
 	arena.ChildRemoved:Connect(function(model)
 		if actors[model] then actors[model].connection:Disconnect() actors[model]=nil end
 	end)
 	for _, model in arena:GetChildren() do added(model) end
+	-- Walk is paced by Config.P0.Walk (replicated on the clips folder): Rate scales playback speed and Stride
+	-- scales the leg swing, so planted feet match the real MunchieSpeed instead of sliding.
+	local FADE = 0.15 -- seconds of cross-fade between clips
+	local FINISHED_TO_IDLE = { PizzaBite = true, HitReaction = true } -- one-shot clips hand over to Idle, never freeze
 	RunService.PreSimulation:Connect(function()
 		local now=workspace:GetServerTimeNow()
+		local clock=os.clock()
+		local walkRate=folder:GetAttribute("WalkRate") or 1
+		local stride=folder:GetAttribute("WalkStride") or 1
 		for model, actor in actors do
-			if model:GetAttribute("Ragdolled") then continue end
+			if model:GetAttribute("Ragdolled") then continue end -- ragdoll keeps the last pose and physics takes over
 			local name=model:GetAttribute("Motion")
-			local elapsed=math.max(0,now-(model:GetAttribute("MotionAt") or now))
+			local startedAt=model:GetAttribute("MotionAt") or now
+			local elapsed=math.max(0,now-startedAt)
 			if name=="Knockback" and elapsed>=0.5 then name="Defeat" elapsed-=0.5 end
 			local clip=clips[name]
 			if not clip then continue end
 			local frames=clip.frames
 			local duration=frames[#frames].t
+			local isWalk=name=="Walk"
+			if isWalk then elapsed*=walkRate end
+			if not clip.loop and FINISHED_TO_IDLE[name] and elapsed>duration and clips.Idle then
+				elapsed-=duration
+				name,clip,isWalk="Idle",clips.Idle,false
+				frames=clip.frames
+				duration=frames[#frames].t
+			end
+			local signature=name..startedAt
+			if actor.signature~=signature then
+				actor.signature=signature
+				actor.from=table.clone(actor.current)
+				actor.fadeAt=clock
+			end
+			local fade=if actor.fadeAt then math.clamp((clock-actor.fadeAt)/FADE,0,1) else 1
 			if clip.loop and duration>0 then elapsed%=duration end
 			local left,right=frames[#frames],frames[#frames]
 			for i=2,#frames do
@@ -71,7 +94,13 @@ return function(folder, arena)
 				if not joint.Part1 then continue end
 				local key=joint.Part1.Name
 				local transform=(left.poses[key] or CFrame.identity):Lerp(right.poses[key] or CFrame.identity,alpha)
+				if isWalk and stride~=1 and (key=="RightLeg" or key=="LeftLeg") then
+					local axis,angle=transform:ToAxisAngle()
+					if angle~=0 then transform=CFrame.fromAxisAngle(axis,angle*stride) end
+				end
 				if name=="HitReaction" and key=="Body" then transform*=reaction(model:GetAttribute("HitKind"),elapsed) end
+				if fade<1 and actor.from[joint] then transform=actor.from[joint]:Lerp(transform,fade) end
+				actor.current[joint]=transform
 				joint.Transform=transform
 			end
 		end

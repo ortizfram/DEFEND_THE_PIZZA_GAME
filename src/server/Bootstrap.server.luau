@@ -35,6 +35,8 @@ if saved then
 	for _, sequence in saved:GetChildren() do
 		if sequence:IsA("KeyframeSequence") then sequence:Clone().Parent = clips end
 	end
+	clips:SetAttribute("WalkRate", config.P0.Walk.Rate)
+	clips:SetAttribute("WalkStride", config.P0.Walk.Stride)
 	clips.Parent = shared
 end
 for _, candidate in workspace:GetChildren() do

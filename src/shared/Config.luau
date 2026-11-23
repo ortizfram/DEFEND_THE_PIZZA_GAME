@@ -9,6 +9,7 @@ local Config = {
         WaveDurationSeconds = 30,
         EnemySpawnPaths = 3,
         BitesPerSlice = 3,
+        Walk = { Rate = 1.1, Stride = 2.5 }, -- Munchie walk playback (x speed, x leg swing): stance foot moves back at ~5 studs/s = MunchieSpeed, so no sliding
         MunchieSpeed = 5, -- studs/s walking toward the pizza (was 10; the common zombie is now much slower)
         BiteIntervalSeconds = 1.0,
         BiteHitDelaySeconds = 0.55,

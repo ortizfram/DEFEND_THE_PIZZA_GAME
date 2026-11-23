@@ -8,6 +8,7 @@ local function expect(distance, blocked, stun, nextBite, expectedStep, expectedB
 end
 expect(24, false, 0, 0, 2, false)
 expect(24, true, 0, 0, 0, false)
+assert(Config.P0.Walk.Rate > 0 and Config.P0.Walk.Stride >= 1)
 -- Configured speed: the common zombie walks at 5 studs/s (1 stud per 0.2 s step).
 local slowStep = Munchie.advance(24, 0.2, 10, 0, false, 0, Config.P0.MunchieSpeed)
 assert(Config.P0.MunchieSpeed == 5 and math.abs(slowStep - 1) < 0.001)

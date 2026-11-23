@@ -55,6 +55,11 @@
 - Economía Coins/XP, tres daily quests fáciles, reset UTC/guardado seguro, bandas de recompensa, dirección musical original, SFX por contacto y settings de accesibilidad.
 - Documentos `PLAYER_JOURNEY_UI_V04.md`, `COMBAT_PHYSICS_ANIMATION_V04.md`, `REWARDS_DAILY_AUDIO_V04.md` + vínculos a decisiones, roadmap y analytics. **Solo documentación; no implementado en Studio ni productos creados.**
 
+## Locomoción del zombi común V0.7.3, 2026-11-22
+- **Caminata sincronizada** a los 5 studs/s (sin tocar la velocidad): `Config.P0.Walk = { Rate = 1.1, Stride = 2.5 }` (velocidad de reproducción y amplitud de zancada, replicados por el servidor y aplicados en `MunchiePlayback`). El pie que apoya retrocedía a ~2 studs/s mientras el cuerpo avanzaba a 5 (patinaba más de la mitad); ahora retrocede a 4,9–5,0 studs/s. Ciclo de ~0,73 s, zancada amplia y torpe (las piernas del Munchie miden 1,15 studs, así que 5 studs/s exige pasos grandes o rápidos).
+- **Transiciones**: fundido de 0,15 s entre clips; los clips no cíclicos (PizzaBite, HitReaction) pasan a Idle al terminar en vez de congelarse; el ragdoll continúa desde la pose actual. Medido: salto máximo entre fotogramas 4,8–8,2°, pose congelada máxima 0,019 s, sin chasquido en el primer fotograma de ragdoll.
+- **Ritmo de la ronda (sin defender)**: primer zombi llega a la pizza a los 3,9 s y empieza a morder; primera porción cae a 6,5 s; pizza entera comida a los 14,5 s. No se cambió el balance (ver `docs/COMBAT_TUNING_PVZ_V06.md`).
+
 ## Combate V0.7.2 — contacto de la pala y zombi común más lento, 2026-11-22
 - **Contacto:** además del arco, un zombi recibe el golpe si algún punto del recorrido de la hoja (`Config.P0.Swing[n].Tips`, medidos en Studio) queda a menos de `TouchRadius` = 2,6 studs de su cuerpo. Probado en el motor: zombi a 68° del eje (fuera del arco de 65°) tocado por el side swing → golpeado. Sigue bloqueándolo una pared sólida y el servidor decide el daño.
 - **Zombi común:** velocidad de caminata 10 → **5 studs/s** (`Config.P0.MunchieSpeed`, medido 4,95). La animación Walk no se ajustó a la nueva velocidad.

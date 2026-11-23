@@ -76,3 +76,10 @@ Place 122513508386436: respaldo previo = versión 16; guardado final = **versió
 Reposo en el suelo: superficie visible más baja −0,04 studs en tres caídas con orientaciones distintas (la métrica por cajas daba 0,5 y era un artefacto).
 
 **Clientes y controles:** F, R2 de mando (evento sintético) y clic de ratón → swings aceptados en orden 1,2,3. Simulador táctil: `TouchEnabled`, botón HIT existe; antes se solapaba con el salto (toque que caía en el salto), ahora 70 px sin solape en iPhone 17 Pro (750×381) y Galaxy A06 (705×338). Ruta de observador (swing de otro personaje) verificada sobre un clon. **Pendiente:** dos clientes reales, toque físico/`SendTouchEvent` (requiere capacidad no disponible), mando físico, y escucha humana del audio (whoosh a +10–14 ms del tiempo configurado, impacto recortado a 0,5/0,9 s, ambos reproduciéndose).
+
+## V0.7.3 · locomoción y ritmo de ronda (22/11/2026)
+Place 122513508386436: respaldo previo = versión 21. Un cliente (el segundo no se probó, a petición del propietario).
+
+**Ritmo medido, ronda de 30 s sin defensa (servidor):** zombi 1 aparece a 0 s y llega a la pizza a **3,9 s** (empieza a morder al llegar); zombis 2–5 aparecen a 3,0 / 6,1 / 9,0 / 12,0 s y llegan a 6,9 / 9,9 / 13,0 s; porciones perdidas a 6,5 / 8,5 / 9,6 / 10,5 / 11,6 / 12,6 / 13,6 / 14,5 s. Las tres mordidas por porción siguen funcionando (HUD `BITE 1/3`, 2,6 s entre la llegada y la primera porción). Un defensor tiene ~3,9 s de caminata más 2,6 s de mordidas antes de perder la primera porción y cada zombi exige 2 golpes (~0,8 s): con un solo defensor la ronda parece **fácil**; ritmo de aproximación no es demasiado lento.
+
+**Si se quiere más presión (no aplicado):** intervalo de aparición (hoy 3 s, fijo en `Bootstrap.server.luau`), `Config.P0.MunchieSpeed` (5), `BiteIntervalSeconds` (1,0) y `BiteHitDelaySeconds` (0,55). Subir la velocidad a 6–6,5 o bajar el intervalo de aparición a 2–2,5 s sería lo primero a probar; si se cambia la velocidad, reajustar `Walk.Rate` (≈ velocidad/5).
