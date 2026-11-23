@@ -34,6 +34,17 @@ end
 
 return function(folder, arena)
 	local clips = readClips(folder)
+	-- Arm pose while the Slice Thief carries a slice over its hat (Config.P0.Thief.CarryPose, replicated as JSON).
+	local carryPose = {}
+	local function loadCarryPose()
+		local ok, decoded = pcall(function() return game:GetService("HttpService"):JSONDecode(folder:GetAttribute("CarryPose") or "{}") end)
+		table.clear(carryPose)
+		if ok then
+			for key, a in decoded do carryPose[key] = CFrame.Angles(math.rad(a[1]), math.rad(a[2]), math.rad(a[3])) end
+		end
+	end
+	loadCarryPose()
+	folder:GetAttributeChangedSignal("CarryPose"):Connect(loadCarryPose)
 	local actors = {}
 	local function added(model)
 		if model.Name ~= "Munchie" then return end
@@ -43,7 +54,7 @@ return function(folder, arena)
 		end
 		for _, x in model:GetDescendants() do add(x) end
 		local connection = model.DescendantAdded:Connect(add)
-		actors[model]={joints=joints,connection=connection,current={},from={},signature=""}
+		actors[model]={joints=joints,connection=connection,current={},from={},signature="",carry=0}
 	end
 	arena.ChildAdded:Connect(added)
 	arena.ChildRemoved:Connect(function(model)
@@ -84,6 +95,10 @@ return function(folder, arena)
 				actor.fadeAt=clock
 			end
 			local fade=if actor.fadeAt then math.clamp((clock-actor.fadeAt)/FADE,0,1) else 1
+			-- Arms rise/lower over 0.25 s when the thief picks up / drops the slice.
+			local carryStep=math.min(clock-(actor.clock or clock),0.1)/0.25
+			actor.clock=clock
+			actor.carry=if model:GetAttribute("CarryAt")~=nil then math.min(1,actor.carry+carryStep) else math.max(0,actor.carry-carryStep)
 			if clip.loop and duration>0 then elapsed%=duration end
 			local left,right=frames[#frames],frames[#frames]
 			for i=2,#frames do
@@ -99,6 +114,7 @@ return function(folder, arena)
 					if angle~=0 then transform=CFrame.fromAxisAngle(axis,angle*stride) end
 				end
 				if name=="HitReaction" and key=="Body" then transform*=reaction(model:GetAttribute("HitKind"),elapsed) end
+				if actor.carry>0 and carryPose[key] then transform=transform:Lerp(carryPose[key],actor.carry) end
 				if fade<1 and actor.from[joint] then transform=actor.from[joint]:Lerp(transform,fade) end
 				actor.current[joint]=transform
 				joint.Transform=transform

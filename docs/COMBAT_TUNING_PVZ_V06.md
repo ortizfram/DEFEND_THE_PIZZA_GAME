@@ -95,3 +95,8 @@ Place 122513508386436: respaldo previo = versión 23. Un cliente; sin segundo ju
 - **Compatibilidad:** swings 1 y 2 (arco/contacto) golpean al ladrón; ragdoll de 21 piezas; mordidas de Munchie y la velocidad de Munchie (5) y su intervalo de aparición (3 s) sin cambios.
 
 **No probado / pendiente:** dos jugadores simultáneos sobre el mismo ladrón (la doble recuperación/pérdida está cubierta por los tests de `SliceLedger` en CI, no en Studio con dos clientes); swing 3 sobre el ladrón; el aspecto visual es provisional (capturas parciales); con el chef defendiendo, el balance de 2 HP/9 studs/s no se afinó.
+
+## V0.8.1 - Thief: porción sobre el sombrero (22/11/2026)
+Place 122513508386436: respaldo previo = versión 27; guardado = **versión 31**. Un cliente.
+**Probado en Studio:** pose afinada sobre un clon vivo del rig (manos a 0,01-0,19 bajo el borde de la porción, palmas 0,5-0,7 arriba; capturas frontal y lateral). Ladrón real: robo con `CarryAt`, porción hija del ladrón con 3 soldaduras al `ThiefCap`; porción rígida sobre el sombrero durante la carrera (0,00 de variación) y giros suaves (máx. 18,6 grados/fotograma); manos arriba mientras lleva la porción y de -0,25 a -1,46 (brazos abajo) ~0,5 s después del golpe. Escape (robo 6,3 s, escape 8,5 s): sin ladrón ni porción huérfana, `Carried=0`. Recuperación: 7->8 exacto, `Carried=0`, porción desoldada; segundo golpe: derrotado con ragdoll de 21 piezas, `StolenLost=0`.
+**No probado:** dos clientes (no se puede lanzar un segundo cliente desde el entorno de pruebas); la cámara real de juego sólo dejó una captura parcial (el ladrón entraba por el borde). Brazos del Munchie cortos: las manos quedan 0,1-0,2 bajo el borde de la porción (con la cabeza grande no alcanzan más arriba sin deformar el rig).

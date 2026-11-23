@@ -55,6 +55,12 @@
 - Economía Coins/XP, tres daily quests fáciles, reset UTC/guardado seguro, bandas de recompensa, dirección musical original, SFX por contacto y settings de accesibilidad.
 - Documentos `PLAYER_JOURNEY_UI_V04.md`, `COMBAT_PHYSICS_ANIMATION_V04.md`, `REWARDS_DAILY_AUDIO_V04.md` + vínculos a decisiones, roadmap y analytics. **Solo documentación; no implementado en Studio ni productos creados.**
 
+## Slice Thief V0.8.1 - porción sobre el sombrero, 2026-11-22
+- La porción robada sube de la pizza al **sombrero** (`ThiefCap`, ahora un disco fino al ras de la cabeza), queda apoyada encima (+0,02 studs, sin atravesarlo) y va **soldada** al sombrero: como el servidor no ve las poses que reproduce el cliente, la soldadura es lo que impide que flote separada (variación 0,00 studs durante carrera y giro).
+- **Brazos** (`Config.P0.Thief.CarryPose`, replicado como JSON y aplicado en `MunchiePlayback`): ambos brazos arriba, codos flexionados ~30 grados, manos bajo los bordes de la porción (0,01-0,19 de hueco), las piernas siguen con Walk. Sube en 0,25 s al robar y baja en 0,25 s al soltarla.
+- **Giro suave** (540 grados/s) al pasar de la pizza a la salida, en vez de un giro instantáneo. Al golpe: suelta la porción (se desuelda y vuela a la pizza) y baja los brazos.
+- Contabilidad de porciones (`SliceLedger`), velocidades (ladrón 9, Munchie 5) y ventana de aparición (9-12 s) sin cambios.
+
 ## Slice Thief V0.8 (primera versión jugable), 2026-11-22
 - **Ladrón:** un clon recoloreado (morado, gorra oscura, bufanda dorada) y más pequeño (0,85) del rig de Munchie; corre a **9 studs/s** (Munchie sigue en 5) con la animación Walk acelerada (`GaitMul`). Aparece **uno por ronda** entre los 9 y 12 s (medido 10,1 y 10,6 s), por el carril 1 o 3, corre a la pizza, arranca una porción (visible, grande, en sus manos) y huye por su carril de entrada. HUD: `THIEF HAS A SLICE - HIT HIM!`.
 - **Combate:** 2 HP (`Config.P0.Thief`), los mismos 3 swings, arco/contacto y ragdoll de 21 piezas. Un golpe válido con la porción en las manos **la suelta y vuela de vuelta a la pizza**; el ladrón sigue huyendo sin ella y no puede robar otra. Si llega a la salida con la porción, se pierde (`StolenLost`).

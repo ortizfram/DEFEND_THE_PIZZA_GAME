@@ -37,6 +37,7 @@ if saved then
 	end
 	clips:SetAttribute("WalkRate", config.P0.Walk.Rate)
 	clips:SetAttribute("WalkStride", config.P0.Walk.Stride)
+	clips:SetAttribute("CarryPose", game:GetService("HttpService"):JSONEncode(config.P0.Thief.CarryPose))
 	clips.Parent = shared
 end
 for _, candidate in workspace:GetChildren() do
@@ -105,7 +106,24 @@ Players.PlayerRemoving:Connect(function(p) cooldown[p], firstHit[p], combo[p] = 
 
 local function pose(enemy)
 	local aim = enemy.aim or target
-	local cf = CFrame.lookAt(enemy.pos, Vector3.new(aim.X, enemy.pos.Y, aim.Z))
+	local look = Vector3.new(aim.X, enemy.pos.Y, aim.Z)
+	if enemy.kind == "Thief" then
+		-- Turn smoothly (540 deg/s) instead of snapping when it switches from the pizza to the exit.
+		local desired = Vector3.new(aim.X - enemy.pos.X, 0, aim.Z - enemy.pos.Z)
+		if desired.Magnitude > 0.01 then
+			local clock = os.clock()
+			local dtTurn = math.min(clock - (enemy.turnAt or clock), 0.1)
+			enemy.turnAt = clock
+			local current = enemy.heading or desired.Unit
+			local want = desired.Unit
+			local angle = math.atan2(current:Cross(want).Y, current:Dot(want))
+			local step = math.clamp(angle, -math.rad(540) * dtTurn, math.rad(540) * dtTurn)
+			current = CFrame.Angles(0, step, 0):VectorToWorldSpace(current)
+			enemy.heading = current
+			look = Vector3.new(enemy.pos.X + current.X, enemy.pos.Y, enemy.pos.Z + current.Z)
+		end
+	end
+	local cf = CFrame.lookAt(enemy.pos, look)
 	local hop = 0
 	if enemy.hopUntil then
 		local left = enemy.hopUntil - os.clock()
@@ -302,14 +320,33 @@ local function makeCarried(idx)
 		if p:IsA("BasePart") then p.Anchored, p.CanCollide, p.CanTouch, p.CanQuery, p.Transparency = true, false, false, false, 0 end
 	end
 	clone.WorldPivot = CFrame.new(clone:GetBoundingBox().Position) * CFrame.Angles(0, math.rad(idx * 45), 0)
-	clone:ScaleTo(1.6)
+	clone:ScaleTo(config.P0.Thief.CarryScale)
 	clone.Parent = arena
 	return clone
 end
-local function holdSlice(enemy)
-	if enemy.slice and enemy.model.Parent then
-		enemy.slice:PivotTo(enemy.model:GetPivot() * CFrame.new(0, 0.1, -1.6) * CFrame.Angles(0, math.pi, 0))
+-- The carried slice is WELDED to the hat: clients play the Munchie pose locally, and welded parts follow it,
+-- so the slice never floats away from the head while the thief runs or turns.
+local function attachSlice(enemy, clone)
+	for _, p in clone:GetDescendants() do
+		if p:IsA("BasePart") then
+			p.Anchored, p.Massless = false, true
+			local weld = Instance.new("WeldConstraint")
+			weld.Name, weld.Part0, weld.Part1 = "SliceWeld", enemy.cap, p
+			weld.Parent = p
+		end
 	end
+	clone.Parent = enemy.model
+	enemy.sliceWelded = true
+end
+local function detachSlice(enemy)
+	local clone = enemy.slice
+	for _, p in clone:GetDescendants() do
+		if p:IsA("WeldConstraint") then p:Destroy() end
+		if p:IsA("BasePart") then p.Anchored = true end
+	end
+	clone.Parent = arena
+	enemy.sliceWelded = false
+	return clone
 end
 local function flySlice(clone, slot, thisRound)
 	task.spawn(function()
@@ -331,7 +368,7 @@ local function spawnThief()
 	local model = template:Clone()
 	model:ScaleTo(cfg.Scale)
 	local purple, dark, gold = Color3.fromRGB(122, 84, 176), Color3.fromRGB(38, 36, 52), Color3.fromRGB(255, 209, 102)
-	local head
+	local head, capPart
 	for _, p in model:GetDescendants() do
 		if p:IsA("MeshPart") then
 			local n = p.Name
@@ -344,10 +381,11 @@ local function spawnThief()
 	if head then
 		local cap = Instance.new("Part")
 		cap.Name, cap.Color, cap.Material = "ThiefCap", dark, Enum.Material.SmoothPlastic
-		cap.Size = Vector3.new(head.Size.X * 1.06, head.Size.Y * 0.32, head.Size.Z * 1.06)
+		cap.Size = Vector3.new(head.Size.X * 1.06, head.Size.Y * 0.14, head.Size.Z * 1.06)
 		cap.CanCollide, cap.CanTouch, cap.CanQuery, cap.Massless = false, false, false, true
-		cap.CFrame = head.CFrame * CFrame.new(0, head.Size.Y * 0.46, 0)
+		cap.CFrame = head.CFrame * CFrame.new(0, head.Size.Y * 0.5, 0)
 		cap.Parent = model
+		capPart = cap
 		local weld = Instance.new("WeldConstraint")
 		weld.Part0, weld.Part1, weld.Parent = head, cap, cap
 	end
@@ -361,7 +399,7 @@ local function spawnThief()
 	model:SetAttribute("Thief", true)
 	model:SetAttribute("GaitMul", cfg.GaitMul)
 	local box, size = model:GetBoundingBox()
-	local enemy = {model=model, kind="Thief", state="Approach", pos=entries[lane], hp=cfg.Hp, lane=lane, exit=entries[lane],
+	local enemy = {model=model, kind="Thief", state="Approach", pos=entries[lane], hp=cfg.Hp, lane=lane, exit=entries[lane], cap=capPart, carryId=0,
 		stun=0, bite=0, knockRemaining=0, knockDir=Vector3.zero, height=size.Y/2, offset=box:ToObjectSpace(model:GetPivot())}
 	pose(enemy)
 	model.Parent = arena
@@ -373,8 +411,27 @@ local function stealSlice(enemy)
 	local left, ok = Ledger.steal(thiefLedger, remaining)
 	enemy.aim = enemy.exit -- runs for the exit either way
 	if not ok then enemy.state = "Flee" return end
-	enemy.slice = makeCarried(idx)
+	local clone = makeCarried(idx)
+	enemy.slice = clone
+	enemy.carryId += 1
+	local id = enemy.carryId
 	remaining, sliceBites, enemy.state = left, 0, "Escape"
+	enemy.model:SetAttribute("CarryAt", workspace:GetServerTimeNow()) -- clients raise both arms
+	-- The slice rises from the pizza onto the hat (0.3 s), then gets welded there.
+	local _, bounds = clone:GetBoundingBox()
+	local onHat = CFrame.new(0, enemy.cap.Size.Y / 2 + bounds.Y / 2 + 0.02, 0) * CFrame.Angles(0, math.pi, 0)
+	task.spawn(function()
+		local from = clone:GetPivot()
+		for k = 1, 8 do
+			task.wait(0.035)
+			if enemy.carryId ~= id or not clone.Parent or not enemy.model.Parent then return end
+			clone:PivotTo(from:Lerp(enemy.cap.CFrame * onHat, k / 8) + Vector3.new(0, math.sin(math.pi * k / 8) * 1.0, 0))
+		end
+		if enemy.carryId == id and enemy.model.Parent then
+			clone:PivotTo(enemy.cap.CFrame * onHat)
+			attachSlice(enemy, clone)
+		end
+	end)
 	state:SetAttribute("Slices", remaining)
 	state:SetAttribute("SliceBites", 0)
 	state:SetAttribute("Carried", 1)
@@ -398,8 +455,11 @@ onThiefHit = function(enemy)
 	remaining = left
 	state:SetAttribute("Slices", remaining)
 	state:SetAttribute("Carried", 0)
+	enemy.carryId += 1 -- cancels a slice still rising onto the hat
 	local clone = enemy.slice
+	if enemy.sliceWelded then clone = detachSlice(enemy) end
 	enemy.slice, enemy.state, enemy.aim = nil, "Flee", enemy.exit
+	enemy.model:SetAttribute("CarryAt", nil) -- clients lower the arms
 	renderSlices(remaining) -- the landing slot stays empty until the slice flies back
 	flySlice(clone, remaining, round)
 	print("DTP_SliceRecovered", round, remaining)
@@ -474,7 +534,6 @@ while true do
 		for enemy in active do
 			if enemy.kind == "Thief" then
 				stepThief(enemy, dt, now)
-				holdSlice(enemy)
 				if not playing then break end
 				continue
 			end

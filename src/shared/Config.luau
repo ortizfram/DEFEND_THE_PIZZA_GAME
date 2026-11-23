@@ -11,7 +11,14 @@ local Config = {
         BitesPerSlice = 3,
         Walk = { Rate = 1.1, Stride = 2.5 }, -- Munchie walk playback (x speed, x leg swing): stance foot moves back at ~5 studs/s = MunchieSpeed, so no sliding
         -- Slice Thief (provisional balance): one per round, appears between SpawnMin and SpawnMax seconds.
-        Thief = { Hp = 2, Speed = 9, SpawnMin = 9, SpawnMax = 12, StealDistance = 3.2, ExitRadius = 2, GaitMul = 1.8, Scale = 0.85 },
+        Thief = { Hp = 2, Speed = 9, SpawnMin = 9, SpawnMax = 12, StealDistance = 3.2, ExitRadius = 2, GaitMul = 1.8, Scale = 0.85,
+            CarryScale = 1.15, -- stolen slice size while carried over the hat
+            -- Arm pose while carrying (degrees, rx/ry/rz per Munchie arm part): both arms up, elbows bent ~30 deg, hands under the slice edges.
+            -- Tuned on a live rig: hands end 0.01-0.08 (right) / 0.08-0.16 (left) below the slice bottom, palms up.
+            CarryPose = {
+                RightUpperArm = {100, 0, -20}, RightLowerArm = {-30, 0, 25}, RightHand = {-25, 0, 0},
+                LeftUpperArm = {110, 0, 15}, LeftLowerArm = {-30, 0, -20}, LeftHand = {-25, 0, 0},
+            } },
         MunchieSpeed = 5, -- studs/s walking toward the pizza (was 10; the common zombie is now much slower)
         BiteIntervalSeconds = 1.0,
         BiteHitDelaySeconds = 0.55,
