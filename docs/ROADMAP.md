@@ -69,7 +69,12 @@
 - [ ] Ajustar swing en móvil y teclado: visible y exagerado, sin demora por lag y sin tapar cámara.
 - [ ] Realizar el playtest humano del P0 previo a expandir contenido.
 
-## Gate 2: diferenciación — estado: NO IMPLEMENTADO
+## Gate 2: Slice Thief hecho en código; próximos bloques autorizados en planificación
+- [x] Slice Thief roba, huye, se recupera una vez, mismo Place; en GitHub desde commit `0730a6e` y Studio v27 según informe de agente. **Falta QA de 2 jugadores reales y mejoras visuales.**
+- [ ] [THIEF_HEAD_CARRY_AND_FREE_REVIVE.md](THIEF_HEAD_CARRY_AND_FREE_REVIVE.md), Bloque 1: ladrón lleva porción encima de gorra con ambos brazos levantados, animación de correr y soltar, prueba de 2 clientes.
+- [ ] Mismo documento, Bloque 2: Munchie contraataca chefs cercanos; 3 corazones, estado DOWNED, rescate gratuito 2 s, respawn gratuito ≤12 s en solo; no monetizar.
+
+## Gate 2: diferenciación — estado: IMPLEMENTACIÓN PARCIAL
 - [ ] Ladrón Thief roba una porción y huye; recuperación servidor una sola vez.
 - [ ] Propuesta V0.2: rescatar compañero caído gratis con interacción cercana y clara en móvil.
 - [ ] Rutas de escape, animaciones legibles, clipping / latencia QA.

@@ -44,3 +44,7 @@ Antes y después de **cada cambio autorizado**, seguir `docs/SYNC_POLICY.md`: co
 ## Regla permanente: ahorrar créditos de GPT Work / agentes (2026-11-22)
 
 **OBLIGATORIO en nuevas sesiones:** leer [docs/WORK_CREDIT_EFFICIENCY.md](docs/WORK_CREDIT_EFFICIENCY.md). Una meta por sesión, 2–5 archivos pertinentes, cambios mínimos, pruebas esenciales sin repetir ciclos, no navegar ni releer todo el vault, y terminar tras commit/push verificado. La optimización nunca justifica omitir permisos, protección de datos, QA crítico ni sync. Esta política de repositorio se aplica cuando el agente lo lee; no altera los límites del plan ni ejecuta procesos en segundo plano.
+
+## Próximos bloques de desarrollo — especificación puntual (22/11/2026)
+
+Para el siguiente trabajo en Work/Claude, leer `docs/THIEF_HEAD_CARRY_AND_FREE_REVIVE.md`. La posición de porción y la pose de ambos brazos sobre el sombrero se deben resolver antes de crear el contraataque de Munchie y el revive gratis. **No asumir implementado por existir el brief.** Una sola base Place `122513508386436`, gastos/accesos protegidos, QA por bloque, sincronización GitHub.
