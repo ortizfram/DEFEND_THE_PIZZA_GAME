@@ -14,10 +14,10 @@ local Config = {
         Thief = { Hp = 2, Speed = 9, SpawnMin = 9, SpawnMax = 12, StealDistance = 3.2, ExitRadius = 2, GaitMul = 1.8, Scale = 0.85,
             CarryScale = 1.15, -- stolen slice size while carried over the hat
             -- Arm pose while carrying (degrees, rx/ry/rz per Munchie arm part): both arms up, elbows bent ~30 deg, hands under the slice edges.
-            -- Tuned on a live rig: hands end 0.01-0.08 (right) / 0.08-0.16 (left) below the slice bottom, palms up.
+            -- Tuned on a live rig with a level head and a thin hat: right hand touches the slice bottom, left is within ~0.03.
             CarryPose = {
-                RightUpperArm = {100, 0, -20}, RightLowerArm = {-30, 0, 25}, RightHand = {-25, 0, 0},
-                LeftUpperArm = {110, 0, 15}, LeftLowerArm = {-30, 0, -20}, LeftHand = {-25, 0, 0},
+                RightUpperArm = {105, 0, -26}, RightLowerArm = {-30, 0, 19}, RightHand = {-25, 0, -12},
+                LeftUpperArm = {118, 0, 15}, LeftLowerArm = {-28, 0, -50}, LeftHand = {-25, 0, 0},
             } },
         -- Chef health (hypotheses to playtest): 3 hearts, a bite removes one, 0 = DOWNED; a teammate revives by holding
         -- REVIVE for ReviveSeconds, otherwise the chef is back up on its own after DownedMaxSeconds. Always free.

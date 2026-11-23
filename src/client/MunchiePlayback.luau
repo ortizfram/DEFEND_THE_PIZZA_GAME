@@ -115,6 +115,8 @@ return function(folder, arena)
 				end
 				if name=="HitReaction" and key=="Body" then transform*=reaction(model:GetAttribute("HitKind"),elapsed) end
 				if actor.carry>0 and carryPose[key] then transform=transform:Lerp(carryPose[key],actor.carry) end
+				-- Head stays level while carrying so the hat (and the slice on it) keeps a constant gap to the raised hands.
+				if actor.carry>0 and key=="Head" then transform=transform:Lerp(CFrame.identity,actor.carry) end
 				if fade<1 and actor.from[joint] then transform=actor.from[joint]:Lerp(transform,fade) end
 				actor.current[joint]=transform
 				joint.Transform=transform

@@ -496,9 +496,9 @@ local function spawnThief()
 	if head then
 		local cap = Instance.new("Part")
 		cap.Name, cap.Color, cap.Material = "ThiefCap", dark, Enum.Material.SmoothPlastic
-		cap.Size = Vector3.new(head.Size.X * 1.06, head.Size.Y * 0.14, head.Size.Z * 1.06)
+		cap.Size = Vector3.new(head.Size.X * 1.06, head.Size.Y * 0.05, head.Size.Z * 1.06)
 		cap.CanCollide, cap.CanTouch, cap.CanQuery, cap.Massless = false, false, false, true
-		cap.CFrame = head.CFrame * CFrame.new(0, head.Size.Y * 0.5, 0)
+		cap.CFrame = head.CFrame * CFrame.new(0, head.Size.Y * 0.475, 0)
 		cap.Parent = model
 		capPart = cap
 		local weld = Instance.new("WeldConstraint")
@@ -532,9 +532,15 @@ local function stealSlice(enemy)
 	local id = enemy.carryId
 	remaining, sliceBites, enemy.state = left, 0, "Escape"
 	enemy.model:SetAttribute("CarryAt", workspace:GetServerTimeNow()) -- clients raise both arms
+	-- Visibility aid: a white outline (visible through obstacles) while it carries the slice, so players spot it.
+	local glow = Instance.new("Highlight")
+	glow.Name, glow.Adornee, glow.FillTransparency, glow.OutlineTransparency = "CarryGlow", enemy.model, 1, 0
+	glow.OutlineColor, glow.DepthMode = Color3.fromRGB(255, 255, 255), Enum.HighlightDepthMode.AlwaysOnTop
+	glow.Parent = enemy.model
+	enemy.glow = glow
 	-- The slice rises from the pizza onto the hat (0.3 s), then gets welded there.
 	local _, bounds = clone:GetBoundingBox()
-	local onHat = CFrame.new(0, enemy.cap.Size.Y / 2 + bounds.Y / 2 + 0.02, 0) * CFrame.Angles(0, math.pi, 0)
+	local onHat = CFrame.new(0, enemy.cap.Size.Y / 2 + bounds.Y / 2 + 0.005, 0) * CFrame.Angles(0, math.pi, 0)
 	task.spawn(function()
 		local from = clone:GetPivot()
 		for k = 1, 8 do
@@ -575,6 +581,7 @@ onThiefHit = function(enemy)
 	if enemy.sliceWelded then clone = detachSlice(enemy) end
 	enemy.slice, enemy.state, enemy.aim = nil, "Flee", enemy.exit
 	enemy.model:SetAttribute("CarryAt", nil) -- clients lower the arms
+	if enemy.glow then enemy.glow:Destroy() enemy.glow = nil end
 	renderSlices(remaining) -- the landing slot stays empty until the slice flies back
 	flySlice(clone, remaining, round)
 	print("DTP_SliceRecovered", round, remaining)
