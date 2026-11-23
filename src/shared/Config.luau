@@ -19,6 +19,10 @@ local Config = {
                 RightUpperArm = {100, 0, -20}, RightLowerArm = {-30, 0, 25}, RightHand = {-25, 0, 0},
                 LeftUpperArm = {110, 0, 15}, LeftLowerArm = {-30, 0, -20}, LeftHand = {-25, 0, 0},
             } },
+        -- Chef health (hypotheses to playtest): 3 hearts, a bite removes one, 0 = DOWNED; a teammate revives by holding
+        -- REVIVE for ReviveSeconds, otherwise the chef is back up on its own after DownedMaxSeconds. Always free.
+        Chef = { Hearts = 3, InvulnSeconds = 1.0, BiteRange = 3.0, BiteWindup = 0.5, BiteCooldown = 1.8,
+            ReviveSeconds = 2, ReviveRange = 8, DownedMaxSeconds = 12, ReviveInvulnSeconds = 2.0 },
         MunchieSpeed = 5, -- studs/s walking toward the pizza (was 10; the common zombie is now much slower)
         BiteIntervalSeconds = 1.0,
         BiteHitDelaySeconds = 0.55,

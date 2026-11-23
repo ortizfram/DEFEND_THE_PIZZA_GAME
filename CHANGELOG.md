@@ -55,6 +55,12 @@
 - Economía Coins/XP, tres daily quests fáciles, reset UTC/guardado seguro, bandas de recompensa, dirección musical original, SFX por contacto y settings de accesibilidad.
 - Documentos `PLAYER_JOURNEY_UI_V04.md`, `COMBAT_PHYSICS_ANIMATION_V04.md`, `REWARDS_DAILY_AUDIO_V04.md` + vínculos a decisiones, roadmap y analytics. **Solo documentación; no implementado en Studio ni productos creados.**
 
+## Vida del chef, DOWNED y revive gratis V0.9, 2026-11-22
+- **Contraataque de Munchie:** un Munchie común que tiene a un chef delante a <=3 studs hace una mordida breve (telegrafía 0,5 s con `AttackChef`, se queda quieto mientras tanto) y sigue hacia la pizza; no persigue. Enfriamiento 1,8 s por zombi; un golpe del chef cancela la mordida. El ladrón no muerde.
+- **Corazones** (`Config.P0.Chef`, reglas puras en `src/server/ChefRules.luau`, probadas en CI): 3 corazones, 1 s de invulnerabilidad tras cada mordida; HUD con 3 círculos bajo la barra.
+- **DOWNED** a 0 corazones: no puede atacar, cartel `HELP!`, `PlatformStand`, los zombis lo ignoran. **Revive gratis:** otro chef lo levanta manteniendo `REVIVE` 2 s (`ProximityPrompt`, usable en PC, táctil y mando; el servidor valida distancia <= 9, estado y que no sea uno mismo, y es un no-op repetido). Si nadie lo ayuda, se levanta solo a los 12 s. Se levanta con 3 corazones y 2 s de invulnerabilidad; cada ronda reinicia los corazones.
+- Sin revive de pago, productos ni creaturas nuevas. Detalle de pruebas en `docs/COMBAT_TUNING_PVZ_V06.md`.
+
 ## Slice Thief V0.8.1 - porción sobre el sombrero, 2026-11-22
 - La porción robada sube de la pizza al **sombrero** (`ThiefCap`, ahora un disco fino al ras de la cabeza), queda apoyada encima (+0,02 studs, sin atravesarlo) y va **soldada** al sombrero: como el servidor no ve las poses que reproduce el cliente, la soldadura es lo que impide que flote separada (variación 0,00 studs durante carrera y giro).
 - **Brazos** (`Config.P0.Thief.CarryPose`, replicado como JSON y aplicado en `MunchiePlayback`): ambos brazos arriba, codos flexionados ~30 grados, manos bajo los bordes de la porción (0,01-0,19 de hueco), las piernas siguen con Walk. Sube en 0,25 s al robar y baja en 0,25 s al soltarla.

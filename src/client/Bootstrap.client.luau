@@ -26,6 +26,18 @@ status.Font, status.TextSize = Enum.Font.GothamBold, 19
 status.TextColor3, status.BackgroundColor3 = Color3.new(1,1,1), Color3.fromRGB(51,40,42)
 status.Parent = gui
 Instance.new("UICorner",status)
+-- Three hearts under the status bar (server-authoritative attribute on the character).
+local heartIcons = {}
+for i = 1, 3 do
+	local heart = Instance.new("Frame")
+	heart.AnchorPoint, heart.Position, heart.Size = Vector2.new(0.5,0), UDim2.new(0.5,(i-2)*34,0,50), UDim2.fromOffset(28,28)
+	heart.BackgroundColor3 = Color3.fromRGB(239,90,76)
+	heart.Parent = gui
+	Instance.new("UICorner",heart).CornerRadius = UDim.new(1,0)
+	local stroke = Instance.new("UIStroke",heart)
+	stroke.Thickness, stroke.Color = 2, Color3.fromRGB(35,49,66)
+	heartIcons[i] = heart
+end
 CAS:BindAction("PizzaHit", function(_, input)
 	if input == Enum.UserInputState.Begin and round:GetAttribute("Phase") == "Defend" then
 		local button = CAS:GetButton("PizzaHit")
@@ -73,6 +85,17 @@ while gui.Parent do
 		status.Text = string.format("SAVE THE PIZZA   %d/8%s%s   ·   %ds",round:GetAttribute("Slices") or 8,biteText,stolenText,seconds)
 	else
 		status.Text = phase or "Waiting"
+	end
+	local me = Players.LocalPlayer.Character
+	local hearts = me and me:GetAttribute("Hearts") or 3
+	local downed = me ~= nil and me:GetAttribute("Downed") == true
+	for i, heart in heartIcons do
+		heart.BackgroundColor3 = if i <= hearts then Color3.fromRGB(239,90,76) else Color3.fromRGB(90,96,104)
+	end
+	game:GetService("ProximityPromptService").Enabled = not downed -- a downed chef cannot "revive" itself
+	if downed and me then
+		local left = math.max(0, math.ceil((me:GetAttribute("DownedUntil") or 0) - workspace:GetServerTimeNow()))
+		status.Text = string.format("YOU ARE DOWN - a teammate can REVIVE you  ·  back up in %ds", left)
 	end
 	if UIS.TouchEnabled then placeHit() end
 	task.wait(0.15)

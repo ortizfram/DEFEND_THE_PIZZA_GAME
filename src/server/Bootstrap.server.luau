@@ -52,6 +52,7 @@ end
 local Munchie = require(script.Parent.Munchie)
 local Ragdoll = require(script.Parent.MunchieRagdoll)
 local Ledger = require(script.Parent.SliceLedger)
+local ChefRules = require(script.Parent.ChefRules)
 local Swings = require(shared.SpatulaSwings)
 local SpatulaHit = require(shared.SpatulaHit)
 local active = {}
@@ -61,6 +62,7 @@ local combo = {}
 local playing = false
 local remaining, round, closedUntil, sliceBites = 0, 0, 0, 0
 local onThiefHit -- assigned below (needs showSlice)
+local registerChef -- assigned below (chef hearts)
 
 local function equip(character)
 	local hand = character:WaitForChild("RightHand", 3) or character:FindFirstChild("Right Arm")
@@ -97,8 +99,14 @@ local function equip(character)
 	trail.Parent = blade
 end
 local function joined(player)
-	player.CharacterAdded:Connect(equip)
-	if player.Character then task.spawn(equip, player.Character) end
+	player.CharacterAdded:Connect(function(character)
+		task.spawn(equip, character)
+		task.defer(registerChef, character)
+	end)
+	if player.Character then
+		task.spawn(equip, player.Character)
+		task.defer(registerChef, player.Character)
+	end
 end
 Players.PlayerAdded:Connect(joined)
 for _, player in Players:GetPlayers() do joined(player) end
@@ -156,6 +164,110 @@ local function aliveRoot(p)
 	local human = ch and ch:FindFirstChildOfClass("Humanoid")
 	return human and human.Health > 0 and ch:FindFirstChild("HumanoidRootPart")
 end
+-- ===== Chef hearts, DOWNED and free revive (server-authoritative; pure rules in ChefRules) =====
+local chefs = {}
+local function chefRoot(character) return character:FindFirstChild("HumanoidRootPart") end
+local function flat(v) return Vector3.new(v.X, 0, v.Z) end
+local function setHearts(c) c.model:SetAttribute("Hearts", c.s.hearts) end
+local function standUp(c, token)
+	local cfg = config.P0.Chef
+	if not ChefRules.standUp(c.s, os.clock(), cfg.Hearts, cfg.ReviveInvulnSeconds, token) then return false end
+	local human = c.model:FindFirstChildOfClass("Humanoid")
+	if human then
+		human.PlatformStand = false
+		human.WalkSpeed, human.JumpPower = c.walk or 16, c.jump or 50
+	end
+	if c.prompt then c.prompt:Destroy() c.prompt = nil end
+	if c.help then c.help:Destroy() c.help = nil end
+	c.model:SetAttribute("Downed", false)
+	c.model:SetAttribute("DownedUntil", nil)
+	setHearts(c)
+	print("DTP_ChefUp", round, c.model.Name)
+	return true
+end
+local function tryRevive(c, reviverCharacter)
+	local r = reviverCharacter and chefs[reviverCharacter]
+	local a, b = chefRoot(c.model), reviverCharacter and chefRoot(reviverCharacter)
+	if not (r and a and b) then return false end
+	local distance = (a.Position - b.Position).Magnitude
+	if not ChefRules.canRevive(c.s, r.s, reviverCharacter ~= c.model, distance, config.P0.Chef.ReviveRange + 1) then return false end
+	return standUp(c) -- a second trigger finds the chef already up and does nothing
+end
+local function setDowned(c)
+	local cfg = config.P0.Chef
+	local human = c.model:FindFirstChildOfClass("Humanoid")
+	local root = chefRoot(c.model)
+	if human then
+		c.walk, c.jump = human.WalkSpeed, human.JumpPower
+		human.PlatformStand, human.WalkSpeed, human.JumpPower = true, 0, 0
+	end
+	c.model:SetAttribute("Downed", true)
+	c.model:SetAttribute("DownedUntil", workspace:GetServerTimeNow() + cfg.DownedMaxSeconds)
+	local head = c.model:FindFirstChild("Head")
+	if head then
+		local gui = Instance.new("BillboardGui")
+		gui.Name, gui.Size, gui.StudsOffset, gui.AlwaysOnTop = "HelpSign", UDim2.fromOffset(120, 44), Vector3.new(0, 3.2, 0), true
+		local label = Instance.new("TextLabel")
+		label.Size, label.BackgroundTransparency, label.Text = UDim2.fromScale(1, 1), 1, "HELP!"
+		label.Font, label.TextScaled, label.TextColor3 = Enum.Font.GothamBold, true, Color3.fromRGB(239, 90, 76)
+		label.TextStrokeTransparency = 0
+		label.Parent = gui
+		gui.Parent = head
+		c.help = gui
+	end
+	if root then
+		local prompt = Instance.new("ProximityPrompt")
+		prompt.Name, prompt.ActionText, prompt.ObjectText = "RevivePrompt", "REVIVE", "Chef down"
+		prompt.HoldDuration, prompt.MaxActivationDistance, prompt.RequiresLineOfSight = cfg.ReviveSeconds, cfg.ReviveRange, false
+		prompt.Parent = root
+		c.prompt = prompt
+		prompt.Triggered:Connect(function(player) tryRevive(c, player.Character) end)
+	end
+	local token = c.s.token
+	-- Free self-recovery: alone or unhelped, the chef is back up within DownedMaxSeconds.
+	task.delay(cfg.DownedMaxSeconds, function()
+		if chefs[c.model] == c and c.s.token == token then standUp(c, token) end
+	end)
+end
+local function damageChef(character, now)
+	local c = chefs[character]
+	if not c then return end
+	local ok, what = ChefRules.damage(c.s, now, config.P0.Chef.InvulnSeconds)
+	if not ok then return end
+	setHearts(c)
+	local root = chefRoot(character)
+	if root then impactFx:FireAllClients(root.Position + Vector3.yAxis, 1, false) end
+	if what == "downed" then setDowned(c) end
+	print("DTP_ChefBitten", round, c.s.hearts, what)
+end
+registerChef = function(character)
+	if chefs[character] or not character.Parent then return end
+	local c = {model = character, s = ChefRules.new(config.P0.Chef.Hearts)}
+	chefs[character] = c
+	setHearts(c)
+	character:SetAttribute("Downed", false)
+	character.Destroying:Once(function() chefs[character] = nil end)
+end
+local function resetChefs()
+	for _, c in chefs do
+		if c.s.downed then standUp(c) end
+		ChefRules.reset(c.s, config.P0.Chef.Hearts)
+		setHearts(c)
+	end
+end
+if RunService:IsStudio() then
+	-- Studio-only test hook (does not exist on live servers): playtests register NPC chefs and drive bites/revives.
+	local bridge = Instance.new("BindableFunction")
+	bridge.Name = "DTP_ChefTest"
+	bridge.OnInvoke = function(action, a, b)
+		if action == "register" then registerChef(a) return true
+		elseif action == "damage" then damageChef(a, os.clock()) return true
+		elseif action == "revive" then return tryRevive(chefs[a], b)
+		end
+		return false
+	end
+	bridge.Parent = script
+end
 local function resolveImpact(player, index, thisRound, swingId)
 	local root = aliveRoot(player)
 	if not playing or thisRound ~= round or not root then return end
@@ -204,6 +316,7 @@ local function resolveImpact(player, index, thisRound, swingId)
 	local hp, knockbackTarget = Munchie.hit(nearest.hp)
 	nearest.hp = hp
 	nearest.pendingBiteAt = nil -- A swing that connects before the bite impact cancels that bite.
+	nearest.chefBiteAt = nil
 	local model = nearest.model
 	model:SetAttribute("HitKind", index)
 	model:SetAttribute("Hp", hp)
@@ -250,6 +363,8 @@ hit.OnServerEvent:Connect(function(player)
 	local root = aliveRoot(player)
 	local now = os.clock()
 	if not playing or not root or now < (cooldown[player] or 0) then return end
+	local own = chefs[player.Character]
+	if own and own.s.downed then return end -- a downed chef cannot attack
 	cooldown[player] = now + config.P0.Combo.ServerCooldownSeconds
 	local chain = combo[player] or { index = 0, at = -math.huge }
 	combo[player] = chain
@@ -508,6 +623,7 @@ while true do
 	remaining, closedUntil, sliceBites, playing = #slices, 0, 0, true
 	for i in slices do showSlice(i,true) end
 	Ledger.reset(thiefLedger)
+	resetChefs()
 	state:SetAttribute("Carried", 0)
 	state:SetAttribute("StolenLost", 0)
 	shutter(false)
@@ -555,6 +671,34 @@ while true do
 					motion(enemy.model,"PizzaBite",true)
 					enemy.bite = now + config.P0.BiteIntervalSeconds
 					enemy.pendingBiteAt = now + config.P0.BiteHitDelaySeconds
+				end
+			end
+			-- Counterattack: a common Munchie bites a chef standing in its way, then keeps going for the pizza.
+			if enemy.chefBiteAt then
+				if now >= enemy.chefBiteAt then
+					local victim = enemy.chefVictim
+					enemy.chefBiteAt, enemy.chefVictim = nil, nil
+					local vr = victim and chefs[victim] and chefRoot(victim)
+					if vr and (flat(vr.Position) - flat(enemy.pos)).Magnitude <= config.P0.Chef.BiteRange + 0.8 then
+						damageChef(victim, now)
+					end
+				end
+			elseif now >= enemy.stun and enemy.knockRemaining <= 0 and now >= (enemy.chefCooldown or 0) then
+				local forward = flat(target - enemy.pos)
+				for character, c in chefs do
+					local vr = chefRoot(character)
+					if vr and not c.s.downed then
+						local to = flat(vr.Position) - flat(enemy.pos)
+						local ahead = to.Magnitude < 0.05 or (forward.Magnitude > 0.01 and forward.Unit:Dot(to.Unit) > 0.2)
+						if to.Magnitude <= config.P0.Chef.BiteRange and ahead then
+							motion(enemy.model, "AttackChef", true)
+							enemy.stun = now + config.P0.Chef.BiteWindup + 0.15 -- holds still while it winds up
+							enemy.chefBiteAt = now + config.P0.Chef.BiteWindup
+							enemy.chefVictim = character
+							enemy.chefCooldown = now + config.P0.Chef.BiteCooldown
+							break
+						end
+					end
 				end
 			end
 			if enemy.hopUntil then pose(enemy) end
