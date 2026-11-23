@@ -149,4 +149,11 @@ assert(not ChefRules.canRevive(chef, helper, true, 2, 9), "an up chef cannot be 
 ChefRules.reset(chef, 3)
 assert(chef.hearts == 3 and not chef.downed and chef.invulnUntil == 0)
 assert(Config.P0.Chef.DownedMaxSeconds <= 12 and Config.P0.Chef.ReviveSeconds == 2 and Config.P0.Chef.Hearts == 3)
+-- Five bites per slice (shared between zombies); the fifth one eats it.
+assert(Config.P0.BitesPerSlice == 5)
+local five, five_done = 0, false
+for k = 1, Config.P0.BitesPerSlice do
+	five, five_done = Munchie.bite(five, Config.P0.BitesPerSlice)
+	assert(five_done == (k == Config.P0.BitesPerSlice), "only the 5th bite eats the slice")
+end
 print("Munchie: movement, shutter, stun, bite timing and both hits and three bites per shared pizza slice and the 3-swing combo rules and spatula arc/reach selection passed")

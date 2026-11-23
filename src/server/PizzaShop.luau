@@ -35,6 +35,12 @@ function Shop.create(scale)
 		end
 		local topping = part(slice, "Part", "Pepperoni", Vector3.new(0.12 * scale, 0.8 * scale, 0.8 * scale), frame * CFrame.new(0, 0.32 * scale, 2.8 * scale) * CFrame.Angles(0, 0, math.pi/2), red)
 		topping.Shape, topping.CanCollide = Enum.PartType.Cylinder, false
+		-- Remember the intact geometry so the server can shrink the slice bite by bite (see showSlice in Bootstrap).
+		slice:SetAttribute("Frame", frame)
+		for _, p in slice:GetChildren() do
+			p:SetAttribute("Rel", frame:ToObjectSpace(p.CFrame))
+			p:SetAttribute("Base", p.Size)
+		end
 		slice.Parent = model
 		slices[i] = slice
 	end

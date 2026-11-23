@@ -61,6 +61,11 @@
 - **DOWNED** a 0 corazones: no puede atacar, cartel `HELP!`, `PlatformStand`, los zombis lo ignoran. **Revive gratis:** otro chef lo levanta manteniendo `REVIVE` 2 s (`ProximityPrompt`, usable en PC, táctil y mando; el servidor valida distancia <= 9, estado y que no sea uno mismo, y es un no-op repetido). Si nadie lo ayuda, se levanta solo a los 12 s. Se levanta con 3 corazones y 2 s de invulnerabilidad; cada ronda reinicia los corazones.
 - Sin revive de pago, productos ni creaturas nuevas. Detalle de pruebas en `docs/COMBAT_TUNING_PVZ_V06.md`.
 
+## Cinco mordiscos por porción V1.2, 2026-11-23
+- `Config.P0.BitesPerSlice` 3 -> 5 (frecuencia de mordida y velocidad 5 studs/s sin cambios; el progreso se comparte entre zombies; el 5.º mordisco elimina la porción; golpear al zombi antes del contacto cancela la mordida, lógica sin cambios).
+- **Daño visual real:** cada mordisco reduce la geometría de queso y pepperoni hacia la punta (100% -> 76% -> 52% -> 28% -> 4% del tamaño en 0..4 de 5), oscurece el queso y quita el pepperoni a 4/5; a 5/5 desaparece. HUD: `BITE n/5` (`BitesPerSlice` replicado en `Round`).
+- Slice Thief sin cambios: roba una porción completa (se restaura a entera antes de clonarla).
+
 ## Pizza central 1,8x V1.1, 2026-11-23
 - `Config.P0.PizzaScale = 1.8` (se probó 1.6 y se subió tras la captura real): radio 4 -> 7,2 studs (diámetro 8 -> 14,4), rebanadas de 4 -> 7,2 de largo, grosor y pepperoni escalados; siguen siendo 8 porciones. Mapa sin cambios.
 - Contacto: el Munchie se detiene y muerde a `4 x escala + 0,5` del centro (antes 4,5 fijo, que con la pizza grande lo habría metido dentro); `Munchie.advance` recibe `reach` (por defecto 4,5, pruebas en CI). El ladrón roba al borde (`StealDistance` 3,2 -> 7,4). La porción transportada mantiene su tamaño (`CarryScale / PizzaScale`: 4,6 de largo, igual que antes).

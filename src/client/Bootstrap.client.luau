@@ -80,7 +80,7 @@ while gui.Parent do
 	if phase == "Defend" then
 		local seconds = math.max(0,math.ceil((round:GetAttribute("EndsAt") or 0)-workspace:GetServerTimeNow()))
 		local bites = round:GetAttribute("SliceBites") or 0
-		local biteText = bites > 0 and string.format("  ·  BITE %d/3", bites) or ""
+		local biteText = bites > 0 and string.format("  ·  BITE %d/%d", bites, round:GetAttribute("BitesPerSlice") or 5) or ""
 		local stolenText = round:GetAttribute("Carried") == 1 and "  ·  THIEF HAS A SLICE - HIT HIM!" or ""
 		-- PC players have no on-screen HIT button: a short hint in wave 1 only (touch shows the real button).
 		local hint = (not UIS.TouchEnabled and (round:GetAttribute("Wave") or 1) == 1) and "  -  CLICK or F = HIT" or ""

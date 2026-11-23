@@ -391,29 +391,29 @@ prompt.Triggered:Connect(function(player)
 	end
 end)
 
+-- Bite progress shrinks the slice's real geometry toward its tip at the pizza centre (cheese AND pepperoni), darkens the
+-- cheese and drops the pepperoni near the end: 0 = whole, BitesPerSlice - 1 = a small remnant, BitesPerSlice = gone.
 local function showSlice(i, visible, biteCount)
-	if not slices[i] then return end
-	local bites = biteCount or 0
-	for _, p in slices[i]:GetChildren() do
+	local slice = slices[i]
+	if not slice then return end
+	local total = config.P0.BitesPerSlice
+	local bites = math.clamp(biteCount or 0, 0, total)
+	local f = 1 - 0.96 * bites / total
+	local frame = slice:GetAttribute("Frame")
+	for _, p in slice:GetChildren() do
 		if p:IsA("BasePart") then
-			-- 0: fresh; 1: nibbled; 2: nearly eaten; 3: missing.
-			if not visible then
-				p.Transparency = 1
-			elseif bites == 1 then
-				p.Transparency = 0.12
-			elseif bites == 2 then
-				p.Transparency = 0.42
-			else
-				p.Transparency = 0
+			local rel, base = p:GetAttribute("Rel"), p:GetAttribute("Base")
+			if frame and rel and base then
+				p.Size = Vector3.new(base.X * (0.6 + 0.4 * f), base.Y * f, base.Z * f)
+				p.CFrame = frame * (CFrame.new(rel.Position.X * f, rel.Position.Y, rel.Position.Z * f) * rel.Rotation)
 			end
 			if p.Name == "Cheese" then
-				p.Color = if bites == 0 then Color3.fromRGB(255,192,67)
-					else if bites == 1 then Color3.fromRGB(235,158,54)
-					else Color3.fromRGB(195,103,47)
+				p.Color = Color3.fromRGB(255,192,67):Lerp(Color3.fromRGB(195,103,47), bites / total)
 			elseif p.Name == "Pepperoni" then
-				p.Color = if bites == 0 then Color3.fromRGB(194,63,48)
-					else Color3.fromRGB(128,48,42)
+				p.Color = Color3.fromRGB(194,63,48):Lerp(Color3.fromRGB(128,48,42), bites / total)
 			end
+			local gone = not visible or (p.Name == "Pepperoni" and bites >= total - 1)
+			p.Transparency = if gone then 1 else 0
 		end
 	end
 end
@@ -430,6 +430,7 @@ local function renderSlices(skip)
 	end
 end
 local function makeCarried(idx)
+	showSlice(idx, true, 0) -- always carry a whole slice, even if zombies had started eating it
 	local clone = slices[idx]:Clone()
 	clone.Name = "StolenSlice"
 	for _, p in clone:GetDescendants() do
@@ -679,6 +680,7 @@ while true do
 	state:SetAttribute("Slices",remaining)
 	state:SetAttribute("SliceBites",0)
 	state:SetAttribute("WaveCount", #config.P0.Waves)
+	state:SetAttribute("BitesPerSlice", config.P0.BitesPerSlice)
 	print("DTP_MapStarted",round,#Players:GetPlayers())
 	-- Three waves in one game. Slices, hearts and the thief ledger carry over; only enemies are cleared between waves.
 	local waves = config.P0.Waves

@@ -15,7 +15,7 @@ local Config = {
         },
         WaveTransitionSeconds = 2,
         EnemySpawnPaths = 3,
-        BitesPerSlice = 3,
+        BitesPerSlice = 5,
         Walk = { Rate = 1.1, Stride = 2.5 }, -- Munchie walk playback (x speed, x leg swing): stance foot moves back at ~5 studs/s = MunchieSpeed, so no sliding
         -- Slice Thief (provisional balance): one per round, appears between SpawnMin and SpawnMax seconds.
         Thief = { Hp = 2, Speed = 9, SpawnMin = 9, SpawnMax = 12, StealDistance = 7.4, ExitRadius = 2, -- StealDistance = pizza edge (4 x PizzaScale = 7.2) + 0.2
